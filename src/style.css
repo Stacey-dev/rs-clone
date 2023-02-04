@@ -1,0 +1,49 @@
+a,
+a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+ul,
+li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+body {
+    background-color: rgb(214, 214, 225);
+}
+
+.container {
+    width: calc(100% - 20px);
+    margin: 0 auto;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main {
+    height: 700px;
+}
+
+.header__nav {
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+    height: 50px;
+    width: 100%;
+}
+
+
+.header__logo {
+    width: calc(100% - 90%);
+    height: 50px;
+    background-image: url(./assets/icons/logo.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
