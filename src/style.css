@@ -27,16 +27,18 @@ body {
 }
 
 .main {
-    height: 700px;
+    height: 1200px;
 }
 
 .header__nav {
+    position: relative;
     font-size: 16px;
     display: flex;
     justify-content: space-between;
     gap: 25px;
     height: 50px;
     width: 100%;
+    z-index: 55;
 }
 
 
@@ -46,4 +48,18 @@ body {
     background-image: url(./assets/icons/logo.png);
     background-size: 100%;
     background-repeat: no-repeat;
+    position: relative;
+    z-index: 55;
+}
+
+.background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+footer {
+    position: relative;
+    z-index: 55;
 }

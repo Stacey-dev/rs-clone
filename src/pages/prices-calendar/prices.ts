@@ -1,4 +1,6 @@
 import Page from "../../core/templates/page";
+import { renderBackground } from "../../core/components/background-video"
+import Video from '../../assets/video/video-Oceanografic_Valencia.mov'
 
 class PricesPage extends Page {
     static TextObject = {
@@ -10,8 +12,8 @@ class PricesPage extends Page {
     }
 
     render() {
-        const title: HTMLHeadingElement = this.createTitle(PricesPage.TextObject.MainTitle);
-        this.container.append(title)
+
+        this.container.append(renderBackground(Video))
         return this.container;
     }
 }
