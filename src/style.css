@@ -1,7 +1,7 @@
 a,
 a:visited {
     text-decoration: none;
-    color: black;
+    color: white;
 }
 
 ul,
@@ -12,7 +12,9 @@ li {
 }
 
 body {
-    background-color: rgb(214, 214, 225);
+    margin: 0;
+    font-family: Work Sans, sans-serif;
+    font-size: 1.15rem;
 }
 
 .container {
@@ -26,19 +28,19 @@ body {
     align-items: center;
 }
 
-.main {
-    height: 1200px;
-}
 
 .header__nav {
     position: relative;
     font-size: 16px;
+    font-family: Work Sans, sans-serif;
+    color: white;
     display: flex;
     justify-content: space-between;
     gap: 25px;
     height: 50px;
     width: 100%;
     z-index: 55;
+    align-items: center;
 }
 
 
@@ -50,16 +52,19 @@ body {
     background-repeat: no-repeat;
     position: relative;
     z-index: 55;
+    margin-right: 100px;
 }
 
 .background-video {
-    position: absolute;
-    top: 0;
-    left: 0;
+    margin-top: -58px;
     width: 100%;
 }
 
 footer {
     position: relative;
-    z-index: 55;
+    z-index: 5;
+    background: #dec86e;
+    padding: 40px 0;
+    color: #102f43;
+    height: 500px;
 }

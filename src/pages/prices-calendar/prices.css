@@ -1,0 +1,142 @@
+.tile {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    margin-top: -5px;
+    position: relative;
+}
+
+.tile_left {
+    height: 160px;
+    background: #102f43;
+    color: #fff;
+    font-weight: 300;
+    font-size: 44px;
+    line-height: 52px;
+    text-transform: uppercase;
+    width: 80%;
+    font-family: Work Sans, sans-serif;
+    padding: 50px;
+    margin-top: -90px;
+}
+
+.tile_right {
+    height: 130px;
+    background-color: white;
+    color: #3ca0b9;
+    font-family: Libre Baskerville, serif;
+    font-size: 27px;
+    font-weight: 400;
+    line-height: 35px;
+    padding: 20px 15px;
+}
+
+.tickets {
+    background-color: #389eb9;
+    margin-top: -21px;
+    padding-bottom: 60px;
+}
+
+.tickets__wrapper {
+    width: calc(100% - 30%);
+    margin: 0 auto;
+}
+
+.tickets__header {
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: white;
+    padding-top: 20px;
+}
+
+.tickets__button {
+    color: #10597c;
+    background: #dec86e;
+    border: none;
+    border-radius: 0;
+    position: relative !important;
+    text-transform: uppercase;
+    font-size: 14px !important;
+    padding: 7px 35px;
+    cursor: pointer;
+    transition: all .2s ease;
+    text-align: center;
+    white-space: nowrap;
+    text-decoration: none !important;
+}
+
+.tickets__button::after {
+    content: "";
+    background-image: url(../../assets/icons/ico-ticket-new.svg);
+    width: 30px;
+    height: 17px;
+    display: block;
+    background-size: 100%;
+    position: absolute;
+    background-repeat: no-repeat;
+    left: 1px;
+    top: 8px;
+    transition: all .2s ease;
+    z-index: 2;
+    transform: scale(.9);
+}
+
+.block {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 40px;
+
+}
+
+.block_left,
+.block_right {
+    color: white;
+    width: calc((100% - 20px) / 2);
+}
+
+.calendar__schedules {
+    width: 550px;
+    height: 450px;
+    background-color: rgba(255, 255, 255, 0.615);
+}
+
+.calendar__options {
+    width: 550px;
+    height: 350px;
+    background-color: rgba(255, 255, 255, 0.615);
+}
+
+.oceanographic-experiences {
+    background-color: #186890;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.expeirences__options {
+    width: 550px;
+    height: 350px;
+    background-color: rgba(255, 255, 255, 0.615);
+}
+
+.conditions {
+    background-color: white;
+}
+
+.conditions__header {
+    font-family: inherit;
+    font-size: 26px;
+    text-transform: uppercase;
+    color: #3ca0b9;
+    font-weight: 500;
+}
+
+.conditions__text {
+    color: black;
+}
+
+.conditions__options {
+    width: 550px;
+    height: 250px;
+    background-color: rgba(137, 136, 136, 0.615);
+}

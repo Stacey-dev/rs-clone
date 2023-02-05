@@ -1,4 +1,6 @@
 import Page from "../../core/templates/page";
+import { renderBackground } from "../../core/components/background-video";
+import Video from '../../assets/video/header_Fund_05_720p.mp4';
 
 class ConservationPage extends Page {
     static TextObject = {
@@ -10,8 +12,8 @@ class ConservationPage extends Page {
     }
 
     render() {
-        const title: HTMLHeadingElement = this.createTitle(ConservationPage.TextObject.MainTitle);
-        this.container.append(title)
+
+        this.container.append(renderBackground(Video));
         return this.container;
     }
 }
