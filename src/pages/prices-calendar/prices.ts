@@ -4,7 +4,11 @@ import { renderBackground } from "../../core/components/background-video";
 import Video from '../../assets/video/video-Oceanografic_Valencia.mov';
 import { createCalendarView } from "../../core/components/create-calendar";
 import { highlightCell } from "../../utils/highlightCells";
-
+import { createDropDownListTicket } from "../../core/components/drop-down-list";
+import { createDropDownListCondition } from "../../core/components/drop-down-list";
+import { ticketsData } from "../../utils/dataBuyTicket";
+import { conditionsData } from "../../utils/dataCondition";
+import { freeEntriesData } from "../../utils/dataFreeEntries";
 
 class PricesPage extends Page {
     static TextObject = {
@@ -22,10 +26,11 @@ class PricesPage extends Page {
 
     render() {
         const tiles: HTMLDivElement = document.createElement('div');
-        const tilesLayout: string = `<div class="tile">
+        tiles.classList.add('tile');
+
+        const tilesLayout: string = `
         <div class="tile_left">PRICES AND SCHEDULES</div>
-        <div class="tile_right">You can buy tickets online, avoiding queues and wait-times, or at the ticket office.</div>
-    </div>`;
+        <div class="tile_right">You can buy tickets online, avoiding queues and wait-times, or at the ticket office.</div>`;
         tiles.innerHTML = tilesLayout;
 
         const information: HTMLDivElement = document.createElement('div')
@@ -46,51 +51,7 @@ class PricesPage extends Page {
                     <p class="calendar__text">Combine the Oceanogràfic ticket with a visit to the Príncep Felipe Science Museum where you will find a large selection of activities related to scientific learning and technological development and/or with a screening in the Hemisfèric in IMAX format.
                     </p>
                     <div class="calendar__options">
-                    <div class="options__title">
-                        <p class="options__header">OCEANOGRAFIC -> ONLINE-TICKET</p>
-                        <div>&#9660;</div>
-                    </div>
-                    <div class="options__choose">
-                    <div class="option general-ticket">
-                        <div class="calendar__options_info">General Ticket</div>
-                        <div class="calendar__options_price">
-                        <button class="option__ticket">
-                        </button>
-                        <p class="option__price-value">33.70 &euro;</p>
-                        </div>
-                    </div>
-                    <div class="option child-ticket">
-                        <div class="calendar__options_info">Child Ticket (4 - 12 years)</div>
-                        <div class="calendar__options_price">
-                        <button class="option__ticket">
-                        </button>
-                        <p class="option__price-value">25 &euro;</p>
-                        </div>
-                    </div>
-                    <div class="option senior-ticket ">
-                        <div class="calendar__options_info">Senior ticket</div>
-                        <div class="calendar__options_price">
-                        <button class="option__ticket">
-                        </button>
-                        <p class="option__price-value">25 &euro;</p>
-                        </div>
-                    </div>
-                    <div class="option ticket-for-disabled">
-                        <div class="calendar__options_info">Ticket for disabled</div>
-                        <div class="calendar__options_price">
-                        <button class="option__ticket">
-                        </button>
-                        <p class="option__price-value">25 &euro;</p>
-                        </div>
-                    </div>
-                    <div class="option group-ticket">
-                        <div class="calendar__options_info">Group</div>
-                        <div class="calendar__options_price">
-                        <button class="option__ticket">
-                        </button>
-                        <p class="option__price-value">22.20 &euro;</p>
-                        </div>
-                    </div>
+
                     </div>
 
                 </div>
@@ -106,7 +67,33 @@ class PricesPage extends Page {
                     <button class="tickets__button" id="experiences-but">BUY YOUR EXPERIENCE</button>
                 </div>
                 <div class="experiences__right block_right">
-                    <div class="expeirences__options"></div>
+                    <div class="expeirences__options">
+                    <div class="option">
+    <div class="expeirences-option__name">Sleep with the Sharks only Oceanogràfic schools</div>
+    <div class="option__price">
+        <div class="option__price-value">90 &euro;</div>
+    </div>
+</div>
+<div class="option">
+    <div class="expeirences-option__name">Sleep with the Sharks Oceanogràfic O+M+H schools</div>
+    <div class="option__price">
+        <div class="option__price-value">95 &euro;</div>
+    </div>
+</div>
+<div class="option">
+    <div class="expeirences-option__name">Sleep with the Sharks only Oceanogràfic individuals
+    </div>
+    <div class="option__price">
+        <div class="option__price-value">95 &euro;</div>
+    </div>
+</div>
+<div class="option">
+    <div class="expeirences-option__name">Sleep with the Sharks Oceanogràfic O+M+H individuals</div>
+    <div class="option__price">
+        <div class="option__price-value">100 &euro;</div>
+    </div>
+</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -181,13 +168,17 @@ class PricesPage extends Page {
             highlightCell(calendarCells);
         })
 
-        const select = <HTMLDivElement>this.container.querySelector('.options__title');
-        const options = <HTMLDivElement>this.container.querySelector('.options__choose');
+        const ticketOptions = <HTMLDivElement>this.container.querySelector('.calendar__options');
 
-        select.addEventListener('click', () => {
-            options.classList.toggle('visible')
-        })
+        for (let elem of ticketsData) {
+            ticketOptions.append(createDropDownListTicket(elem))
+        }
 
+        const conditionOptions = <HTMLDivElement>this.container.querySelector('.conditions__options');
+        conditionOptions.append(createDropDownListCondition(conditionsData));
+
+        const freeEntriesOptions = <HTMLDivElement>this.container.querySelector('.free-entries__options');
+        freeEntriesOptions.append(createDropDownListCondition(freeEntriesData));
 
 
         return this.container;
