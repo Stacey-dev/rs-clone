@@ -15,7 +15,7 @@
     text-transform: uppercase;
     width: 45%;
     font-family: Work Sans, sans-serif;
-    padding: 50px;
+    padding: 50px 50px 140px 50px;
     margin-top: -90px;
 }
 
@@ -31,7 +31,7 @@
 
 .tickets {
     background-color: #389eb9;
-    margin-top: -21px;
+    margin-top: -22px;
     padding-bottom: 60px;
 }
 
@@ -353,6 +353,7 @@ th {
 
     .tile_left {
         width: 89.8%;
+        padding: 50px;
     }
 
     .tickets__calendar {
