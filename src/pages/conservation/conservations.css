@@ -230,3 +230,57 @@
 .li_hover:hover{
   background-color: #92a1a6;
 }
+
+@media screen and (max-width: 1000px) {
+
+.wrapper_tiles{
+  grid-template-columns: 1fr;
+  margin-top: -5vh;
+}
+
+.colum_tiles_right{
+  margin-top: -16vh;
+}
+
+.li_oceanografic{
+  min-height: 20vh;
+}
+
+.li_right::after,
+.li_left::after{
+  margin-top: 50%;
+  margin-right: 15px;
+} 
+
+}
+
+@media screen and (max-width: 560px) {
+
+.li_right::after,
+.li_left::after {
+  background-size: 5rem;
+  height: 6rem;
+  width: 6rem;
+} 
+
+.ul_tiles_left .h2,
+.ul_tiles_right .h2{
+  font-size: 2rem;
+}
+
+.li_dissemination{
+  height: 180px;
+}
+
+.li_foundation{
+  height: 160px;
+}
+
+.li_conservation{
+  height: 200px;
+}
+
+.li_research{
+  height: 160px;
+}
+}
