@@ -1,3 +1,13 @@
+@font-face {
+    font-family: 'Libre';
+    src: url('../../assets/font/LibreBaskerville-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'LibreBold';
+    src: url('../../assets/font/LibreBaskerville-Bold.ttf') format('truetype');
+}
+
 .price-calendar__content {
     margin-top: -12.5%;
 }
@@ -24,7 +34,6 @@
     font-size: 44px;
     line-height: 52px;
     text-transform: uppercase;
-    font-family: Work Sans, sans-serif;
     padding: 50px 50px 140px 50px;
     margin-top: -90px;
     width: 50%;
@@ -33,7 +42,7 @@
 .tile_right {
     background-color: white;
     color: #3ca0b9;
-    font-family: Libre Baskerville, serif;
+    font-family: LibreBold;
     font-size: 27px;
     font-weight: 400;
     line-height: 35px;

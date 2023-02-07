@@ -28,7 +28,7 @@ class SchedulesPage extends Page {
         tiles.classList.add("tile");
         const tilesLayout = `
         <div class="schedules-tile_left">AQUARIUM TODAY</div>
-        <div class="tile_right">Check the activity schedules for today.
+        <div class="schedules-tile_right">Check the activity schedules for today.
         <br>On Sunday, 5th febrary, Oceanogràfic hosts the final of the stage of La Volta a la Comunitat Valenciana.
         <br>Throughout the day, we will have free activities in the access square. For this reason, the aquarium parking will remain closed, but you can park your car in the vicinity of the enclosure or come by public transport.</div>`;
 

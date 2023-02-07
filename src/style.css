@@ -1,19 +1,22 @@
+@font-face {
+    font-family: 'WorkSans';
+    src: url('./assets/font/WorkSans-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Libre';
+    src: url('./assets/font/LibreBaskerville-Regular.ttf') format('truetype');
+}
+
 a,
 a:visited {
     text-decoration: none;
     color: white;
 }
 
-/* ul,
-li {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-} */
-
 body {
     margin: 0;
-    font-family: Work Sans, sans-serif;
+    font-family: WorkSans;
     font-size: 1.15rem;
     font-weight: 400;
     line-height: 1.5;

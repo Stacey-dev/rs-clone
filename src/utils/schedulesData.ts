@@ -36,13 +36,13 @@ export const schedulesTableData: TableCells = [
         clarification: true
     }, {
         hour: "12:30",
-        activity: `CINE 4D - TENTÁCULOS**`,
+        activity: `CINE 4D - TENTÁCULOS <img src=${Flag} class="activity__icon"/>**`,
         location: "Auditorio Mar Rojo",
         status: "Scheduled",
         clarification: false
     }, {
         hour: "13:00",
-        activity: `CINE 4D - TORTUGAS. LA ODISEA DE LA TORTUGA**`,
+        activity: `CINE 4D - <img src=${NewEvent} class="activity__icon"/> TORTUGAS. LA ODISEA DE LA TORTUGA**`,
         location: "Auditorio Mar Rojo",
         status: "Scheduled",
         clarification: false
@@ -102,7 +102,7 @@ export const schedulesSaturdayData: TableCells = [
         clarification: false
     }, {
         hour: "13:00",
-        activity: `CINE 4D - TORTUGAS. LA ODISEA DE LA TORTUGA**`,
+        activity: `CINE 4D - <img src=${NewEvent} class="activity__icon"/> TORTUGAS. LA ODISEA DE LA TORTUGA**`,
         location: "Auditorio Mar Rojo",
         status: "Scheduled",
         clarification: false
@@ -120,13 +120,13 @@ export const schedulesSaturdayData: TableCells = [
         clarification: true
     }, {
         hour: "14:00",
-        activity: "CINE 4D - TIBURÓN. UN DOCUMENTAL DE LA BBC**",
+        activity: `CINE 4D - TIBURÓN <img src=${Flag} class="activity__icon"/> UN DOCUMENTAL DE LA BBC**`,
         location: "Auditorio Mar Rojo",
         status: "Scheduled",
         clarification: false
     }, {
         hour: "16:00",
-        activity: `CINE 4D - TORTUGAS. LA ODISEA DE LA TORTUGA**`,
+        activity: `CINE 4D - <img src=${NewEvent} class="activity__icon"/> TORTUGAS. LA ODISEA DE LA TORTUGA**`,
         location: "Auditorio Mar Rojo",
         status: "Scheduled",
         clarification: false
