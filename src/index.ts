@@ -6,5 +6,3 @@ import fishDataEn from "./quiz/BD_animal_en";
 const app: App = new App();
 app.run();
 
-console.log(fishDataRu);
-console.log(fishDataEn);

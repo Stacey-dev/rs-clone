@@ -1,9 +1,9 @@
 import Page from "../../core/templates/page";
-import './conservations.css'
+import './quiz.css'
 import { renderBackground } from "../../core/components/background-video";
 import Video from '../../assets/video/header_Fund_05_720p.mp4';
 
-class ConservationPage extends Page {
+class QuizPage extends Page {
     static TextObject = {
         MainTitle: 'Conservation Page'
     }
@@ -47,4 +47,4 @@ class ConservationPage extends Page {
     }
 }
 
-export default ConservationPage
+export default QuizPage
