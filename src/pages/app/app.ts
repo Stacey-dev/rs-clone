@@ -1,7 +1,7 @@
 import Page from "../../core/templates/page";
 import PricesPage from "../prices-calendar/prices";
 import SchedulesPage from "../schedules/schedules";
-import ConservationPage from "../conservation/conservation";
+import QuizPage from "../quiz/quiz";
 import CiutatPage from "../la-ciutat/la-ciutat";
 import TicketPage from "../buy-ticket/buy-ticket";
 import ErrorPage from "../error/error";
@@ -13,10 +13,10 @@ import Main from '../../core/components/main';
 export const enum PageIds {
     PricesPage = 'prices-page',
     SchedulesPage = 'schedules-page',
-    ConservationPage = 'conservation-page',
+    QuizPage = 'quiz-page',
     CiutatPage = 'ciutat-page',
     TicketPage = 'ticket-page',
-    ErrorPage = 'error-page',
+    ErrorPage = 'error-page'
 }
 
 class App {
@@ -45,8 +45,8 @@ class App {
             page = new PricesPage(idPage);
         } else if (idPage === PageIds.SchedulesPage || path.includes(PageIds.SchedulesPage)) {
             page = new SchedulesPage(idPage);
-        } else if (path.includes(PageIds.ConservationPage) || path.includes(PageIds.ConservationPage)) {
-            page = new ConservationPage(idPage);
+        } else if (path.includes(PageIds.QuizPage) || path.includes(PageIds.QuizPage)) {
+            page = new QuizPage(idPage);
         } else if (path.includes(PageIds.CiutatPage) || path.includes(PageIds.CiutatPage)) {
             page = new CiutatPage(idPage);
         } else if (path.includes(PageIds.TicketPage) || path.includes(PageIds.TicketPage)) {
