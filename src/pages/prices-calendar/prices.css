@@ -1,10 +1,21 @@
+.price-calendar__content {
+    margin-top: -13%;
+}
+
+.toTop {
+    transform: translateY(-1.5%);
+    transition: transform 1s linear
+}
+
 .tile {
     position: relative;
     z-index: 1;
     display: flex;
     margin-top: -5px;
     position: relative;
+    width: 100%;
 }
+
 
 .tile_left {
     background: #102f43;
@@ -13,10 +24,10 @@
     font-size: 44px;
     line-height: 52px;
     text-transform: uppercase;
-    width: 45%;
     font-family: Work Sans, sans-serif;
     padding: 50px 50px 140px 50px;
     margin-top: -90px;
+    width: 50%;
 }
 
 .tile_right {
@@ -27,12 +38,15 @@
     font-weight: 400;
     line-height: 35px;
     padding: 20px 15px;
+    width: 50%;
 }
 
 .tickets {
     background-color: #389eb9;
     margin-top: -22px;
     padding-bottom: 60px;
+    position: relative;
+    z-index: 2;
 }
 
 .tickets__wrapper {
@@ -354,6 +368,10 @@ th {
     .tile_left {
         width: 89.8%;
         padding: 50px;
+    }
+
+    .tile_right {
+        width: 96.9%;
     }
 
     .tickets__calendar {
