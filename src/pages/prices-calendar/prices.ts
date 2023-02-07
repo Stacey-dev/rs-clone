@@ -2,28 +2,39 @@ import Page from "../../core/templates/page";
 import './prices.css';
 import { renderBackground } from "../../core/components/background-video";
 import Video from '../../assets/video/video-Oceanografic_Valencia.mov';
-
+import { createCalendarView } from "../../core/components/create-calendar";
+import { highlightCell } from "../../utils/highlightCells";
+import { createDropDownListTicket } from "../../core/components/drop-down-list";
+import { createDropDownListCondition } from "../../core/components/drop-down-list";
+import { ticketsData } from "../../utils/dataBuyTicket";
+import { conditionsData } from "../../utils/dataCondition";
+import { freeEntriesData } from "../../utils/dataFreeEntries";
 
 class PricesPage extends Page {
     static TextObject = {
         MainTitle: 'Prices Page'
     }
+    currentMonth: number;
+    currentYear: number;
 
     constructor(id: string) {
         super(id);
+        this.currentMonth = 1;
+        this.currentYear = 2023;
     }
 
 
     render() {
-        const tiles = document.createElement('div');
-        const tilesLayout = `<div class="tile">
+        const tiles: HTMLDivElement = document.createElement('div');
+        tiles.classList.add('tile');
+
+        const tilesLayout: string = `
         <div class="tile_left">PRICES AND SCHEDULES</div>
-        <div class="tile_right">You can buy tickets online, avoiding queues and wait-times, or at the ticket office.</div>
-    </div>`;
+        <div class="tile_right">You can buy tickets online, avoiding queues and wait-times, or at the ticket office.</div>`;
         tiles.innerHTML = tilesLayout;
 
-        const information = document.createElement('div')
-        const informationLayout = `<div class="tickets">
+        const information: HTMLDivElement = document.createElement('div')
+        const informationLayout: string = `<div class="tickets">
         <div class="tickets__wrapper">
             <h2 class="tickets__header">Tickets</h2>
             <button class="tickets__button" id="tickets-but">BUY YOUR COMBINED TICKETS</button>
@@ -32,12 +43,18 @@ class PricesPage extends Page {
                     <p class="calendar__text">Choose the day of your visit in the calendar to see the Price of the
                         ticket
                     </p>
-                    <div class="calendar__schedules"></div>
+                    <div class="calendar__schedules">
+                        <div id="calendar" class="calendar"></div>
+                    </div>
                 </div>
                 <div class="calendar__right block_right">
                     <p class="calendar__text">Combine the Oceanogràfic ticket with a visit to the Príncep Felipe Science Museum where you will find a large selection of activities related to scientific learning and technological development and/or with a screening in the Hemisfèric in IMAX format.
                     </p>
-                    <div class="calendar__options"></div>
+                    <div class="calendar__options">
+
+                    </div>
+
+                </div>
                 </div>
             </div>
         </div>
@@ -50,7 +67,33 @@ class PricesPage extends Page {
                     <button class="tickets__button" id="experiences-but">BUY YOUR EXPERIENCE</button>
                 </div>
                 <div class="experiences__right block_right">
-                    <div class="expeirences__options"></div>
+                    <div class="expeirences__options">
+                    <div class="option">
+    <div class="expeirences-option__name">Sleep with the Sharks only Oceanogràfic schools</div>
+    <div class="option__price">
+        <div class="option__price-value">90 &euro;</div>
+    </div>
+</div>
+<div class="option">
+    <div class="expeirences-option__name">Sleep with the Sharks Oceanogràfic O+M+H schools</div>
+    <div class="option__price">
+        <div class="option__price-value">95 &euro;</div>
+    </div>
+</div>
+<div class="option">
+    <div class="expeirences-option__name">Sleep with the Sharks only Oceanogràfic individuals
+    </div>
+    <div class="option__price">
+        <div class="option__price-value">95 &euro;</div>
+    </div>
+</div>
+<div class="option">
+    <div class="expeirences-option__name">Sleep with the Sharks Oceanogràfic O+M+H individuals</div>
+    <div class="option__price">
+        <div class="option__price-value">100 &euro;</div>
+    </div>
+</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -86,8 +129,57 @@ class PricesPage extends Page {
         </div>
     </div>
     `
-        information.innerHTML = informationLayout
+        information.innerHTML = informationLayout;
+
         this.container.append(renderBackground(Video), tiles, information);
+
+        const calendarContainer = <HTMLDivElement>this.container.querySelector('.calendar__schedules');
+        const butPrev: HTMLButtonElement = document.createElement('button');
+        const butNext: HTMLButtonElement = document.createElement('button');
+        butPrev.classList.add('calendar__button_left');
+        butNext.classList.add('calendar__button_right');
+        calendarContainer.append(butPrev, butNext)
+
+        const calendar = <HTMLDivElement>this.container.querySelector('.calendar');
+
+        createCalendarView(calendar, this.currentYear, this.currentMonth);
+        const calendarCells = <HTMLCollectionOf<Element>>this.container.getElementsByClassName('td__fill');
+        highlightCell(calendarCells);
+
+        butNext.addEventListener('click', () => {
+            calendar.innerHTML = "";
+            this.currentMonth++;
+            if (this.currentMonth > 11) {
+                this.currentMonth = 0;
+                this.currentYear++;
+            }
+            createCalendarView(calendar, this.currentYear, this.currentMonth);
+            highlightCell(calendarCells);
+        })
+
+        butPrev.addEventListener('click', () => {
+            calendar.innerHTML = "";
+            this.currentMonth--;
+            if (this.currentMonth < 0) {
+                this.currentMonth = 11;
+                this.currentYear--;
+            }
+            createCalendarView(calendar, this.currentYear, this.currentMonth);
+            highlightCell(calendarCells);
+        })
+
+        const ticketOptions = <HTMLDivElement>this.container.querySelector('.calendar__options');
+
+        for (let elem of ticketsData) {
+            ticketOptions.append(createDropDownListTicket(elem))
+        }
+
+        const conditionOptions = <HTMLDivElement>this.container.querySelector('.conditions__options');
+        conditionOptions.append(createDropDownListCondition(conditionsData));
+
+        const freeEntriesOptions = <HTMLDivElement>this.container.querySelector('.free-entries__options');
+        freeEntriesOptions.append(createDropDownListCondition(freeEntriesData));
+
 
         return this.container;
     }
