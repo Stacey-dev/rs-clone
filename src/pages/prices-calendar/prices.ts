@@ -19,8 +19,8 @@ class PricesPage extends Page {
 
     constructor(id: string) {
         super(id);
-        this.currentMonth = 1;
-        this.currentYear = 2023;
+        this.currentMonth = new Date().getMonth();
+        this.currentYear = new Date().getFullYear();
     }
 
 

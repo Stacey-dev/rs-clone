@@ -1,8 +1,12 @@
-export function createCalendar(elem: HTMLDivElement, year: number, month: number) {
+export function createCalendar(elem: HTMLDivElement) {
 
-    var d = new Date(year, month);
+    let dayMonthCurrent = new Date().getDate();
+    let yearCurrent = new Date().getFullYear();
+    let monthCurrent = new Date().getMonth();
 
-    var table = '<table>';
+    var d = new Date(yearCurrent, monthCurrent);
+
+    let table = '<table><tr><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th><th>Su</th></tr><tr>';
 
 
     // заполнить первый ряд от понедельника
@@ -13,7 +17,7 @@ export function createCalendar(elem: HTMLDivElement, year: number, month: number
     }
 
     // ячейки календаря с датами
-    while (d.getMonth() == month) {
+    while (d.getMonth() == monthCurrent) {
 
         table += '<td>' + d.getDate() + '</td > ';
 
@@ -47,26 +51,48 @@ export function createCalendar(elem: HTMLDivElement, year: number, month: number
     const td = <HTMLCollectionOf<HTMLTableCellElement>>elem.getElementsByTagName('td');
 
     for (let item of td) {
-        if (item.textContent) {
-            item.classList.add('td__fill')
+        if (item.textContent === `${dayMonthCurrent}`) {
+            item.classList.add('td__highlight');
+            item.classList.add('td__futureDay')
+        } else if (Number(item.textContent) < dayMonthCurrent && item.textContent) {
+            item.classList.add('td__pastDay')
+        } else if (Number(item.textContent) > dayMonthCurrent && item.textContent) {
+            item.classList.add('td__futureDay')
         }
     }
-
 }
 
 function getDay(date: Date) { // получить номер дня недели, от 0(пн) до 6(вс)
-    var day = date.getDay();
+    let day = date.getDay();
     if (day == 0) day = 7;
     return day - 1;
 }
 
+export function getAllSaturdays() {
+
+    let year = new Date().getFullYear()
+    var month = new Date().getMonth()
+
+    var saturdays = [];
+
+    for (let i = 0; i <= new Date(year, month, 0).getDate(); i++) {
+        let date = new Date(year, month, i);
+
+        if (date.getDay() == 6) {
+            saturdays.push(date.getDate());
+        }
+    };
+    return saturdays;
+}
 
 
-export function createCalendarView(elem: HTMLDivElement, year: number, numMonth: number) {
+export function createCalendarView(elem: HTMLDivElement) {
 
-    const monthName: string = new Date(year, numMonth).toLocaleString('en', {
+    const monthName: string = new Date().toLocaleString('en', {
         month: 'long'
     });
+
+    const year = new Date().getFullYear();
 
     const monthContainer = document.createElement('div');
     monthContainer.classList.add('sched-calendar__month-container');
@@ -78,20 +104,8 @@ export function createCalendarView(elem: HTMLDivElement, year: number, numMonth:
     const calendar = document.createElement('div');
     calendar.classList.add('calendar');
 
-    createCalendar(calendar, year, numMonth);
+    createCalendar(calendar);
 
     monthContainer.append(monthNameContainer);
     elem.append(monthContainer, calendar);
-
-    function getSaturday() {
-        var today = new Date().getUTCDay();
-        var diff = 6 - today;
-        if ([-1, 0].includes(Math.sign(diff))) {
-            return new Date(new Date().setUTCDate(13 - today));
-        }
-        return new Date(new Date().setUTCDate(diff));
-    }
-
-    console.log(getSaturday())
-
 }

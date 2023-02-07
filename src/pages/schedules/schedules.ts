@@ -5,19 +5,18 @@ import Video from '../../assets/video/hoyenelparque_cabecera-video.mov'
 import { schedulesExplEng } from "../../utils/schedulesData";
 import { createSchedulesTable } from "../../core/components/schedulesTable";
 import { schedulesTableData } from "../../utils/schedulesData";
+import { schedulesSaturdayData } from "../../utils/schedulesData";
 import { createCalendarView } from "../../core/components/create-calendar-schedules";
+import { getAllSaturdays } from "../../core/components/create-calendar-schedules";
+import { highlightCell } from "../../utils/highlightCells";
 
 class SchedulesPage extends Page {
     static TextObject = {
         MainTitle: 'Schedules Page'
     }
-    currentMonth: number;
-    currentYear: number;
 
     constructor(id: string) {
         super(id);
-        this.currentMonth = 1;
-        this.currentYear = 2023;
     }
 
     render() {
@@ -37,72 +36,63 @@ class SchedulesPage extends Page {
         const information = document.createElement('div');
         information.classList.add('tickets__wrapper')
         information.innerHTML = `<div class="schedules__buttons-top">
-        <button class="schedules__button-left">Reset</button>
         <button class="schedules__button-right">Calendar
         </button>
+        <div class="schedules__calendar-container">
         <div class="schedules__calendar"></div>
+        </div>
     </div>
-    <div class="schedules__table"></div>
+    <div>
+    <div class="sched-table__cell">
+    <div class="sched-table__hour">Hour</div>
+    <div class="sched-table__activity">Activity</div>
+    <div class="sched-table__location">Location</div>
+    <div class="sched-table__status">Status</div>
+</div>
+<div class="schedules__table"></div>
+    </div>
     <div class="schedules__explanation">${schedulesExplEng}</div>
-    <button class="schedules__button-bottom">Other activities</button>`
+`
 
         content.append(tiles, information)
         this.container.append(renderBackground(Video), content);
 
         const schedulesTable = <HTMLDivElement>this.container.querySelector('.schedules__table');
-        schedulesTable.append(createSchedulesTable(schedulesTableData))
+        schedulesTable.append(createSchedulesTable(schedulesTableData));
 
         const buttonToCalendar = <HTMLButtonElement>this.container.querySelector('.schedules__button-right');
+        const calendarContainer = <HTMLDivElement>this.container.querySelector('.schedules__calendar-container')
 
-        const calendarContainer = <HTMLDivElement>this.container.querySelector('.schedules__calendar');
-        calendarContainer.classList.add('hidden')
+        const calendarWrapper = <HTMLDivElement>this.container.querySelector('.schedules__calendar');
+        calendarContainer.classList.add('hidden');
 
-
-        const butPrev: HTMLButtonElement = document.createElement('button');
-        const butNext: HTMLButtonElement = document.createElement('button');
-        butPrev.classList.add('calendar__button_left');
-        butNext.classList.add('calendar__button_right');
-        calendarContainer.append(butPrev, butNext);
-
-        createCalendarView(calendarContainer, this.currentYear, this.currentMonth);
+        createCalendarView(calendarWrapper);
 
         buttonToCalendar.addEventListener('click', () => {
             calendarContainer.classList.toggle("hidden")
 
         })
-        const calendar = <HTMLDivElement>this.container.querySelector('.calendar');
 
-        butNext.addEventListener('click', () => {
+        const td = <HTMLCollectionOf<HTMLTableCellElement>>calendarWrapper.getElementsByTagName('td');
+        const saturdays = getAllSaturdays()
 
-            calendar.innerHTML = "";
-            this.currentMonth++;
-            if (this.currentMonth > 11) {
-                this.currentMonth = 0;
-                this.currentYear++;
-            }
-            createCalendarView(calendar, this.currentYear, this.currentMonth);
-
-
-        })
-
-        butPrev.addEventListener('click', () => {
-            calendar.innerHTML = "";
-            this.currentMonth--;
-            if (this.currentMonth < 0) {
-                this.currentMonth = 11;
-                this.currentYear--;
-            }
-            createCalendarView(calendar, this.currentYear, this.currentMonth);
-
-
-        })
+        for (let elem of td) {
+            elem.addEventListener('click', () => {
+                if (elem.className !== 'td__pastDay') {
+                    highlightCell(td)
+                    schedulesTable.innerHTML = "";
+                    if (saturdays.includes(Number(elem.textContent))) {
+                        schedulesTable.append(createSchedulesTable(schedulesSaturdayData));
+                    } else {
+                        schedulesTable.append(createSchedulesTable(schedulesTableData));
+                    }
+                }
+            })
+        }
 
         window.addEventListener('load', () => {
             content.classList.add('schedules__toTop')
         })
-
-
-
 
         return this.container;
     }

@@ -73,3 +73,93 @@ export const schedulesTableData: TableCells = [
     }
 
 ]
+
+export const schedulesSaturdayData: TableCells = [
+    {
+        hour: "10:00",
+        activity: "APERTURA",
+        location: "Oceanografic Valencia",
+        status: "Scheduled",
+        clarification: false
+
+    }, {
+        hour: "10:00 - 18:30",
+        activity: "HUMEDALES",
+        location: "HUMEDALES",
+        status: "Scheduled",
+        clarification: false
+    }, {
+        hour: "11:45",
+        activity: "PRESENTACIÓN DE DELFINES*",
+        location: "Delfinario",
+        status: "Scheduled",
+        clarification: true
+    }, {
+        hour: "12:30",
+        activity: `CINE 4D - TENTÁCULOS**`,
+        location: "Auditorio Mar Rojo",
+        status: "Scheduled",
+        clarification: false
+    }, {
+        hour: "13:00",
+        activity: `CINE 4D - TORTUGAS. LA ODISEA DE LA TORTUGA**`,
+        location: "Auditorio Mar Rojo",
+        status: "Scheduled",
+        clarification: false
+    }, {
+        hour: "13:30",
+        activity: "CINE 4D - 20.000 LEGUAS DE VIAJE SUBMARINO **",
+        location: "Auditorio Mar Rojo",
+        status: "Scheduled",
+        clarification: false
+    }, {
+        hour: "14:00",
+        activity: "PRESENTACIÓN DE DELFINES*",
+        location: "Delfinario",
+        status: "Scheduled",
+        clarification: true
+    }, {
+        hour: "14:00",
+        activity: "CINE 4D - TIBURÓN. UN DOCUMENTAL DE LA BBC**",
+        location: "Auditorio Mar Rojo",
+        status: "Scheduled",
+        clarification: false
+    }, {
+        hour: "16:00",
+        activity: `CINE 4D - TORTUGAS. LA ODISEA DE LA TORTUGA**`,
+        location: "Auditorio Mar Rojo",
+        status: "Scheduled",
+        clarification: false
+    }, {
+        hour: "16:30",
+        activity: "CINE 4D - 20.000 LEGUAS DE VIAJE SUBMARINO **",
+        location: "Auditorio Mar Rojo",
+        status: "Scheduled",
+        clarification: false
+    }, {
+        hour: "17:00",
+        activity: "CINE 4D - TIBURÓN. UN DOCUMENTAL DE LA BBC**",
+        location: "Auditorio Mar Rojo",
+        status: "Scheduled",
+        clarification: false
+    }, {
+        hour: "17:30",
+        activity: `CINE 4D - TENTÁCULOS**`,
+        location: "Auditorio Mar Rojo",
+        status: "Scheduled",
+        clarification: false
+    }, {
+        hour: "18:00",
+        activity: "PRESENTACIÓN DE DELFINES*",
+        location: "Delfinario",
+        status: "Scheduled",
+        clarification: true
+    }, {
+        hour: "20:00",
+        activity: "CIERRE",
+        location: "Oceanografic",
+        status: "Scheduled",
+        clarification: false
+    }
+
+]

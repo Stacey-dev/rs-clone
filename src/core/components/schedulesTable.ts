@@ -1,7 +1,7 @@
 import { TableCells } from "../../utils/schedulesData";
 export function createSchedulesTable(arr: TableCells) {
     const container = document.createElement('div');
-    container.classList.add('sched-table')
+    container.classList.add('sched-table');
 
     for (let elem of arr) {
         const cell = document.createElement('div');

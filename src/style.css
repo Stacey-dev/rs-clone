@@ -70,3 +70,7 @@ footer {
     color: #102f43;
     height: 500px;
 }
+
+.td__highlight {
+    background-color: #dec86e;
+}

@@ -165,8 +165,7 @@ th {
 }
 
 th {
-    font-weight: bold;
-    background-color: #E6E6E6;
+    font-size: 13px;
 }
 
 .td__fill {
@@ -174,9 +173,8 @@ th {
     font-size: 15px;
 }
 
-.td__highlight {
-    background-color: #dec86e;
-
+td:hover {
+    background-color: #a19b8274;
 }
 
 .calendar__text {
