@@ -19,12 +19,15 @@ class PricesPage extends Page {
 
     constructor(id: string) {
         super(id);
-        this.currentMonth = 1;
-        this.currentYear = 2023;
+        this.currentMonth = new Date().getMonth();
+        this.currentYear = new Date().getFullYear();
     }
 
 
     render() {
+        const content = document.createElement('div');
+        content.classList.add('price-calendar__content');
+
         const tiles: HTMLDivElement = document.createElement('div');
         tiles.classList.add('tile');
 
@@ -130,8 +133,9 @@ class PricesPage extends Page {
     </div>
     `
         information.innerHTML = informationLayout;
+        content.append(tiles, information)
 
-        this.container.append(renderBackground(Video), tiles, information);
+        this.container.append(renderBackground(Video), content);
 
         const calendarContainer = <HTMLDivElement>this.container.querySelector('.calendar__schedules');
         const butPrev: HTMLButtonElement = document.createElement('button');
@@ -180,6 +184,9 @@ class PricesPage extends Page {
         const freeEntriesOptions = <HTMLDivElement>this.container.querySelector('.free-entries__options');
         freeEntriesOptions.append(createDropDownListCondition(freeEntriesData));
 
+        window.addEventListener('load', () => {
+            content.classList.add('toTop')
+        })
 
         return this.container;
     }

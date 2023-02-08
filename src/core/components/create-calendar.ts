@@ -1,18 +1,3 @@
-const mediumWork = [
-    {
-        month: 2,
-        days: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
-    },
-    {
-        month: 3,
-        days: [1, 2, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28]
-    },
-    {
-        month: 4,
-        days: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
-    }
-]
-
 export function createCalendar(elem: HTMLDivElement, year: number, month: number) {
 
     var d = new Date(year, month);
@@ -64,7 +49,7 @@ export function createCalendar(elem: HTMLDivElement, year: number, month: number
 }
 
 function getDay(date: Date) { // получить номер дня недели, от 0(пн) до 6(вс)
-    var day = date.getDay();
+    let day = date.getDay();
     if (day == 0) day = 7;
     return day - 1;
 }
@@ -91,16 +76,4 @@ export function createCalendarView(elem: HTMLDivElement, year: number, numMonth:
 
     monthContainer.append(monthNameContainer);
     elem.append(monthContainer, calendar);
-
-    function getSaturday() {
-        var today = new Date().getUTCDay();
-        var diff = 6 - today;
-        if ([-1, 0].includes(Math.sign(diff))) {
-            return new Date(new Date().setUTCDate(13 - today));
-        }
-        return new Date(new Date().setUTCDate(diff));
-    }
-
-    console.log(getSaturday())
-
 }
