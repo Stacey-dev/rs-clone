@@ -8,6 +8,11 @@
     src: url('../../assets/font/LibreBaskerville-Bold.ttf') format('truetype');
 }
 
+@font-face {
+    font-family: 'WorkSans-Italic';
+    src: url('../../assets/font/WorkSans-Italic-VariableFont_wght.ttf') format('truetype');
+}
+
 .price-calendar__content {
     margin-top: -12.5%;
 }
@@ -178,7 +183,61 @@ th {
 }
 
 .td__fill {
+    position: relative;
     background-color: #389db995;
+    font-size: 18px;
+    color: black;
+    font-weight: bold;
+}
+
+.td__medium-workloud {
+    background-color: #389eb9;
+    color: white;
+}
+
+.td__highg-workloud {
+    background-color: #294355;
+    color: white;
+}
+
+.calendar__message {
+    position: absolute;
+    z-index: 3;
+    top: -80px;
+    left: 20px;
+    width: 100px;
+    padding: 10px;
+    background-color: rgb(255, 255, 255);
+    color: #186890;
+    border-radius: 10px;
+    visibility: hidden;
+    font-size: 12px;
+    font-family: WorkSans-Italic;
+}
+
+.calendar__message::after {
+    content: " ";
+    position: absolute;
+    z-index: 3;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgb(255, 255, 255) transparent transparent transparent;
+}
+
+.td__highg-workloud:hover .calendar__message {
+    visibility: visible;
+}
+
+.td__medium-workloud:hover .calendar__message {
+    visibility: visible;
+}
+
+
+.calendar__workHours {
+    font-weight: 400;
     font-size: 15px;
 }
 
@@ -192,6 +251,39 @@ td:hover {
 
 .calendar__options {
     width: 100%;
+}
+
+.calenadr__workLoad {
+    display: flex;
+    gap: 5px;
+    margin: 10px 0px 10px 20px;
+}
+
+.calendar__workLoad_text {
+    color: black;
+    font-size: 13px;
+    font-family: WorkSans-Italic;
+}
+
+.workLoad__low {
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    background-color: #389db995;
+}
+
+.workLoad__medium {
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    background-color: #389eb9;
+}
+
+.workLoad__high {
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    background-color: #294355;
 }
 
 .options__container-name {
@@ -208,7 +300,6 @@ td:hover {
     align-items: center;
     padding: 2px 0px 2px 10px;
 }
-
 
 .option {
     width: 96.7%;
@@ -246,6 +337,7 @@ td:hover {
     background-size: 20px;
     background: #dec86e;
     position: relative;
+    cursor: pointer;
 }
 
 .option__price-value {
@@ -270,22 +362,11 @@ td:hover {
     transform: scale(.9);
 }
 
-.hidden {
-    display: none;
-}
-
-.visible {
-    display: block;
-}
-
-
 .oceanographic-experiences {
     background-color: #186890;
     padding-top: 60px;
     padding-bottom: 30px;
 }
-
-
 
 .conditions {
     background-color: white;
@@ -328,7 +409,6 @@ td:hover {
     color: white;
 }
 
-
 .condition-options__list {
     background-color: #ebf5f8;
     padding: 15px;
@@ -348,6 +428,14 @@ td:hover {
     font-weight: 500;
 }
 
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
 @media screen and (max-width:1600px) {
     .options__container-name {
         padding: 5px 0px 5px 10px;
@@ -357,6 +445,10 @@ td:hover {
 @media screen and (max-width:1270px) {
     .td__fill {
         font-size: 13px;
+    }
+
+    .calendar__workHours {
+        font-size: 10px;
     }
 
     .condition-options__name {
