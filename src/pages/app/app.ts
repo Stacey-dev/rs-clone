@@ -1,22 +1,23 @@
-import Page from '../../core/templates/page';
-import PricesPage from '../prices-calendar/prices';
-import SchedulesPage from '../schedules/schedules';
-import ConservationPage from '../conservation/conservation';
-import CiutatPage from '../la-ciutat/la-ciutat';
-import TicketPage from '../buy-ticket/buy-ticket';
-import ErrorPage from '../error/error';
-import { ErrorTypes } from '../error/error';
-import Header from '../../core/components/header';
-import Footer from '../../core/components/footer/footer';
+
+import Page from "../../core/templates/page";
+import PricesPage from "../prices-calendar/prices";
+import SchedulesPage from "../schedules/schedules";
+import QuizPage from "../quiz/quiz";
+import CiutatPage from "../la-ciutat/la-ciutat";
+import TicketPage from "../buy-ticket/buy-ticket";
+import ErrorPage from "../error/error";
+import { ErrorTypes } from "../error/error";
+import Header from "../../core/components/header";
+import Footer from "../../core/components/footer/footer";
 import Main from '../../core/components/main';
 
 export const enum PageIds {
-  PricesPage = 'prices-page',
-  SchedulesPage = 'schedules-page',
-  ConservationPage = 'conservation-page',
-  CiutatPage = 'ciutat-page',
-  TicketPage = 'ticket-page',
-  ErrorPage = 'error-page',
+    PricesPage = 'prices-page',
+    SchedulesPage = 'schedules-page',
+    QuizPage = 'quiz-page',
+    CiutatPage = 'ciutat-page',
+    TicketPage = 'ticket-page',
+    ErrorPage = 'error-page'
 }
 
 class App {
