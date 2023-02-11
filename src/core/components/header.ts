@@ -46,7 +46,11 @@ class Header extends Component {
             const buttonHTML = document.createElement('a');
             buttonHTML.href = `#${button.id}`;
             buttonHTML.innerText = button.text;
-            buttonHTML.classList.add(button.id)
+            buttonHTML.classList.add(button.id);
+            if (buttonHTML.textContent === "BUY YOUR TICKET") {
+                buttonHTML.setAttribute('target', '_blank')
+            }
+
             pageButtons.append(buttonHTML);
         });
 
@@ -58,20 +62,20 @@ class Header extends Component {
 
         const option_language_ru = <HTMLElement>document.createElement('option');
         option_language_ru.classList.add('language_ru');
-  
+
         language.append(option_language_en, option_language_ru);
         headerWrapper.append(logo, pageButtons, language);
         headerContainer.append(headerWrapper);
         this.container.append(headerContainer);
 
-        
-        window.onscroll = function() {
+
+        window.onscroll = function () {
             let scrolled: number;
-                  scrolled = window.pageYOffset || document.documentElement.scrollTop;
-                  const header = <HTMLElement>document.querySelector(".container");
-                  const box_language = <HTMLElement>document.querySelector(".header_language");
-                  const box_ticket = <HTMLElement>document.querySelector(".ticket-page");
-            if(scrolled > 5){
+            scrolled = window.pageYOffset || document.documentElement.scrollTop;
+            const header = <HTMLElement>document.querySelector(".container");
+            const box_language = <HTMLElement>document.querySelector(".header_language");
+            const box_ticket = <HTMLElement>document.querySelector(".ticket-page");
+            if (scrolled > 5) {
                 header.style.background = "#102f43";
                 header.style.position = "fixed";
                 header.style.height = "60px";
@@ -81,7 +85,7 @@ class Header extends Component {
                 box_language.style.display = "none";
                 box_ticket.style.display = "none";
             }
-            if(5 > scrolled){
+            if (5 > scrolled) {
                 header.style.background = "none";
                 box_language.style.display = "grid";
                 box_ticket.style.display = "grid";

@@ -12,7 +12,6 @@ export function createDropDownListTicket(arrData: Tickets) {
     const containerName = document.createElement('p');
     containerName.classList.add('container__name');
 
-
     const containerArrow = document.createElement('div');
     containerArrow.classList.add('container__arrow');
     containerArrow.innerHTML = '&#9660;';
