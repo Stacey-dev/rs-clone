@@ -10,8 +10,8 @@
 
 a,
 a:visited {
-    text-decoration: none;
-    color: white;
+  text-decoration: none;
+  color: white;
 }
 
 body {
@@ -23,7 +23,6 @@ body {
 }
 
 .container {
-
     width: calc(100% - 0px);
     margin: 0 auto;
     margin-top: 20px;
@@ -38,21 +37,19 @@ body {
     margin-top: 10px;
 }
 
-
 .header__nav {
-    position: relative;
-    font-size: 16px;
-    font-family: Work Sans, sans-serif;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    gap: 25px;
-    height: 50px;
-    width: 100%;
-    z-index: 55;
-    align-items: center;
+  position: relative;
+  font-size: 16px;
+  font-family: Work Sans, sans-serif;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+  height: 50px;
+  width: 100%;
+  z-index: 55;
+  align-items: center;
 }
-
 
 .header__logo {
     width: calc(100% - 85%);
@@ -136,20 +133,10 @@ a:hover:after{
     z-index: 5;
 }
 
-
-
 .header_language::after{
   content: "Yay!";
 }
 
-footer {
-    position: relative;
-    z-index: 5;
-    background: #dec86e;
-    padding: 40px 0;
-    color: #102f43;
-    height: 500px;
-}
 
 .td__highlight {
     background-color: #dec86e;
