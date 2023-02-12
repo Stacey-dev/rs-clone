@@ -1,3 +1,4 @@
+
 import Page from "../../core/templates/page";
 import PricesPage from "../prices-calendar/prices";
 import SchedulesPage from "../schedules/schedules";
@@ -7,7 +8,7 @@ import TicketPage from "../buy-ticket/buy-ticket";
 import ErrorPage from "../error/error";
 import { ErrorTypes } from "../error/error";
 import Header from "../../core/components/header";
-import Footer from "../../core/components/footer";
+import Footer from "../../core/components/footer/footer";
 import Main from '../../core/components/main';
 
 export const enum PageIds {
@@ -30,7 +31,7 @@ class App {
     static renderNewPage(idPage: string): void {
         const currentPageHTML: Element | null = document.querySelector(`#${App.defaultPageId}`);
         if (currentPageHTML) {
-            currentPageHTML.remove()
+            currentPageHTML.remove();
         }
 
         let page: Page | null = null;
@@ -38,10 +39,7 @@ class App {
         const splittedHash: string[] = window.location.hash.slice(1).split('?');
         const path: string = splittedHash[0];
 
-        if (idPage === PageIds.PricesPage ||
-            path === '' ||
-            path.includes(PageIds.PricesPage)
-        ) {
+        if (idPage === PageIds.PricesPage || path === '' || path.includes(PageIds.PricesPage)) {
             page = new PricesPage(idPage);
         } else if (idPage === PageIds.SchedulesPage || path.includes(PageIds.SchedulesPage)) {
             page = new SchedulesPage(idPage);
@@ -66,7 +64,7 @@ class App {
         window.addEventListener('hashchange', () => {
             const hash = window.location.hash.slice(1);
             App.renderNewPage(hash);
-        })
+        });
     }
 
     constructor() {
@@ -81,7 +79,7 @@ class App {
         App.container.append(this.header.render());
         App.container.append(App.main.render());
         App.renderNewPage('/');
-        App.container.append(this.footer.render())
+        App.container.append(this.footer.render());
     }
 }
-export default App
+export default App;
