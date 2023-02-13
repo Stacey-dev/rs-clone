@@ -10,8 +10,8 @@
 
 a,
 a:visited {
-  text-decoration: none;
-  color: white;
+    text-decoration: none;
+    color: white;
 }
 
 body {
@@ -38,17 +38,17 @@ body {
 }
 
 .header__nav {
-  position: relative;
-  font-size: 16px;
-  font-family: Work Sans, sans-serif;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  gap: 25px;
-  height: 50px;
-  width: 100%;
-  z-index: 55;
-  align-items: center;
+    position: relative;
+    font-size: 16px;
+    font-family: Work Sans, sans-serif;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+    height: 50px;
+    width: 100%;
+    z-index: 55;
+    align-items: center;
 }
 
 .header__logo {
@@ -68,52 +68,53 @@ body {
 }
 
 a {
-	position: relative;
-	color: #e3ebe7;
-	cursor: pointer;
-	line-height: 1; 
-	text-decoration: none;
+    position: relative;
+    color: #e3ebe7;
+    cursor: pointer;
+    line-height: 1;
+    text-decoration: none;
 }
+
 a:after {
-	display: block;
-	position: absolute;
-	left: 0;
-	width: 0;
-	height: 2px;
-	background-color: #d6dcd9;
-	content: "";
-	transition: width 0.3s ease-out;
+    display: block;
+    position: absolute;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #d6dcd9;
+    content: "";
+    transition: width 0.3s ease-out;
 }
 
 a:focus:after,
-a:hover:after{
-	width: 100%;
+a:hover:after {
+    width: 100%;
 }
 
-.ticket-page{
+.ticket-page {
     display: grid;
     height: 16px;
     grid-template-columns: 1fr 3fr;
     align-self: center;
     align-content: space-between;
     justify-items: baseline;
-    color: #10597c!important;
+    color: #10597c !important;
     background: #dec86e;
     border-radius: 0;
-    position: relative!important;
+    position: relative !important;
     text-transform: uppercase;
-    font-size: 14px!important;
+    font-size: 14px !important;
     padding: 10px 35px 5px;
     cursor: pointer;
     transition: all .2s ease;
     white-space: nowrap;
-    text-decoration: none!important;
+    text-decoration: none !important;
     gap: 15px;
 }
 
-.ticket-page::before{
+.ticket-page::before {
     content: "";
-    background: url(./assets/icons/ico-ticket-new.svg); 
+    background: url(./assets/icons/ico-ticket-new.svg);
     background-size: 2rem;
     background-repeat: no-repeat;
     transition: all .2s ease;
@@ -126,18 +127,22 @@ a:hover:after{
     margin-top: -3px;
 }
 
-.header_language{
+.header_language {
     width: 100px;
     background-color: rgb(121, 10, 41);
     margin-left: 20px;
     z-index: 5;
 }
 
-.header_language::after{
-  content: "Yay!";
+.header_language::after {
+    content: "Yay!";
 }
 
 
 .td__highlight {
     background-color: #dec86e;
+}
+
+:disabled {
+    color: #a29a7c;
 }

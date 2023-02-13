@@ -19,6 +19,11 @@ export const enum PageIds {
     TicketPage = 'ticket-page',
     ErrorPage = 'error-page'
 }
+type Order = {
+    name: string | null,
+    amount: number | null,
+    price: number | null
+}
 
 class App {
     private static container: HTMLElement = document.body;
@@ -27,6 +32,7 @@ class App {
     private header: Header;
     private footer: Footer;
     static main: Main;
+    static orders: Order[] = [];
 
     static renderNewPage(idPage: string): void {
         const currentPageHTML: Element | null = document.querySelector(`#${App.defaultPageId}`);
