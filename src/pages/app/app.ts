@@ -19,8 +19,9 @@ export const enum PageIds {
     TicketPage = 'ticket-page',
     ErrorPage = 'error-page'
 }
-type Order = {
+export type Order = {
     name: string | null,
+    date: string | null,
     amount: number | null,
     price: number | null
 }

@@ -1,3 +1,4 @@
+
 export function createInputCalendar(container: HTMLElement) {
     let date = new Date();
     let year = date.getFullYear();
@@ -11,6 +12,7 @@ export function createInputCalendar(container: HTMLElement) {
     const input = document.createElement('input');
     input.setAttribute('type', 'date');
     input.id = 'start';
+    input.classList.add('selection__tickets-date')
     input.value = `${year}-${month}-${day}`;
 
     input.min = input.value;

@@ -1,6 +1,7 @@
 import { Tickets } from "../../utils/dataBuyTicket";
 import { Ticket } from "../../utils/dataBuyTicket";
 import App from "../../pages/app/app";
+import { drawTicket } from "./drawTicket";
 
 
 type Order = {
@@ -9,9 +10,7 @@ type Order = {
     price: number | null
 }
 
-// export const orders: Order[] = [];
-
-export function createOptionByuingTicket(arr: Tickets[], containerForOptions: HTMLElement, button: HTMLButtonElement) {
+export function createOptionByuingTicket(arr: Tickets[], containerForOptions: HTMLElement, button: HTMLButtonElement, date: string, containerForTickets: HTMLDivElement) {
     for (let ticketsGroup of arr) {
         const title = document.createElement('div');
         title.classList.add('selection__option-title');
@@ -43,23 +42,29 @@ export function createOptionByuingTicket(arr: Tickets[], containerForOptions: HT
 
             reduceAmount.addEventListener('click', () => {
                 App.orders.length === 0 ? button.disabled = true : button.disabled = false;
-                if (amount > 0) {
+
+                if (amount > 1) {
                     amount--;
                     amountTickets.value = `${amount}`;
-                    const updateOrder = App.orders.filter((order) => order.name === elem.name);
-                    const indexUpdateOrder = App.orders.indexOf({ name: elem.name, amount: amount, price: parseFloat(elem.price) })
+
+                    const updateOrder = App.orders.filter((order) => order.name === elem.name && order.date === date);
                     updateOrder[0].amount = amount;
                     updateOrder[0].price = +(updateOrder[0].price! - parseFloat(elem.price)).toFixed(2);
+                    drawTicket(containerForTickets, App.orders);
+                    console.log("its", App.orders)
 
-                    if (updateOrder[0].amount === 0) {
-                        App.orders.splice(indexUpdateOrder, 1)
-                    }
+                } else if (amount === 1) {
+                    amount--;
+                    amountTickets.value = `${amount}`;
 
+                    const indexUpdateOrder = App.orders.findIndex((item) => item.name === elem.name && item.date === date);
+
+                    App.orders.splice(indexUpdateOrder, 1);
+                    drawTicket(containerForTickets, App.orders)
                 }
-                console.log("its", App.orders)
+
 
             });
-
 
             const amountTickets = document.createElement('input');
             amountTickets.type = 'number';
@@ -75,16 +80,20 @@ export function createOptionByuingTicket(arr: Tickets[], containerForOptions: HT
                 button.disabled = false;
                 amount++;
                 amountTickets.value = `${amount}`;
-                if (amount > 1) {
-                    const updateOrder = App.orders.filter((order) => order.name === elem.name);
+                const updateOrder = App.orders.filter((order) => order.name === elem.name && order.date === date);
+
+                if (updateOrder.length !== 0) {
                     updateOrder[0].amount = amount;
                     updateOrder[0].price = +(updateOrder[0].price! + parseFloat(elem.price)).toFixed(2);
+                    drawTicket(containerForTickets, App.orders)
                 } else {
                     App.orders.push({
                         name: elem.name,
+                        date: date,
                         amount: amount,
                         price: parseFloat(elem.price)
                     });
+                    drawTicket(containerForTickets, App.orders)
                 }
                 console.log("its", App.orders)
             });
@@ -97,5 +106,9 @@ export function createOptionByuingTicket(arr: Tickets[], containerForOptions: HT
         }
 
     }
+
+}
+
+function createTicket(date: string) {
 
 }

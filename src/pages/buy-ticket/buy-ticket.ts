@@ -10,6 +10,7 @@ import Mastercard from '../../assets/icons/mastercard.svg'
 import Visa from '../../assets/icons/visa.png'
 import UnionPay from '../../assets/icons/union-pay.png'
 import App from "../app/app";
+import { drawTicket } from "../../core/components/drawTicket";
 
 type Order = {
     name: string | null,
@@ -23,9 +24,11 @@ class TicketPage extends Page {
     static TextObject = {
         MainTitle: 'Ticket Page'
     }
+    date: string;
 
     constructor(id: string) {
         super(id);
+        this.date = `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(new Date().getDate()).padStart(2, '0')}`
     }
 
     render() {
@@ -46,7 +49,10 @@ class TicketPage extends Page {
                 <div class="selection__calendar">
                 </div>
                 <div class="selection__warning">Select your entry time for Oceanogràfic València. You can enter Oceanogràfic València from the time selected.</div>
-                <div class="selection"></div>
+                <div class="selection">
+                    <div class=${this.date}></div>
+                </div>
+                <div class="selection__tickets-container"></div>
             </div>
             <div class="tickets__registration hidden">
 
@@ -68,22 +74,25 @@ class TicketPage extends Page {
             </div>
 
             </div>
-            <div class="ticket__payment hidden">
+            <div class="ticket__payment">
                 <p class="payment__title">Credit card details</p>
                 <div class="payment__card-form">
-                    <div class="f">
-                        <label for="ccn">Credit Card Number:</label>
+                    <div class="payment__input-container">
+                        <label for="ccn" class="payment__label">Credit Card Number:</label>
+                        <input id="ccn" class="ccn payment__input" type="tel" inputmode="numeric" pattern="[0-9\s]{4}[ ][0-9\s]{4}[ ][0-9\s]{4}[ ][0-9\s]{4}" autocomplete="cc-number" maxlength="19" required placeholder="xxxx xxxx xxxx xxxx">
                         <div class="payment__container-card-img">
                         </div>
-                        <input id="ccn" class="ccn " type="tel" inputmode="numeric" pattern="[0-9\s]{19}" autocomplete="cc-number" maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
                     </div>
-                    <div class="f">
-                        <label for="valid">Valid</label>
-                        <input id="valid" class="valid " type="tel" inputmode="numeric" pattern="[0-9\s]{5}" autocomplete="cc-number" maxlength="5" placeholder="Valid Thru">
+                    <div class="payment__input-container">
+                        <label for="valid" class="payment__label">Valid</label>
+                        <input id="valid" class="valid payment__input" type="tel" inputmode="numeric" pattern="[0-9\s]{2}[/][0-9\s]{2}" autocomplete="cc-number" required maxlength="5" placeholder="Valid Thru">
                     </div>
-                    <div class="f">
-                        <label for="cvv">CVV:</label>
-                        <input id="cvv" class="cvv " type="tel" inputmode="numeric" pattern="[0-9\s]{3}" autocomplete="cc-number" maxlength="3" placeholder="Code">
+                    <div class="payment__input-container">
+                        <label for="cvv" class="payment__label">CVV:</label>
+                        <input id="cvv" class="cvv  payment__input" type="tel" inputmode="numeric" pattern="[0-9\s]{3}" autocomplete="cc-number" maxlength="3" required placeholder="Code">
+                    </div>
+                    <div class="payment__complete-container">
+                        <button class="payment__complete" disabled>Complete the payment</button>
                     </div>
                 </div>
             </div>
@@ -93,9 +102,39 @@ class TicketPage extends Page {
 
         this.container.append(background, buyingTicketContainer);
         const calendar = <HTMLElement>this.container.querySelector('.selection__calendar');
+        const containerForDrawnTickets = <HTMLDivElement>this.container.querySelector('.selection__tickets-container')
+
 
         const selection = <HTMLElement>this.container.querySelector('.selection');
+        const currentDayOptionsTickets = <HTMLCollectionOf<HTMLElement>>this.container.getElementsByClassName(this.date);
+
         createInputCalendar(calendar);
+
+        const inputDate = <HTMLInputElement>this.container.querySelector('.selection__tickets-date');
+
+        inputDate.addEventListener('input', () => {
+            this.date = inputDate.value;
+
+            if (selection.getElementsByClassName(`${this.date}`)[0]) {
+                console.log("Есть такой")
+                for (let child of selection.children) {
+                    child.classList.add('hidden');
+                }
+                selection.getElementsByClassName(`${this.date}`)[0].classList.remove('hidden');
+
+            } else {
+                console.log("Нету такого");
+                for (let child of selection.children) {
+                    child.classList.add('hidden');
+                }
+
+                const otherDayOptionsTickets = document.createElement('div');
+                otherDayOptionsTickets.classList.add(inputDate.value);
+                selection.append(otherDayOptionsTickets);
+
+                createOptionByuingTicket(ticketsData, otherDayOptionsTickets, makingOrderButt, this.date, containerForDrawnTickets);
+            }
+        })
 
         const makingOrderButt = <HTMLButtonElement>this.container.querySelector('.registration__button');
         const selectionButt = <HTMLButtonElement>this.container.querySelector('.selection__button');
@@ -106,18 +145,22 @@ class TicketPage extends Page {
         const paymentContainer = <HTMLDivElement>this.container.querySelector('.ticket__payment');
         const progress = <HTMLDivElement>this.container.querySelector('.progress');
         const registrInputs = <HTMLCollectionOf<HTMLInputElement>>this.container.getElementsByClassName('registration__input');
+        const paymentInputs = <HTMLCollectionOf<HTMLInputElement>>this.container.getElementsByClassName('payment__input');
+        const completePaymentButt = <HTMLButtonElement>this.container.querySelector('.payment__complete');
+
 
 
         for (let elem of registrInputs) {
             elem.addEventListener('input', () => {
                 if (!registrInputs[0].validity.patternMismatch && !registrInputs[0].validity.tooShort && !registrInputs[0].validity.valueMissing && !registrInputs[1].validity.patternMismatch && !registrInputs[1].validity.tooShort && !registrInputs[1].validity.valueMissing && !registrInputs[2].validity.patternMismatch && !registrInputs[2].validity.valueMissing && !registrInputs[2].validity.typeMismatch && !registrInputs[3].validity.typeMismatch && !registrInputs[3].validity.valueMissing) {
                     paymentButt.disabled = false
+                } else {
+                    paymentButt.disabled = true;
                 }
             })
-
         }
 
-        createOptionByuingTicket(ticketsData, selection, makingOrderButt);
+        createOptionByuingTicket(ticketsData, currentDayOptionsTickets[0], makingOrderButt, this.date, containerForDrawnTickets);
 
         selectionButt.addEventListener('click', () => {
             progress.style.width = "calc(100% / 3)";
@@ -171,9 +214,9 @@ class TicketPage extends Page {
 
         const cardNumberInp = <HTMLInputElement>this.container.querySelector('.ccn');
 
-        cardNumberInp.addEventListener("input", () => cardNumberInp.value = formatNumber(cardNumberInp.value.replaceAll(" ", "")));
+        cardNumberInp.addEventListener("input", () => cardNumberInp.value = formatNumberWithSpace(cardNumberInp.value.replaceAll(" ", "")));
 
-        const formatNumber = (number: string) => number.split("").reduce((seed, next, index) => {
+        const formatNumberWithSpace = (number: string) => number.split("").reduce((seed, next, index) => {
             if (number[0] === "3") {
                 addCardImg(cardImgContainer, AmericanExpr)
             } else if (number[0] === "4") {
@@ -191,17 +234,26 @@ class TicketPage extends Page {
 
         const inputValid = <HTMLInputElement>this.container.querySelector('.valid');
 
+        inputValid.addEventListener("input", () => inputValid.value = formatNumberWithSlash(inputValid.value.replaceAll("/", "")));
 
-        inputValid.addEventListener('keydown', (event: KeyboardEvent) => {
-            if (event.key !== "backspace" && event.key !== "delete") {
-                if (inputValid.value.length == 2) {
-                    inputValid.value = (inputValid.value + '/');
+        const formatNumberWithSlash = (number: string) => number.split("").reduce((seed, next, index) => {
+
+            if (index !== 0 && !(index % 2)) seed += "/";
+            return seed + next;
+        }, "");
+
+
+
+        for (let elem of paymentInputs) {
+            elem.addEventListener('input', () => {
+
+                if (!paymentInputs[0].validity.patternMismatch && !paymentInputs[0].validity.tooShort && !paymentInputs[0].validity.valueMissing && !paymentInputs[1].validity.patternMismatch && !paymentInputs[1].validity.tooShort && !paymentInputs[1].validity.valueMissing && !paymentInputs[2].validity.patternMismatch && !paymentInputs[2].validity.valueMissing && !paymentInputs[2].validity.tooShort) {
+                    completePaymentButt.disabled = false;
+                } else {
+                    completePaymentButt.disabled = true;
                 }
-            } else if (event.key === "backspace" || event.key === "delete") {
-                inputValid.value = ""
-            }
-
-        })
+            })
+        }
 
 
 
