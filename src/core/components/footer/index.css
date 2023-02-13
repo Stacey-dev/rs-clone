@@ -1,3 +1,11 @@
+li {
+  list-style-type: none;
+}
+
+footer a::after {
+  display: none;
+}
+
 footer {
   position: relative;
   z-index: 5;
