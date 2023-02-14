@@ -50,6 +50,7 @@ export function createOptionByuingTicket(arr: Tickets[], containerForOptions: HT
                     const updateOrder = App.orders.filter((order) => order.name === elem.name && order.date === date);
                     updateOrder[0].amount = amount;
                     updateOrder[0].price = +(updateOrder[0].price! - parseFloat(elem.price)).toFixed(2);
+                    App.orders.length === 0 ? button.disabled = true : button.disabled = false;
                     drawTicket(containerForTickets, App.orders);
                     console.log("its", App.orders)
 
@@ -60,6 +61,7 @@ export function createOptionByuingTicket(arr: Tickets[], containerForOptions: HT
                     const indexUpdateOrder = App.orders.findIndex((item) => item.name === elem.name && item.date === date);
 
                     App.orders.splice(indexUpdateOrder, 1);
+                    App.orders.length === 0 ? button.disabled = true : button.disabled = false;
                     drawTicket(containerForTickets, App.orders)
                 }
 
@@ -85,6 +87,7 @@ export function createOptionByuingTicket(arr: Tickets[], containerForOptions: HT
                 if (updateOrder.length !== 0) {
                     updateOrder[0].amount = amount;
                     updateOrder[0].price = +(updateOrder[0].price! + parseFloat(elem.price)).toFixed(2);
+
                     drawTicket(containerForTickets, App.orders)
                 } else {
                     App.orders.push({

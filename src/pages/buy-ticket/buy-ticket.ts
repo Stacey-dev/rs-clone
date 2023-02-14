@@ -2,15 +2,13 @@ import Page from "../../core/templates/page";
 import './buy-ticket.css'
 import { createInputCalendar } from "../../core/components/create-calendar-tickets";
 import { createOptionByuingTicket } from "../../core/components/optionsBuyingTickets";
-import { ticketsData } from "../../utils/dataBuyTicket";
+import { ticketsSelectData } from "../../utils/dataTicketsSelection";
 import { addCardImg } from "../../core/components/addCardImg";
 import CardLogo from '../../assets/icons/card-logo.png';
 import AmericanExpr from '../../assets/icons/american-express.svg'
 import Mastercard from '../../assets/icons/mastercard.svg'
 import Visa from '../../assets/icons/visa.png'
 import UnionPay from '../../assets/icons/union-pay.png'
-import App from "../app/app";
-import { drawTicket } from "../../core/components/drawTicket";
 
 type Order = {
     name: string | null,
@@ -40,7 +38,7 @@ class TicketPage extends Page {
             `<div class="tickets__container">
         <div class="tickets__wrapper">
             <div class="tickets__nav">
-                <button class="selection__button tickets__buttons_filed">Select your Oceanogràfic Tickets</button>
+                <button class="selection__button tickets__buttons_filed">Select your tickets</button>
                 <button disabled class="registration__button">Make a purchase</button>
                 <button disabled class="payment__button">Payment</button>
             </div>
@@ -74,7 +72,7 @@ class TicketPage extends Page {
             </div>
 
             </div>
-            <div class="ticket__payment">
+            <div class="ticket__payment hidden">
                 <p class="payment__title">Credit card details</p>
                 <div class="payment__card-form">
                     <div class="payment__input-container">
@@ -92,7 +90,11 @@ class TicketPage extends Page {
                         <input id="cvv" class="cvv  payment__input" type="tel" inputmode="numeric" pattern="[0-9\s]{3}" autocomplete="cc-number" maxlength="3" required placeholder="Code">
                     </div>
                     <div class="payment__complete-container">
-                        <button class="payment__complete" disabled>Complete the payment</button>
+                        <button class="payment__complete" disabled>Complete the payment
+                        </button>
+                    </div>
+                    <div class="canvas__container hidden">
+                        <canvas class="canv canvas"></canvas>
                     </div>
                 </div>
             </div>
@@ -132,7 +134,7 @@ class TicketPage extends Page {
                 otherDayOptionsTickets.classList.add(inputDate.value);
                 selection.append(otherDayOptionsTickets);
 
-                createOptionByuingTicket(ticketsData, otherDayOptionsTickets, makingOrderButt, this.date, containerForDrawnTickets);
+                createOptionByuingTicket(ticketsSelectData, otherDayOptionsTickets, makingOrderButt, this.date, containerForDrawnTickets);
             }
         })
 
@@ -160,7 +162,7 @@ class TicketPage extends Page {
             })
         }
 
-        createOptionByuingTicket(ticketsData, currentDayOptionsTickets[0], makingOrderButt, this.date, containerForDrawnTickets);
+        createOptionByuingTicket(ticketsSelectData, currentDayOptionsTickets[0], makingOrderButt, this.date, containerForDrawnTickets);
 
         selectionButt.addEventListener('click', () => {
             progress.style.width = "calc(100% / 3)";
@@ -256,6 +258,70 @@ class TicketPage extends Page {
         }
 
 
+        //_____________________________________________________________canvas
+        const canvasContainer = <HTMLDivElement>this.container.querySelector('.canvas__container');
+
+        let c = <HTMLCanvasElement>this.container.querySelector('.canv'),
+            $ = <CanvasRenderingContext2D>c.getContext('2d'),
+            w = c.width = window.innerWidth,
+            h = c.height = window.innerHeight,
+            t = 0, num = 640, u = 0,
+            s, a, b: number,
+            x, y, _x, _y,
+            _t = 1 / 60;
+
+        var anim = function () {
+            $.fillStyle = 'hsla(0, 0%, 90%, 1)';
+            $.fillRect(0, 0, w, h);
+            for (var i = 0; i < 1; i++) {
+                x = 0;
+                $.beginPath();
+                for (var j = 0; j < num; j++) {
+                    x -= 1.30 * Math.cos(4);
+                    y = x * Math.sin(i + 4.0 * t + x / 70) / 7;
+                    _x = x * Math.cos(i) - y * Math.sin(b);
+                    _y = x * Math.sin(i) + y * Math.cos(b);
+                    b = (j) * Math.PI / 14.5;
+                    $.lineWidth = 1;
+                    $.lineTo(w / 2 + _x, h / 2 - _y);
+                }
+                $.strokeStyle = 'hsla(0,0%,35%,1)';
+                $.stroke();
+                u -= .2;
+            }
+            t += _t;
+            window.requestAnimationFrame(anim);
+            txt();
+        };
+        anim();
+
+        function txt() {
+            var t = "Thanks".split("").join(String.fromCharCode(0x2006));
+            $.font = "4em Marck Script";
+            $.fillStyle = 'hsla(0,0%,46%,1)';
+            $.fillText(t, (c.width - $.measureText(t).width / .5051) * 0.5, c.height * 0.502);
+        }
+        window.addEventListener('resize', function () {
+            c.width = w = window.innerWidth;
+            c.height = h = window.innerHeight;
+        }, false);
+
+        //__________________________________________________________________canvas activation
+
+        completePaymentButt.addEventListener('click', () => {
+            canvasContainer.classList.remove('hidden');
+
+            setTimeout(reload, 2000);
+        })
+
+        function reload() {
+            canvasContainer.classList.add('hidden');
+            const path = window.location.hash.slice(1).split('?')[0];
+            const url = new URL(window.location.toString());
+            url.hash = "prices-page";
+            window.history.pushState({}, '', url);
+            location.reload();
+        }
 
         return this.container;
     }

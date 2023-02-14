@@ -26,7 +26,6 @@ export function drawTicket(containerForTickets: HTMLDivElement, arr: Order[]) {
 
         const ticketDate = document.createElement('p');
         ticketDate.classList.add('ticket__date');
-        // ticketDate.innerHTML = order.date!;
         ticketDate.innerHTML = `${dayOfWeekName}, ${day} ${monthName} ${y}`;
 
         const ticketName = document.createElement('p');

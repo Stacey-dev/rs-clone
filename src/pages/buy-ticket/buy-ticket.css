@@ -62,7 +62,7 @@
     height: 75px;
     display: flex;
     justify-content: space-between;
-    margin-top: -7%;
+    margin-top: -5%;
 }
 
 
@@ -79,6 +79,7 @@
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
     cursor: pointer;
+    padding-bottom: 25px;
 }
 
 .tickets__buttons_filed {
@@ -163,7 +164,7 @@
 
 .selection__tickets-container {
     position: absolute;
-    top: 5%;
+    top: 10%;
     right: 0;
     width: 18%;
 }
@@ -262,17 +263,17 @@
     margin: 0 auto;
     padding: 50px;
 
-
 }
 
 .registration__input-container {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
+
 }
 
 .registration__input {
-    width: 300px;
+    width: 40%;
     border: none;
     border-bottom: 1px solid #8ca0b4;
     font-size: 16px;
@@ -283,6 +284,7 @@
 
 .registration__label {
     font-family: WorkSans-Italic;
+    margin-right: 30px;
 }
 
 .registration__input:invalid {
@@ -356,6 +358,12 @@
     max-width: 200px;
     border: none;
     cursor: pointer;
+    box-shadow: 2px 2px 5px #989084;
+
+}
+
+.payment__complete:hover {
+    background-color: #cfb54dc2;
 }
 
 .ticket {
@@ -387,4 +395,14 @@
 .ticket__date {
     margin: 0;
     font-size: 15px;
+}
+
+.canvas__container {
+    background: hsla(0, 0%, 90%, 1);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
