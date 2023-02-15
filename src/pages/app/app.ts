@@ -19,6 +19,12 @@ export const enum PageIds {
     TicketPage = 'ticket-page',
     ErrorPage = 'error-page'
 }
+export type Order = {
+    name: string | null,
+    date: string | null,
+    amount: number | null,
+    price: number | null
+}
 
 class App {
     private static container: HTMLElement = document.body;
@@ -27,6 +33,7 @@ class App {
     private header: Header;
     private footer: Footer;
     static main: Main;
+    static orders: Order[] = [];
 
     static renderNewPage(idPage: string): void {
         const currentPageHTML: Element | null = document.querySelector(`#${App.defaultPageId}`);
@@ -38,6 +45,8 @@ class App {
 
         const splittedHash: string[] = window.location.hash.slice(1).split('?');
         const path: string = splittedHash[0];
+
+        console.log("path", path);
 
         if (idPage === PageIds.PricesPage || path === '' || path.includes(PageIds.PricesPage)) {
             page = new PricesPage(idPage);

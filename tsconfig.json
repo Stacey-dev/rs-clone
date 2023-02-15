@@ -8,6 +8,13 @@
         "target": "es2017",
         "noImplicitAny": true,
         "strict": true,
+        "lib": [
+            "es5",
+            "es6",
+            "dom",
+            "dom.iterable",
+            "ES2021.String"
+        ],
     },
     "include": [
         "./src/**/*",
