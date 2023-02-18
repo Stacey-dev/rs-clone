@@ -94,6 +94,7 @@ class Header extends Component {
 
         window.onscroll = function () {
             let scrolled: number;
+
             scrolled = window.pageYOffset || document.documentElement.scrollTop;
             const header = <HTMLElement>document.querySelector('.container');
             const box_language = <HTMLElement>document.querySelector('.header_language');
@@ -105,7 +106,7 @@ class Header extends Component {
                 header.style.position = 'fixed';
                 header.style.height = '60px';
                 header.style.marginTop = '0';
-                header.style.zIndex = '6';
+                header.style.zIndex = '2000';
                 header.style.transition = 'all 2s ease';
                 box_language.style.display = 'none';
                 box_ticket.style.display = 'none';
