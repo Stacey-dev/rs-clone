@@ -30,11 +30,11 @@ body {
 
 .wrapper {
     display: flex;
-    width: calc(100% - 20px);
+    width: 100%;
     justify-content: space-between;
     align-self: center;
     align-items: center;
-    margin-top: 10px;
+    margin: 10 auto 0;
 }
 
 .header__nav {
@@ -49,6 +49,7 @@ body {
     width: 100%;
     z-index: 55;
     align-items: center;
+    margin-right: 20px;
 }
 
 .header__logo {
@@ -82,7 +83,7 @@ a:after {
     width: 0;
     height: 2px;
     background-color: #d6dcd9;
-    content: "";
+    content: '';
     transition: width 0.3s ease-out;
 }
 
@@ -106,18 +107,18 @@ a:hover:after {
     font-size: 14px !important;
     padding: 10px 35px 5px;
     cursor: pointer;
-    transition: all .2s ease;
+    transition: all 0.2s ease;
     white-space: nowrap;
     text-decoration: none !important;
     gap: 15px;
 }
 
 .ticket-page::before {
-    content: "";
+    content: '';
     background: url(./assets/icons/ico-ticket-new.svg);
     background-size: 2rem;
     background-repeat: no-repeat;
-    transition: all .2s ease;
+    transition: all 0.2s ease;
     z-index: 2;
     height: 2rem;
     width: 2rem;
@@ -138,7 +139,19 @@ a:hover:after {
 }
 
 .header_language::after {
-    content: "Yay!";
+    content: 'Yay!';
+}
+
+.theme_toggler {
+    width: 60px;
+    height: 42px;
+    margin-left: 15px;
+    margin-right: 10px;
+    z-index: 5;
+    background-image: url('./assets/icons/toggle-theme-dark.svg');
+    background-size: auto;
+    background-repeat: no-repeat;
+    cursor: pointer;
 }
 
 .language_en {
@@ -151,6 +164,9 @@ a:hover:after {
     text-transform: lowercase;
 }
 
+.theme_toggler.dark {
+    background-image: url('./assets/icons/toggle-theme-light.svg');
+}
 
 .td__highlight {
     background-color: #dec86e;
