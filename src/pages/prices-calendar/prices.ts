@@ -9,6 +9,11 @@ import { createDropDownListCondition } from "../../core/components/drop-down-lis
 import { ticketsData } from "../../utils/dataBuyTicket";
 import { conditionsData } from "../../utils/dataCondition";
 import { freeEntriesData } from "../../utils/dataFreeEntries";
+import { langArr } from "../../utils/dataLang";
+import { data } from "../../utils/dataLang";
+import { ticketsDataRu } from "../../utils/dataBuyTicket";
+import { conditionsDataRu } from "../../utils/dataCondition";
+import { freeEntriesDataRu } from "../../utils/dataFreeEntries";
 
 class PricesPage extends Page {
     static TextObject = {
@@ -25,6 +30,8 @@ class PricesPage extends Page {
 
 
     render() {
+        const select = <HTMLSelectElement>document.querySelector('.header_language');
+
         const content = document.createElement('div');
         content.classList.add('price-calendar__content');
 
@@ -39,11 +46,11 @@ class PricesPage extends Page {
         const information: HTMLDivElement = document.createElement('div')
         const informationLayout: string = `<div class="tickets">
         <div class="tickets__wrapper">
-            <h2 class="tickets__header">Tickets</h2>
+            <h2 class="tickets__header tickets__header_tickets">Tickets</h2>
             <button class="tickets__button" id="tickets-but">BUY YOUR COMBINED TICKETS</button>
             <div class="tickets__calendar block">
                 <div class="calendar__left block_left">
-                    <p class="calendar__text">Choose the day of your visit in the calendar to see the Price of the
+                    <p class="calendar__text price-calendar__text_head">Choose the day of your visit in the calendar to see the Price of the
                         ticket
                     </p>
                     <div class="calendar__schedules">
@@ -51,7 +58,7 @@ class PricesPage extends Page {
                     </div>
                 </div>
                 <div class="calendar__right block_right">
-                    <p class="calendar__text">Combine the Oceanogràfic ticket with a visit to the Príncep Felipe Science Museum where you will find a large selection of activities related to scientific learning and technological development and/or with a screening in the Hemisfèric in IMAX format.
+                    <p class="calendar__text price-calendar__text_description">Combine the Oceanogràfic ticket with a visit to the Príncep Felipe Science Museum where you will find a large selection of activities related to scientific learning and technological development and/or with a screening in the Hemisfèric in IMAX format.
                     </p>
                     <div class="calendar__options">
 
@@ -66,32 +73,32 @@ class PricesPage extends Page {
         <div class="tickets__wrapper">
             <div class="experiences block">
                 <div class="experiences__left block_left">
-                    <h2 class="tickets__header">Oceanographic Experiences</h2>
-                    <button class="tickets__button" id="experiences-but">BUY YOUR EXPERIENCE</button>
+                    <h2 class="tickets__header tickets__header_experiences">Oceanographic Experiences</h2>
+                    <button class="tickets__button experiences-but" id="experiences-but">BUY YOUR EXPERIENCE</button>
                 </div>
                 <div class="experiences__right block_right">
                     <div class="expeirences__options">
                     <div class="option">
-    <div class="expeirences-option__name">Sleep with the Sharks only Oceanogràfic schools</div>
+    <div class="expeirences-option__name expeirences-option-1">Sleep with the Sharks only Oceanogràfic schools</div>
     <div class="option__price">
         <div class="option__price-value">90 &euro;</div>
     </div>
 </div>
 <div class="option">
-    <div class="expeirences-option__name">Sleep with the Sharks Oceanogràfic O+M+H schools</div>
+    <div class="expeirences-option__name expeirences-option-2">Sleep with the Sharks Oceanogràfic O+M+H schools</div>
     <div class="option__price">
         <div class="option__price-value">95 &euro;</div>
     </div>
 </div>
 <div class="option">
-    <div class="expeirences-option__name">Sleep with the Sharks only Oceanogràfic individuals
+    <div class="expeirences-option__name expeirences-option-3">Sleep with the Sharks only Oceanogràfic individuals
     </div>
     <div class="option__price">
         <div class="option__price-value">95 &euro;</div>
     </div>
 </div>
 <div class="option">
-    <div class="expeirences-option__name">Sleep with the Sharks Oceanogràfic O+M+H individuals</div>
+    <div class="expeirences-option__name expeirences-option-4">Sleep with the Sharks Oceanogràfic O+M+H individuals</div>
     <div class="option__price">
         <div class="option__price-value">100 &euro;</div>
     </div>
@@ -137,6 +144,18 @@ class PricesPage extends Page {
 
         this.container.append(renderBackground(Video), content);
 
+
+        //___________________________________________________переключение на другой язык
+        if (select.value === 'ru') {
+            for (let key in langArr) {
+                if (this.container.querySelector('.' + key)) {
+                    this.container.querySelector('.' + key)!.innerHTML = langArr[key as keyof data][select.value as keyof { "ru": string, "en": string }]
+                }
+            }
+        }
+
+        //________________________________________________________________________________
+
         const calendarContainer = <HTMLDivElement>this.container.querySelector('.calendar__schedules');
         const butPrev: HTMLButtonElement = document.createElement('button');
         const butNext: HTMLButtonElement = document.createElement('button');
@@ -172,7 +191,9 @@ class PricesPage extends Page {
             highlightCell(calendarCells);
         })
 
+
         const ticketOptions = <HTMLDivElement>this.container.querySelector('.calendar__options');
+
 
         for (let elem of ticketsData) {
             ticketOptions.append(createDropDownListTicket(elem))
@@ -183,6 +204,22 @@ class PricesPage extends Page {
 
         const freeEntriesOptions = <HTMLDivElement>this.container.querySelector('.free-entries__options');
         freeEntriesOptions.append(createDropDownListCondition(freeEntriesData));
+
+        if (select.value === 'ru') {
+            document.querySelector('title')!.innerHTML = "RS Клон";
+
+
+            ticketOptions!.innerHTML = "";
+            for (let elem of ticketsDataRu) {
+                ticketOptions!.append(createDropDownListTicket(elem))
+            }
+            conditionOptions.innerHTML = "";
+            conditionOptions.append(createDropDownListCondition(conditionsDataRu));
+            freeEntriesOptions.innerHTML = "";
+            freeEntriesOptions.append(createDropDownListCondition(freeEntriesDataRu));
+
+
+        }
 
         window.addEventListener('load', () => {
             content.classList.add('toTop')

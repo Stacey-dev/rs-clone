@@ -46,7 +46,6 @@ class App {
         const splittedHash: string[] = window.location.hash.slice(1).split('?');
         const path: string = splittedHash[0];
 
-        console.log("path", path);
 
         if (idPage === PageIds.PricesPage || path === '' || path.includes(PageIds.PricesPage)) {
             page = new PricesPage(idPage);

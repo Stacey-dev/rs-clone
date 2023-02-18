@@ -5,10 +5,14 @@ import Video from '../../assets/video/hoyenelparque_cabecera-video.mov'
 import { schedulesExplEng } from "../../utils/schedulesData";
 import { createSchedulesTable } from "../../core/components/schedulesTable";
 import { schedulesTableData } from "../../utils/schedulesData";
+import { schedulesTableDataRu } from "../../utils/schedulesData";
 import { schedulesSaturdayData } from "../../utils/schedulesData";
+import { schedulesSaturdayDataRu } from "../../utils/schedulesData";
 import { createCalendarView } from "../../core/components/create-calendar-schedules";
 import { getAllSaturdays } from "../../core/components/create-calendar-schedules";
 import { highlightCell } from "../../utils/highlightCells";
+import { langArr } from "../../utils/dataLang";
+import { data } from "../../utils/dataLang";
 
 class SchedulesPage extends Page {
     static TextObject = {
@@ -20,6 +24,8 @@ class SchedulesPage extends Page {
     }
 
     render() {
+        const select = <HTMLSelectElement>document.querySelector('.header_language');
+        const saturdays = getAllSaturdays();
 
         const content = document.createElement('div');
         content.classList.add('schedules__content');
@@ -57,7 +63,22 @@ class SchedulesPage extends Page {
         content.append(tiles, information)
         this.container.append(renderBackground(Video), content);
 
+        //___________________________________________________переключение на другой язык
+        if (select.value === 'ru') {
+            for (let key in langArr) {
+                if (this.container.querySelector('.' + key)) {
+                    this.container.querySelector('.' + key)!.innerHTML = langArr[key as keyof data][select.value as keyof { "ru": string, "en": string }]
+                }
+            }
+        }
+        //________________________________________________________________________________
+
+
         const schedulesTable = <HTMLDivElement>this.container.querySelector('.schedules__table');
+        if (saturdays.includes(new Date().getDay())) {
+
+        }
+
         schedulesTable.append(createSchedulesTable(schedulesTableData));
 
         const buttonToCalendar = <HTMLButtonElement>this.container.querySelector('.schedules__button-right');
@@ -74,7 +95,6 @@ class SchedulesPage extends Page {
         })
 
         const td = <HTMLCollectionOf<HTMLTableCellElement>>calendarWrapper.getElementsByTagName('td');
-        const saturdays = getAllSaturdays()
 
         for (let elem of td) {
             elem.addEventListener('click', () => {

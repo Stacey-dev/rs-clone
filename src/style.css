@@ -129,13 +129,26 @@ a:hover:after {
 
 .header_language {
     width: 100px;
-    background-color: rgb(121, 10, 41);
     margin-left: 20px;
+    background-color: transparent;
+    border: none;
     z-index: 5;
+    color: white;
+    text-transform: lowercase;
 }
 
 .header_language::after {
     content: "Yay!";
+}
+
+.language_en {
+    background-color: #10597c;
+    text-transform: lowercase;
+}
+
+.language_ru {
+    background-color: #10597c;
+    text-transform: lowercase;
 }
 
 
