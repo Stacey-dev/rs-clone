@@ -46,6 +46,10 @@ class Header extends Component {
       buttonHTML.href = `#${button.id}`;
       buttonHTML.innerText = button.text;
       buttonHTML.classList.add(button.id);
+      if (buttonHTML.textContent === 'BUY YOUR TICKET') {
+        buttonHTML.setAttribute('target', '_blank');
+      }
+
       pageButtons.append(buttonHTML);
     });
 

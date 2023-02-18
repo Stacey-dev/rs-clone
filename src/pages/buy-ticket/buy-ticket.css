@@ -1,0 +1,408 @@
+/* .buy-ticket__backg {
+    background-image: url('../../assets/images/cristian-palmer-XexawgzYOBc-unsplash.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    padding-top: 40%;
+}
+
+.backg__turtle {
+    background-image: url('../../assets/icons/home-tortuga.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    bottom: 0;
+    left: calc(20% - 350px);
+    width: 200px;
+    height: 222px;
+    background-size: contain;
+    overflow: hidden;
+    right: 0;
+    top: calc(25% - 110px);
+    background-repeat: no-repeat;
+    animation: turtle 5s 1 ease-in-out;
+}
+
+
+
+@keyframes turtle {
+    0% {
+        opacity: 0;
+        top: calc(40% - 110px);
+    }
+    100% {
+        opacity: 1;
+        top: calc(25% - 110px);
+    }
+} */
+@font-face {
+    font-family: 'Libre';
+    src: url('../../assets/font/LibreBaskerville-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'LibreBold';
+    src: url('../../assets/font/LibreBaskerville-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'WorkSans-Italic';
+    src: url('../../assets/font/WorkSans-Italic-VariableFont_wght.ttf') format('truetype');
+}
+
+.buy-ticket__backg {
+    background: linear-gradient(180deg, rgba(16, 89, 124, 1) 0%, rgba(17, 33, 47, 1) 100%);
+    width: 100%;
+    padding-top: 200px;
+}
+
+.tickets__nav {
+    height: 75px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: -5%;
+}
+
+
+
+.selection__button,
+.registration__button,
+.payment__button {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
+    font-weight: 600;
+    color: #DEC86E;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    cursor: pointer;
+    padding-bottom: 25px;
+}
+
+.tickets__buttons_filed {
+    background-color: white;
+    font-size: 16px;
+    font-weight: 600;
+    color: #2D465D;
+}
+
+.progress {
+    width: calc(99% / 3);
+    border-radius: 10px;
+    background-color: rgba(70, 176, 66, 0.779);
+    height: 10px;
+    margin: 5px;
+}
+
+.tickets__selection {
+    width: 100%;
+    padding: 0px 10px 0px 10px;
+    position: relative;
+}
+
+.selection__calendar {
+    position: relative;
+}
+
+.selection__calendar-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 0.875rem;
+    color: #102F43;
+}
+
+#start {
+    width: 20%;
+    border: none;
+    border-bottom: 1px solid #8ca0b4;
+    cursor: pointer;
+    color: black;
+    font-weight: 600;
+    font-size: 1rem;
+    padding-top: 25px;
+
+}
+
+::-webkit-calendar-picker-indicator {
+    background-image: url(../../assets/icons/calendar.svg);
+    cursor: pointer;
+}
+
+.selection__warning {
+    width: 96.8%;
+    background-color: rgba(255, 162, 43, 0.1);
+    border: 1px solid #efe4cc;
+    font-size: 15px;
+    color: #BC6F59;
+    font-weight: 500;
+    padding: 20px;
+    margin: 30px 0px 30px 0px;
+}
+
+.selection__warning::before {
+    display: inline-block;
+    content: "i";
+    font-weight: 500;
+    color: #ffffff;
+    background-color: #DB7F33;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    border-radius: 50px;
+    margin-right: 10px;
+
+}
+
+.selection {
+    width: 80%;
+}
+
+
+.selection__tickets-container {
+    position: absolute;
+    top: 10%;
+    right: 0;
+    width: 18%;
+}
+
+.selection__option-title {
+    background-color: #DEE9F0;
+    color: #10597C;
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.selection__option-title::before {
+    display: inline-block;
+    margin-right: 15px;
+    box-sizing: border-box;
+    content: "";
+    background-image: url(../../assets/icons/ticket-svgrepo-com.svg);
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 50px;
+    height: 50px;
+    background-color: #2D465D;
+}
+
+.selection__option-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 13px 32px;
+}
+
+.selection__option-container_filed {
+    background-color: #F3F7F9;
+}
+
+.selection__ticket-price {
+    color: #CE6445;
+    font-size: 1.25rem;
+    border-radius: 27px;
+    border: 1px solid #dddddd;
+    width: 130px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.selection__ticket-name {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    margin-left: 27px;
+}
+
+.selection__reduce-amount,
+.selection__increase-amount {
+    background-color: #60B1C5 !important;
+    font-family: 'Poppins';
+    font-size: 22px;
+    font-weight: 500;
+    width: 40px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+}
+
+.selection__reduce-amount {
+    border-radius: 4px 0 0 4px;
+}
+
+.selection__increase-amount {
+    border-radius: 0px 4px 4px 0px;
+}
+
+.selection__ticket-amount {
+    height: 30px;
+    box-sizing: border-box;
+    border: 1px solid #dddddd;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.tickets__registration {
+    width: 70%;
+    margin: 0 auto;
+    padding: 50px;
+
+}
+
+.registration__input-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+}
+
+.registration__input {
+    width: 40%;
+    border: none;
+    border-bottom: 1px solid #8ca0b4;
+    font-size: 16px;
+    font-weight: 600;
+    color: #2D465D;
+
+}
+
+.registration__label {
+    font-family: WorkSans-Italic;
+    margin-right: 30px;
+}
+
+.registration__input:invalid {
+    box-shadow: 0 0 3px 1px rgba(255, 51, 0, 0.776);
+}
+
+.registration__input:focus:invalid {
+    box-shadow: none;
+}
+
+.ticket__payment {
+    margin: 0 auto;
+    width: 70%;
+}
+
+.payment__container-card-img {
+    position: absolute;
+    left: calc(100% - 47%);
+    border: 1px solid #8ca0b4;
+    border-radius: 5px;
+    width: 50px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.payment__card-img {
+    width: 100%;
+
+}
+
+.payment__title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.payment__input-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.payment__label {
+    font-family: WorkSans-Italic;
+}
+
+.payment__input {
+    width: 30%;
+    border: none;
+    border-bottom: 1px solid #8ca0b4;
+    font-size: 16px;
+    font-weight: 600;
+    color: #2D465D;
+}
+
+.payment__input:invalid {
+    box-shadow: 0 0 3px 1px rgba(255, 51, 0, 0.776);
+}
+
+.payment__complete-container {
+    position: relative;
+}
+
+.payment__complete {
+    display: block;
+    padding: 10px;
+    background-color: #DEC86E;
+    color: #10597c;
+    font-size: 16px;
+    margin: 50px auto 100px auto;
+    max-width: 200px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px #989084;
+
+}
+
+.payment__complete:hover {
+    background-color: #cfb54dc2;
+}
+
+.ticket {
+    width: 90%;
+    border: none;
+    padding: 10px;
+    border-top: 1px solid #E6DAD7;
+}
+
+.ticket__total-price {
+    background-color: #f9f6e7;
+    margin: 0;
+    padding: 10px 3px 10px 3px
+}
+
+.total-price-value {
+    font-weight: 600;
+}
+
+.ticket__date {
+    font-weight: 500;
+    color: #CE6445;
+}
+
+.ticket__amount {
+    margin: 0;
+}
+
+.ticket__date {
+    margin: 0;
+    font-size: 15px;
+}
+
+.canvas__container {
+    background: hsla(0, 0%, 90%, 1);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
