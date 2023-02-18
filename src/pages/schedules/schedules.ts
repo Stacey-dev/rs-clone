@@ -75,11 +75,21 @@ class SchedulesPage extends Page {
 
 
         const schedulesTable = <HTMLDivElement>this.container.querySelector('.schedules__table');
-        if (saturdays.includes(new Date().getDay())) {
+        if (saturdays.includes(new Date().getDate())) {
+            if (select.value === 'ru') {
+                schedulesTable.append(createSchedulesTable(schedulesSaturdayDataRu));
+            } else {
+                schedulesTable.append(createSchedulesTable(schedulesSaturdayData));
+            }
+
+        } else {
+            if (select.value === 'ru') {
+                schedulesTable.append(createSchedulesTable(schedulesTableDataRu));
+            } else {
+                schedulesTable.append(createSchedulesTable(schedulesTableData));
+            }
 
         }
-
-        schedulesTable.append(createSchedulesTable(schedulesTableData));
 
         const buttonToCalendar = <HTMLButtonElement>this.container.querySelector('.schedules__button-right');
         const calendarContainer = <HTMLDivElement>this.container.querySelector('.schedules__calendar-container')
@@ -102,9 +112,17 @@ class SchedulesPage extends Page {
                     highlightCell(td)
                     schedulesTable.innerHTML = "";
                     if (saturdays.includes(Number(elem.textContent))) {
-                        schedulesTable.append(createSchedulesTable(schedulesSaturdayData));
+                        if (select.value === 'ru') {
+                            schedulesTable.append(createSchedulesTable(schedulesSaturdayDataRu));
+                        } else {
+                            schedulesTable.append(createSchedulesTable(schedulesSaturdayData));
+                        }
                     } else {
-                        schedulesTable.append(createSchedulesTable(schedulesTableData));
+                        if (select.value === 'ru') {
+                            schedulesTable.append(createSchedulesTable(schedulesTableDataRu));
+                        } else {
+                            schedulesTable.append(createSchedulesTable(schedulesTableData));
+                        }
                     }
                 }
             })

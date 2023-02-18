@@ -43,7 +43,8 @@ class PricesPage extends Page {
         <div class="tile_right">You can buy tickets online, avoiding queues and wait-times, or at the ticket office.</div>`;
         tiles.innerHTML = tilesLayout;
 
-        const information: HTMLDivElement = document.createElement('div')
+        const information: HTMLDivElement = document.createElement('div');
+        information.classList.add('information');
         const informationLayout: string = `<div class="tickets">
         <div class="tickets__wrapper">
             <h2 class="tickets__header tickets__header_tickets">Tickets</h2>

@@ -136,6 +136,17 @@ a:hover:after {
     z-index: 5;
     color: white;
     text-transform: lowercase;
+    cursor: pointer;
+}
+
+.language_en {
+    background-color: #10597c;
+    text-transform: lowercase;
+}
+
+.language_ru {
+    background-color: #10597c;
+    text-transform: lowercase;
 }
 
 .header_language::after {
@@ -152,16 +163,6 @@ a:hover:after {
     background-size: auto;
     background-repeat: no-repeat;
     cursor: pointer;
-}
-
-.language_en {
-    background-color: #10597c;
-    text-transform: lowercase;
-}
-
-.language_ru {
-    background-color: #10597c;
-    text-transform: lowercase;
 }
 
 .theme_toggler.dark {

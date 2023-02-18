@@ -13,9 +13,13 @@
     background-color: white;
 }
 
+.schedules__content.dark {
+    background-color: #102f43;
+}
+
 .schedules__toTop {
     transform: translateY(-10%);
-    transition: transform 1s linear
+    transition: transform 1s linear;
 }
 
 .schedules-tile_left {
@@ -41,6 +45,11 @@
     width: 50%;
 }
 
+.schedules-tile_right.dark {
+    background-color: #154e5e;
+    color: #fff;
+}
+
 .schedules__buttons-top {
     background-color: white;
     padding-top: 60px;
@@ -49,6 +58,10 @@
     justify-content: end;
     gap: 20px;
     position: relative;
+}
+
+.schedules__content.dark .schedules__buttons-top {
+    background-color: #102f43;
 }
 
 .schedules__button-right {
@@ -63,7 +76,7 @@
     width: 280px;
     background-color: white;
     position: relative;
-    box-shadow: 5px 5px 10px rgba(70, 66, 66, 0.529), -5px 5px 10px rgba(70, 66, 66, 0.529)
+    box-shadow: 5px 5px 10px rgba(70, 66, 66, 0.529), -5px 5px 10px rgba(70, 66, 66, 0.529);
 }
 
 .schedules__calendar-container {
@@ -118,6 +131,11 @@
     color: #10597c;
 }
 
+.schedules__content.dark .sched-table__cell {
+    background-color: #184461;
+    color: #fff;
+}
+
 .sched-table__activity {
     width: 100%;
 }
@@ -141,17 +159,25 @@
     background-color: #dbeaf1;
 }
 
+.schedules__content.dark .sched-table__cell.sched-table__cell_filled {
+    background-color: #10597c;
+}
+
 .schedules__explanation {
     padding-top: 50px;
     padding-bottom: 20px;
+}
+
+.schedules__content.dark .schedules__explanation {
+    background-color: #102f43;
+    color: #fff;
 }
 
 .activity__icon {
     width: 18px;
 }
 
-@media screen and (max-width:990px) {
-
+@media screen and (max-width: 990px) {
     .schedules-tile_left {
         width: 96%;
         padding: 20px;
@@ -161,5 +187,4 @@
         width: 96.9%;
         font-size: 15px;
     }
-
 }
