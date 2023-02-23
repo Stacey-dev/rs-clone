@@ -155,5 +155,4 @@ export const fishDataRu = [
     ]
 ];
 
-
 export default fishDataRu;

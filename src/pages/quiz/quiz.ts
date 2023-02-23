@@ -1,10 +1,11 @@
 import Page from "../../core/templates/page";
-import './quiz.css'
+import './quiz.css';
 import Chart from 'chart.js/auto';
-import fishDataRu from './quiz_BD/BD_animal_ru';
+import {fishDataRu} from './quiz_BD/BD_animal_ru';
+
 
 class QuizPage extends Page {
-    [x: string]: any;
+    
     static TextObject = {
         MainTitle: 'Quiz Page'
     }
@@ -14,7 +15,7 @@ class QuizPage extends Page {
         
     }
 
-    render() {
+   render() {
      
       //отрисовываем основную часть страницы
         const wrapper_quiz = document.createElement('div');
@@ -53,7 +54,6 @@ class QuizPage extends Page {
       </div>
       `;
         wrapper_quiz.innerHTML = informationLayout
-
         this.container.append(wrapper_quiz);
         
       //анимация черепахи
@@ -64,15 +64,14 @@ class QuizPage extends Page {
       };
       setTimeout (swimTartuga, 400);
       //анимация блока викторины
-    let drawQuiz = () =>{
+   
       function drawBlockQuiz(){
         const bgQuiz = <HTMLElement>document.querySelector('.tasks');
         bgQuiz.style.opacity = "1";
         bgQuiz.style.transform = "translate3d(0px, 0px, 0px)";
       };
       setTimeout (drawBlockQuiz, 4000);
-    }
-    drawQuiz();
+
       //анимация блока результатов
       let drawResult = () => {
         function drawBlockResult(){
@@ -82,20 +81,23 @@ class QuizPage extends Page {
         };
         setTimeout (drawBlockResult, 400);
       }
+
       //отрисовываем блок с викториной
-  document.addEventListener('DOMContentLoaded', (event: Event) => { 
-    const fishDiscription = <HTMLElement>document.querySelector('.fishDiscription');
+let renderQuiz = () => {
+      const fishDiscription = <HTMLElement>document.querySelector('.fishDiscription');
       let level = 0;
       let total_points = 0;
       let currentFishName: {
-        [x: string]: any; id: any; 
+        [x: string]: string | number; id: number; 
         }[];
       let currentFishFoto: {
-        [x: string]: any; image: any; 
+        [x: string]: string | number; image: string; 
         }[];
-      let finishResult:any = [];
-      let idQuestionName:any = [];
-      let fishDiscrip:any;
+      let finishResult = [];
+      let idQuestionName = [];
+      let fishDiscrip;
+     
+
 
      // переремешиваем блоки с фото и блоки с названиями
     const randomFishFoto = () => { 
@@ -108,7 +110,7 @@ class QuizPage extends Page {
       const fish = fishDataRu[level].slice();
       return fish.sort(() => Math.random() - 0.5);
     }
-    currentFishName = randomFishName();
+     currentFishName = randomFishName();
 
     const randomFishDiscription = () => { 
       const fish = fishDataRu[level].slice();
@@ -123,7 +125,7 @@ class QuizPage extends Page {
      //отрисовываем 6 блоков вопросов
     let question = () => {
 
-    for(let i = 0; i < 6; i ++){
+   for(let i = 0; i < 6; i ++){
         const containerQuizBox  = <HTMLDivElement>document.querySelector('.tasks');
         const containerImg = document.createElement('div');
         const blocksImg = `
@@ -143,10 +145,10 @@ class QuizPage extends Page {
       }
 
     }
-    question();
+ question();
    
-    //  drag and drop!!!!
-let dragAndDrop = () => { 
+    //  drag and drop
+let dragAndDrop =  () => { 
 
   let curdrag = "";
   let curdragel: HTMLElement;
@@ -184,9 +186,9 @@ let dragAndDrop = () => {
           total_points += (curdragel.id === curdropel.id) ? 1 : 0;     //  Совпадают ? будет +1 : иначе 0
           score.textContent = `Score: ${total_points}`;
           
-            //получаем массив ОТВЕТОВ (id.картинок)
+          //получаем массив ОТВЕТОВ (id.картинок)
         finishResult.push(curdragel.id);
-        randomFishDiscription();
+        fishDiscrip = randomFishDiscription()
         break;
         default:
         break;
@@ -205,17 +207,16 @@ let dragAndDrop = () => {
   dragAndDrop();
   
         // переходим к следующему вопросу
-          const btnNextQuestion = <HTMLElement>document.querySelector('.btnQuiz');
-
-          btnNextQuestion.addEventListener('click', (event: Event) => {
-              fishDiscription.remove()
-              newLvl();
-          }); 
+      const btnNextQuestion = <HTMLElement>document.querySelector('.btnQuiz');
+      btnNextQuestion.addEventListener('click', (event: Event) => {
+          fishDiscription.remove()
+          newLvl();
+      }); 
         // пройти викторину ещё раз
       const btnMore = <HTMLElement>document.querySelector('.btnMore');
       btnMore.addEventListener('click', () => {
         window.location.reload();
-      })
+      });
         // перейти в блок статистики
       const btnStatistik = <HTMLElement>document.querySelector('.btnStatistik');
       btnStatistik.addEventListener('click', () => {
@@ -224,14 +225,15 @@ let dragAndDrop = () => {
         const containerStatistic = document.createElement('div');
         bgResult.remove();
         const blockStatistic = `
+        <button class="close">X</button>
         <h2 class="statisticsName">STATISTICS QUIZ</h2>
         <table class="tableStatistic">
-          <tr><th>Level</th><th>Score</th></tr> <!--ряд с ячейками заголовков-->
-          <tr><td>1</td><td>${returnPoints1}</td></tr> <!--ряд с ячейками тела таблицы-->
-          <tr><td>2</td><td>${result2}</td></tr> <!--ряд с ячейками тела таблицы-->
-          <tr><td>3</td><td>${result3}</td></tr> <!--ряд с ячейками тела таблицы-->
-          <tr><td>4</td><td>${result4}</td></tr> <!--ряд с ячейками тела таблицы-->
-          <tr><th>Total</th><td>${total_points}</td></tr> <!--ряд с ячейками заголовков-->
+          <tr><th>Level</th><th>Score</th></tr>
+          <tr><td>1</td><td>${returnPoints1}</td></tr>
+          <tr><td>2</td><td>${result2}</td></tr>
+          <tr><td>3</td><td>${result3}</td></tr> 
+          <tr><td>4</td><td>${result4}</td></tr> 
+          <tr><th>Total</th><td>${total_points}</td></tr> 
         </table>
         <div class="wrapperCanvas1">
           <canvas id="myChart1" class="myChart1"></canvas>
@@ -243,6 +245,11 @@ let dragAndDrop = () => {
         containerStatistic.classList.add('containerStatistic');
         containerStatistic.innerHTML = blockStatistic;
         sectionStatistic.append(containerStatistic);
+              // пройти викторину ещё раз
+      let btnCloseStatistic = <HTMLElement>document.querySelector('.close');
+      btnCloseStatistic.addEventListener('click', () => {
+        window.location.reload();
+      });
         const ctx = <HTMLCanvasElement>document.getElementById('myChart1');
         new Chart(ctx, {
           type: 'bar',
@@ -264,7 +271,6 @@ let dragAndDrop = () => {
         });
         const ctx2 = <HTMLCanvasElement>document.getElementById('myChart2');
         new Chart(ctx2, {
-          
             type: 'doughnut',
             data: {
               datasets: [
@@ -282,19 +288,16 @@ let dragAndDrop = () => {
             },
         });
       });
-      
-
-
         //новый вопрос
         let returnPoints1:number;
         let result2:number;
         let result3:number;
         let result4:number;
-    const newLvl = () => {
+    const newLvl =  () => {
         const containerQuizBox = <HTMLDivElement>document.querySelector('.tasks'); 
         const winText = <HTMLElement>document.querySelector('.winText');
         const containerImg =  <HTMLCollectionOf<HTMLDivElement>><unknown>document.querySelectorAll('.containerImg'); 
-        let blocksImg = Array.from(containerImg)
+        let blocksImg = Array.from(containerImg);
           for(let elem of blocksImg){
            elem.remove()
           }
@@ -307,13 +310,11 @@ let dragAndDrop = () => {
             let returnPoints4 = JSON.parse(localStorage.getItem("scoreLevel4") || "")
             let returnPoints3 = JSON.parse(localStorage.getItem("scoreLevel3") || "") 
             result4 = returnPoints4 - returnPoints3;
-                      console.log(result4);
           }
           if(level === 0){
             let serialObj1 = JSON.stringify(total_points);
             localStorage.setItem("scoreLevel1", serialObj1);
             returnPoints1 = JSON.parse(localStorage.getItem("scoreLevel1") || "") 
-                      console.log(returnPoints1);
           }
           if(level === 1){
             let serialObj2 = JSON.stringify(total_points);
@@ -321,7 +322,6 @@ let dragAndDrop = () => {
             let returnPoints2 = JSON.parse(localStorage.getItem("scoreLevel2") || "")
             let returnPoints1 = JSON.parse(localStorage.getItem("scoreLevel1") || "") 
             result2 = returnPoints2 - returnPoints1;
-                      console.log(result2);
           }
           if(level === 2){
             let serialObj3 = JSON.stringify(total_points);
@@ -329,7 +329,6 @@ let dragAndDrop = () => {
             let returnPoints3 = JSON.parse(localStorage.getItem("scoreLevel3") || "")
             let returnPoints2 = JSON.parse(localStorage.getItem("scoreLevel2") || "") 
             result3 = returnPoints3 - returnPoints2
-                      console.log(result3);
           }
           const activLavel = document.querySelectorAll('.liLevel');
           level = level + 1;
@@ -337,15 +336,14 @@ let dragAndDrop = () => {
           activLavel[level - 1].classList.remove('liLevelActiv');
           currentFishName = randomFishName();
           currentFishFoto = randomFishFoto();
-          question();
-          dragAndDrop();
+          fishDiscrip = randomFishDiscription();
+       question();
+       dragAndDrop();
       }
-
     
-  }); 
-   
-
-        return this.container;
+  }; 
+  setTimeout (renderQuiz, 4000);
+        return  this.container;
 
   }
 }

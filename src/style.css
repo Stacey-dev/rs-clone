@@ -150,10 +150,6 @@ a:hover:after {
     text-transform: lowercase;
 }
 
-.header_language::after {
-    content: 'Yay!';
-}
-
 .theme_toggler {
     width: 60px;
     height: 42px;
