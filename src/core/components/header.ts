@@ -100,7 +100,7 @@ class Header extends Component {
         header.style.position = 'fixed';
         header.style.height = '60px';
         header.style.marginTop = '0';
-        header.style.zIndex = '6';
+        header.style.zIndex = '2000';
         header.style.transition = 'all 2s ease';
         box_language.style.display = 'none';
         box_ticket.style.display = 'none';
@@ -114,7 +114,7 @@ class Header extends Component {
       }
     };
 
-    themeToggler.addEventListener('click', (e) => {
+    themeToggler.addEventListener('click', (e: MouseEvent) => {
       const toggler = <HTMLDivElement>e.target;
       const body = <HTMLBodyElement>document.querySelector('body');
 
@@ -130,6 +130,14 @@ class Header extends Component {
       const schedulesContent = <HTMLElement>document.querySelector('.schedules__content');
       const schedulesRightTile = <HTMLElement>document.querySelector('.schedules-tile_right');
       const schedulesTickets = <HTMLElement>document.querySelector('.tickets__wrapper');
+
+      const quizTasks = <HTMLElement>document.querySelector('.tasks');
+      const headerQuizContainer = <HTMLElement>document.querySelector('.containerHeaderQuiz');
+      const btnQuiz = <HTMLElement>document.querySelector('.btnQuiz');
+      const liLevel = <NodeListOf<Element>>document.querySelectorAll('.liLevel');
+      const liLevelActive = <HTMLElement>document.querySelector('.liLevelActiv');
+      const quizBox = <NodeListOf<Element>>document.querySelectorAll('.box');
+      const quizTaskBox = <NodeListOf<Element>>document.querySelectorAll('.task_box');
 
       if (toggler instanceof HTMLDivElement) {
         if (toggler.classList.contains('dark')) {
@@ -149,6 +157,14 @@ class Header extends Component {
               schedulesContent.classList.remove('dark');
               schedulesRightTile.classList.remove('dark');
               schedulesTickets.classList.remove('dark');
+            case PageIds.QuizPage:
+              quizTasks.classList.remove('dark');
+              headerQuizContainer.classList.remove('dark');
+              btnQuiz.classList.remove('dark');
+              liLevel.forEach((item) => item.classList.remove('dark'));
+              liLevelActive.classList.remove('dark');
+              quizBox.forEach((item) => item.classList.remove('dark'));
+              quizTaskBox.forEach((item) => item.classList.remove('dark'));
           }
         } else {
           toggler.classList.add('dark');
@@ -167,6 +183,14 @@ class Header extends Component {
               schedulesContent.classList.add('dark');
               schedulesRightTile.classList.add('dark');
               schedulesTickets.classList.add('dark');
+            case PageIds.QuizPage:
+              quizTasks.classList.add('dark');
+              headerQuizContainer.classList.add('dark');
+              btnQuiz.classList.add('dark');
+              liLevel.forEach((item) => item.classList.add('dark'));
+              liLevelActive.classList.add('dark');
+              quizBox.forEach((item) => item.classList.add('dark'));
+              quizTaskBox.forEach((item) => item.classList.add('dark'));
           }
         }
       }
