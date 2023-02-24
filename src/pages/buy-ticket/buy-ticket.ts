@@ -10,6 +10,9 @@ import AmericanExpr from '../../assets/icons/american-express.svg'
 import Mastercard from '../../assets/icons/mastercard.svg'
 import Visa from '../../assets/icons/visa.png'
 import UnionPay from '../../assets/icons/union-pay.png'
+import { langArr } from "../../utils/dataLang";
+import { data } from "../../utils/dataLang";
+import { langArrBuyTicket } from "../../utils/dataLang";
 
 type Order = {
     name: string | null,
@@ -104,6 +107,18 @@ export class TicketPage extends Page {
 
 
         this.container.append(background, buyingTicketContainer);
+
+
+        //___________________________________________________переключение на другой язык
+        // if (select.value === 'ru') {
+        //     for (let key in langArr) {
+        //         if (this.container.querySelector('.' + key)) {
+        //             this.container.querySelector('.' + key)!.innerHTML = langArr[key as keyof data][select.value as keyof { "ru": string, "en": string }]
+        //         }
+        //     }
+        // }
+        //________________________________________________________________________________
+
         const calendar = <HTMLElement>this.container.querySelector('.selection__calendar');
         const containerForDrawnTickets = <HTMLDivElement>this.container.querySelector('.selection__tickets-container')
 
@@ -124,6 +139,12 @@ export class TicketPage extends Page {
                     child.classList.add('hidden');
                 }
                 selection.getElementsByClassName(`${TicketPage.date}`)[0].classList.remove('hidden');
+                if (select.value === 'ru') {
+                    for (let key in langArrBuyTicket) {
+
+                        this.container.querySelector('.' + key)!.innerHTML = langArrBuyTicket[key as keyof data][select.value as keyof { "ru": string, "en": string }]
+                    }
+                }
 
             } else {
                 console.log("Нету такого");
@@ -135,13 +156,18 @@ export class TicketPage extends Page {
                 otherDayOptionsTickets.classList.add(inputDate.value);
                 selection.append(otherDayOptionsTickets);
 
-                if (select.value === "ru") {
-                    createOptionByuingTicket(ticketsSelectDataRu, otherDayOptionsTickets, makingOrderButt, TicketPage.date, containerForDrawnTickets);
-                } else {
-                    createOptionByuingTicket(ticketsSelectData, otherDayOptionsTickets, makingOrderButt, TicketPage.date, containerForDrawnTickets);
-                }
+                createOptionByuingTicket(ticketsSelectData, otherDayOptionsTickets, makingOrderButt, TicketPage.date, containerForDrawnTickets);
 
+                if (select.value === 'ru') {
+                    for (let key in langArrBuyTicket) {
+
+                        console.log(otherDayOptionsTickets.querySelector('.' + key))
+                        otherDayOptionsTickets.querySelector('.' + key)!.innerHTML = langArrBuyTicket[key as keyof data][select.value as keyof { "ru": string, "en": string }]
+                    }
+                }
             }
+
+
         })
 
         const makingOrderButt = <HTMLButtonElement>this.container.querySelector('.registration__button');
@@ -168,11 +194,15 @@ export class TicketPage extends Page {
             })
         }
 
-        if (select.value === "ru") {
-            createOptionByuingTicket(ticketsSelectDataRu, currentDayOptionsTickets[0], makingOrderButt, TicketPage.date, containerForDrawnTickets);
-        } else {
-            createOptionByuingTicket(ticketsSelectData, currentDayOptionsTickets[0], makingOrderButt, TicketPage.date, containerForDrawnTickets);
-        }
+        createOptionByuingTicket(ticketsSelectData, currentDayOptionsTickets[0], makingOrderButt, TicketPage.date, containerForDrawnTickets);
+
+        // if (select.value === 'ru') {
+        //     for (let key in langArr) {
+        //         if (this.container.querySelector('.' + key)) {
+        //             this.container.querySelector('.' + key)!.innerHTML = langArr[key as keyof data][select.value as keyof { "ru": string, "en": string }]
+        //         }
+        //     }
+        // }
 
         selectionButt.addEventListener('click', () => {
             progress.style.width = "calc(100% / 3)";

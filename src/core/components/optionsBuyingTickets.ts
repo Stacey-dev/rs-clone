@@ -100,7 +100,6 @@ export function createOptionByuingTicket(arr: Tickets[], containerForOptions: HT
                     });
                     drawTicket(containerForTickets, App.orders)
                 }
-                console.log("its", App.orders)
             });
 
             container.append(priceTicket, nameTicket, reduceAmount, amountTickets, increaseAmount);

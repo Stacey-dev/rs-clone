@@ -21,6 +21,7 @@ import { createOptionByuingTicket } from "./optionsBuyingTickets";
 import { ticketsSelectDataRu } from "../../utils/dataTicketsSelection";
 import { ticketsSelectData } from "../../utils/dataTicketsSelection";
 import TicketPage from "../../pages/buy-ticket/buy-ticket";
+import { langArrBuyTicket } from "../../utils/dataLang";
 
 const Buttoms: { id: string, text: string }[] = [
     {
@@ -190,12 +191,17 @@ class Header extends Component {
 
         select.addEventListener('change', () => {
             let textCalend = <HTMLParagraphElement>document.querySelector('.calendar__workHours');
-            console.log(textCalend)
+
             for (let key in langArr) {
                 if (document.querySelector('.' + key)) {
                     document.querySelector('.' + key)!.innerHTML = langArr[key as keyof data][select.value as keyof { "ru": string, "en": string }];
                 }
             }
+
+            for (let key in langArrBuyTicket) {
+                document.querySelectorAll('.' + key).forEach((el) => el!.innerHTML = langArrBuyTicket[key as keyof data][select.value as keyof { "ru": string, "en": string }]);
+            }
+
             const ticketOptions = <HTMLDivElement>document.querySelector('.calendar__options');
             const conditionOptions = <HTMLDivElement>document.querySelector('.conditions__options');
             const freeEntriesOptions = <HTMLDivElement>document.querySelector('.free-entries__options');
