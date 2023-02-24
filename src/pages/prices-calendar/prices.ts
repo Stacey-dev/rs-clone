@@ -15,17 +15,17 @@ import { ticketsDataRu } from "../../utils/dataBuyTicket";
 import { conditionsDataRu } from "../../utils/dataCondition";
 import { freeEntriesDataRu } from "../../utils/dataFreeEntries";
 
-class PricesPage extends Page {
+export class PricesPage extends Page {
     static TextObject = {
         MainTitle: 'Prices Page'
     }
-    currentMonth: number;
-    currentYear: number;
+    static currentMonth: number;
+    static currentYear: number;
 
     constructor(id: string) {
         super(id);
-        this.currentMonth = new Date().getMonth();
-        this.currentYear = new Date().getFullYear();
+        PricesPage.currentMonth = new Date().getMonth();
+        PricesPage.currentYear = new Date().getFullYear();
     }
 
 
@@ -166,29 +166,29 @@ class PricesPage extends Page {
 
         const calendar = <HTMLDivElement>this.container.querySelector('.calendar');
 
-        createCalendarView(calendar, this.currentYear, this.currentMonth);
+        createCalendarView(calendar, PricesPage.currentYear, PricesPage.currentMonth, select.value);
         const calendarCells = <HTMLCollectionOf<Element>>this.container.getElementsByClassName('td__fill');
         highlightCell(calendarCells);
 
         butNext.addEventListener('click', () => {
             calendar.innerHTML = "";
-            this.currentMonth++;
-            if (this.currentMonth > 11) {
-                this.currentMonth = 0;
-                this.currentYear++;
+            PricesPage.currentMonth++;
+            if (PricesPage.currentMonth > 11) {
+                PricesPage.currentMonth = 0;
+                PricesPage.currentYear++;
             }
-            createCalendarView(calendar, this.currentYear, this.currentMonth);
+            createCalendarView(calendar, PricesPage.currentYear, PricesPage.currentMonth, select.value);
             highlightCell(calendarCells);
         })
 
         butPrev.addEventListener('click', () => {
             calendar.innerHTML = "";
-            this.currentMonth--;
-            if (this.currentMonth < 0) {
-                this.currentMonth = 11;
-                this.currentYear--;
+            PricesPage.currentMonth--;
+            if (PricesPage.currentMonth < 0) {
+                PricesPage.currentMonth = 11;
+                PricesPage.currentYear--;
             }
-            createCalendarView(calendar, this.currentYear, this.currentMonth);
+            createCalendarView(calendar, PricesPage.currentYear, PricesPage.currentMonth, select.value);
             highlightCell(calendarCells);
         })
 

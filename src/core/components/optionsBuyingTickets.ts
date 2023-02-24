@@ -1,5 +1,4 @@
 import { Tickets } from "../../utils/dataBuyTicket";
-import { Ticket } from "../../utils/dataBuyTicket";
 import App from "../../pages/app/app";
 import { drawTicket } from "./drawTicket";
 
@@ -19,6 +18,8 @@ export function createOptionByuingTicket(arr: Tickets[], containerForOptions: HT
         for (let elem of ticketsGroup) {
             let amount: number = 0;
 
+
+            title.classList.add(`title-${elem.title.split(' ')[0]}-${arr.indexOf(ticketsGroup)}`);
             title.innerHTML = elem.title;
 
             const container = document.createElement('div');
@@ -34,6 +35,7 @@ export function createOptionByuingTicket(arr: Tickets[], containerForOptions: HT
 
             const nameTicket = document.createElement('div');
             nameTicket.classList.add('selection__ticket-name');
+            nameTicket.classList.add(`ticket-${elem.title.split(' ')[0]}-${arr.indexOf(ticketsGroup)}-${elem.name.split(' ')[0].slice(0, -1)}`);
             nameTicket.innerHTML = elem.name;
 
             const reduceAmount = document.createElement('span');
@@ -101,17 +103,10 @@ export function createOptionByuingTicket(arr: Tickets[], containerForOptions: HT
                 console.log("its", App.orders)
             });
 
-
-
-
             container.append(priceTicket, nameTicket, reduceAmount, amountTickets, increaseAmount);
             containerForOptions.append(container)
         }
 
     }
-
-}
-
-function createTicket(date: string) {
 
 }

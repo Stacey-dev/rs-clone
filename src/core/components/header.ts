@@ -15,6 +15,12 @@ import { schedulesTableData } from "../../utils/schedulesData";
 import { schedulesSaturdayData } from "../../utils/schedulesData";
 import { schedulesTableDataRu } from "../../utils/schedulesData";
 import { schedulesSaturdayDataRu } from "../../utils/schedulesData";
+import PricesPage from "../../pages/prices-calendar/prices";
+import { createCalendarView } from "./create-calendar";
+import { createOptionByuingTicket } from "./optionsBuyingTickets";
+import { ticketsSelectDataRu } from "../../utils/dataTicketsSelection";
+import { ticketsSelectData } from "../../utils/dataTicketsSelection";
+import TicketPage from "../../pages/buy-ticket/buy-ticket";
 
 const Buttoms: { id: string, text: string }[] = [
     {
@@ -183,18 +189,23 @@ class Header extends Component {
         const select = <HTMLSelectElement>this.container.querySelector('.header_language');
 
         select.addEventListener('change', () => {
-
+            let textCalend = <HTMLParagraphElement>document.querySelector('.calendar__workHours');
+            console.log(textCalend)
             for (let key in langArr) {
                 if (document.querySelector('.' + key)) {
-                    console.log(document.querySelector('.' + key));
-                    document.querySelector('.' + key)!.innerHTML = langArr[key as keyof data][select.value as keyof { "ru": string, "en": string }]
+                    document.querySelector('.' + key)!.innerHTML = langArr[key as keyof data][select.value as keyof { "ru": string, "en": string }];
                 }
             }
-
             const ticketOptions = <HTMLDivElement>document.querySelector('.calendar__options');
             const conditionOptions = <HTMLDivElement>document.querySelector('.conditions__options');
             const freeEntriesOptions = <HTMLDivElement>document.querySelector('.free-entries__options');
             const schedulesTable = <HTMLDivElement>document.querySelector('.schedules__table');
+            const calendar = <HTMLDivElement>document.querySelector('.calendar');
+            const currentDayOptionsTickets = <HTMLCollectionOf<HTMLElement>>document.getElementsByClassName(TicketPage.date);
+            const makingOrderButt = <HTMLButtonElement>document.querySelector('.registration__button');
+            const containerForDrawnTickets = <HTMLDivElement>document.querySelector('.selection__tickets-container');
+
+            // createOptionByuingTicket(ticketsSelectDataRu, currentDayOptionsTickets[0], makingOrderButt, TicketPage.date, containerForDrawnTickets);
 
 
 
@@ -221,6 +232,14 @@ class Header extends Component {
                     schedulesTable.innerHTML = "";
                     schedulesTable.append(createSchedulesTable(schedulesSaturdayDataRu));
                 }
+                if (calendar) {
+                    calendar.innerHTML = "";
+                    createCalendarView(calendar, 2023, PricesPage.currentMonth, select.value);
+                }
+                // if (currentDayOptionsTickets) {
+                //     currentDayOptionsTickets[0].innerHTML = "";
+                //     createOptionByuingTicket(ticketsSelectDataRu, currentDayOptionsTickets[0], makingOrderButt, TicketPage.date, containerForDrawnTickets);
+                // }
 
 
             } else {
@@ -246,6 +265,14 @@ class Header extends Component {
                     schedulesTable.innerHTML = "";
                     schedulesTable.append(createSchedulesTable(schedulesSaturdayData));
                 }
+                if (calendar) {
+                    calendar.innerHTML = "";
+                    createCalendarView(calendar, 2023, PricesPage.currentMonth, select.value);
+                }
+                // if (currentDayOptionsTickets) {
+                //     currentDayOptionsTickets[0].innerHTML = "";
+                //     createOptionByuingTicket(ticketsSelectData, currentDayOptionsTickets[0], makingOrderButt, TicketPage.date, containerForDrawnTickets);
+                // }
 
             }
 

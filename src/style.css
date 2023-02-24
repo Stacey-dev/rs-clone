@@ -26,7 +26,7 @@ body {
     width: calc(100% - 0px);
     margin: 0 auto;
     margin-top: 20px;
-   
+
 }
 
 .wrapper {
@@ -38,6 +38,7 @@ body {
     margin-top: 10px;
     z-index: 2005;
 }
+
 .header__nav {
     position: relative;
     font-size: 16px;
@@ -138,6 +139,7 @@ a:hover:after {
     color: white;
     text-transform: lowercase;
     cursor: pointer;
+    font-size: 20px;
 }
 
 .language_en {

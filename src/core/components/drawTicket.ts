@@ -20,7 +20,7 @@ export function drawTicket(containerForTickets: HTMLDivElement, arr: Order[]) {
             month: 'long'
         });
 
-        const dayOfWeekName = new Date(+y, +m - 1, +day).toLocaleDateString('en-US', {
+        const dayOfWeekName = new Date(+y, +m - 1, +day).toLocaleDateString('en', {
             weekday: 'long',
         })
 
