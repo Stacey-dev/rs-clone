@@ -11,9 +11,7 @@ import { conditionsDataRu } from "../../utils/dataCondition";
 import { freeEntriesData } from "../../utils/dataFreeEntries";
 import { freeEntriesDataRu } from "../../utils/dataFreeEntries";
 import { createSchedulesTable } from "./schedulesTable";
-import { schedulesTableData } from "../../utils/schedulesData";
 import { schedulesSaturdayData } from "../../utils/schedulesData";
-import { schedulesTableDataRu } from "../../utils/schedulesData";
 import { schedulesSaturdayDataRu } from "../../utils/schedulesData";
 import PricesPage from "../../pages/prices-calendar/prices";
 import { createCalendarView } from "./create-calendar";
@@ -64,10 +62,14 @@ class Header extends Component {
         pageButtons.classList.add('header__nav')
         Buttoms.forEach((button) => {
             const buttonHTML = document.createElement('a');
-            buttonHTML.href = `#${button.id}`;
             buttonHTML.innerText = button.text;
-            buttonHTML.classList.add(button.id);
-            if (buttonHTML.textContent === "BUY YOUR TICKET") {
+            if (buttonHTML.textContent === "La Ciutat") {
+                buttonHTML.href = "https://www.cac.es/va/home.html";
+            } else {
+                buttonHTML.href = `#${button.id}`;
+            }
+            buttonHTML.classList.add((button.id).split('&')[0]);
+            if (buttonHTML.textContent === "BUY YOUR TICKET" || buttonHTML.textContent === "La Ciutat") {
                 buttonHTML.setAttribute('target', '_blank')
             }
             pageButtons.append(buttonHTML);
@@ -76,14 +78,13 @@ class Header extends Component {
         const language = <HTMLSelectElement>document.createElement('select');
         language.classList.add('header_language');
 
-
         const option_language_en = <HTMLElement>document.createElement('option');
         option_language_en.classList.add('language_en');
-        option_language_en.innerText = "en"
+        option_language_en.innerText = "en";
 
         const option_language_ru = <HTMLElement>document.createElement('option');
         option_language_ru.classList.add('language_ru');
-        option_language_ru.innerText = "ru";
+        option_language_ru.innerText = 'ru';
 
         const themeToggler = <HTMLDivElement>document.createElement('div');
         themeToggler.classList.add('theme_toggler');
@@ -183,8 +184,23 @@ class Header extends Component {
         this.createHeader();
 
         const select = <HTMLSelectElement>this.container.querySelector('.header_language');
+        let langInHash = window.location.hash.slice(1).split('=')[1];
+        if (langInHash) {
+            select.value = langInHash;
+        }
+
+
 
         select.addEventListener('change', () => {
+
+            if (window.location.hash.length !== 0) {
+                let langInHash = window.location.hash.slice(1).split('=')[1];
+                langInHash = select.value;
+                const path = window.location.hash.slice(1).split('=')[0];
+                const url = new URL(window.location.toString());
+                url.hash = path + '=' + langInHash;
+                window.history.pushState({}, '', url);
+            }
 
             for (let key in langArr) {
                 if (document.querySelector('.' + key)) {
@@ -201,7 +217,6 @@ class Header extends Component {
             const freeEntriesOptions = <HTMLDivElement>document.querySelector('.free-entries__options');
             const schedulesTable = <HTMLDivElement>document.querySelector('.schedules__table');
             const calendar = <HTMLDivElement>document.querySelector('.calendar');
-
 
 
             if (select.value === 'ru') {

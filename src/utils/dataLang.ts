@@ -495,3 +495,106 @@ export const langArrBuyTicket: data = {
         "en": "Children, retired people, pensioners and people with functional disabilities"
     }
 }
+
+export const langArrHeaderFooter: data = {
+    "prices-page": {
+        "ru": "Цены",
+        "en": "Prices and Calendar"
+    },
+    "schedules-page": {
+        "ru": "Календарь",
+        "en": "Calendar"
+    },
+    "quiz-page": {
+        "ru": "Викторина",
+        "en": "Quiz"
+    },
+    "ciutat-page": {
+        "ru": "Сьютат",
+        "en": "La Ciutat"
+    },
+    "ticket-page": {
+        "ru": "Купить билет",
+        "en": "Buy your ticket"
+    },
+    "footer__ul-oceanografic": {
+        "ru": "Океанография",
+        "en": "Oceanogràfic"
+    },
+    "footer__li_ocenografic-1": {
+        "ru": "Что такое океанография?",
+        "en": "What is Oceanogràfic?"
+    },
+    "footer__li_ocenografic-2": {
+        "ru": "Места обитания",
+        "en": "Habitats"
+    },
+    "footer__li_ocenografic-3": {
+        "ru": "Животные",
+        "en": "Animals"
+    },
+    "footer__li_ocenografic-4": {
+        "ru": "Сохранение",
+        "en": "Conservation"
+    },
+    "footer__ul-visit": {
+        "ru": "Спланируйте свой визит",
+        "en": "Plan your visit"
+    },
+    "footer__li_visit-1": {
+        "ru": "Карта аквариума",
+        "en": "Aquarium map"
+    },
+    "footer__li_visit-2": {
+        "ru": "Где поесть",
+        "en": "Where to eat"
+    },
+    "footer__li_visit-3": {
+        "ru": "Aquarium today",
+        "en": "Aquarium today"
+    },
+    "footer__li_visit-4": {
+        "ru": "Информация, услуги и рекомендации",
+        "en": "Information, Services and Recommendations"
+    },
+    "footer__li_visit-5": {
+        "ru": "Как сюда добраться?",
+        "en": "How to get here?"
+    },
+    "footer__li_visit-6": {
+        "ru": "Купите свой билет",
+        "en": "Buy your ticket"
+    },
+    "footer__li_visit-7": {
+        "ru": "Ресторан Подводная лодка",
+        "en": "Submarine Restaurant"
+    },
+    "footer__li_visit-8": {
+        "ru": "Исключительное место проведения",
+        "en": "An exceptional venue"
+    },
+    "footer__li_visit-9": {
+        "ru": "Школы",
+        "en": "Schools"
+    },
+    "footer__li_visit-10": {
+        "ru": "Клуб",
+        "en": "The Club"
+    },
+    "footer__li_visit-11": {
+        "ru": "Интернет-магазин",
+        "en": "Online shop"
+    },
+    "footer__li_visit-12": {
+        "ru": "Океанографический фонд",
+        "en": "Oceanogràfic Foundation"
+    },
+    "footer__li_visit-13": {
+        "ru": "Контакт",
+        "en": "Contact"
+    },
+    "footer__subscribe": {
+        "ru": "Подпишитесь на рассылку новостей",
+        "en": "Subscribe to newsletter"
+    }
+}

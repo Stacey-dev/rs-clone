@@ -10,6 +10,7 @@ import { ticketsData } from "../../utils/dataBuyTicket";
 import { conditionsData } from "../../utils/dataCondition";
 import { freeEntriesData } from "../../utils/dataFreeEntries";
 import { langArr } from "../../utils/dataLang";
+import { langArrHeaderFooter } from "../../utils/dataLang";
 import { data } from "../../utils/dataLang";
 import { ticketsDataRu } from "../../utils/dataBuyTicket";
 import { conditionsDataRu } from "../../utils/dataCondition";
@@ -27,11 +28,23 @@ export class PricesPage extends Page {
         super(id);
         PricesPage.currentMonth = new Date().getMonth();
         PricesPage.currentYear = new Date().getFullYear();
+
     }
 
 
     render() {
         const select = <HTMLSelectElement>document.querySelector('.header_language');
+
+        if (select.value === 'ru') {
+            let langInHash = window.location.hash.slice(1).split('=')[1];
+            langInHash = select.value;
+            const path = window.location.hash.slice(1).split('=')[0];
+            const url = new URL(window.location.toString());
+            url.hash = path + '=' + langInHash;
+            window.history.pushState({}, '', url);
+            select.value = "ru"
+        }
+
 
         const content = document.createElement('div');
         content.classList.add('price-calendar__content');
@@ -154,8 +167,13 @@ export class PricesPage extends Page {
                     this.container.querySelector('.' + key)!.innerHTML = langArr[key as keyof data][select.value as keyof { "ru": string, "en": string }]
                 }
             }
+            for (let key in langArrHeaderFooter) {
+                if (document.querySelector('.' + key)) {
+                    document.querySelector('.' + key)!.innerHTML = langArrHeaderFooter[key as keyof data][select.value as keyof { "ru": string, "en": string }];
+                    console.log(document.querySelector('.' + key))
+                }
+            }
         }
-
         //________________________________________________________________________________
 
         const calendarContainer = <HTMLDivElement>this.container.querySelector('.calendar__schedules');
@@ -209,8 +227,6 @@ export class PricesPage extends Page {
 
         if (select.value === 'ru') {
             document.querySelector('title')!.innerHTML = "RS Клон";
-
-
             ticketOptions!.innerHTML = "";
             for (let elem of ticketsDataRu) {
                 ticketOptions!.append(createDropDownListTicket(elem))
@@ -219,8 +235,6 @@ export class PricesPage extends Page {
             conditionOptions.append(createDropDownListCondition(conditionsDataRu));
             freeEntriesOptions.innerHTML = "";
             freeEntriesOptions.append(createDropDownListCondition(freeEntriesDataRu));
-
-
         }
 
         window.addEventListener('load', () => {

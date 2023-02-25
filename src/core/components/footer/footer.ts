@@ -1,5 +1,7 @@
 import Component from '../../templates/components';
 import './index.css';
+import { langArrHeaderFooter } from '../../../utils/dataLang';
+import { data } from '../../../utils/dataLang';
 
 class Footer extends Component {
     constructor(tagName: string, className: string) {
@@ -7,6 +9,8 @@ class Footer extends Component {
     }
 
     createFooter() {
+        const select = <HTMLSelectElement>document.querySelector('.header_language');
+
         const footerContainer: HTMLDivElement = document.createElement('div');
         footerContainer.classList.add('container');
 
@@ -158,6 +162,14 @@ class Footer extends Component {
         footerWrapper.append(footerText);
         footerContainer.append(footerWrapper);
         this.container.append(footerContainer, postFooter);
+        if (select.value === 'ru') {
+            for (let key in langArrHeaderFooter) {
+                if (this.container.querySelector('.' + key)) {
+                    this.container.querySelector('.' + key)!.innerHTML = langArrHeaderFooter[key as keyof data][select.value as keyof { "ru": string, "en": string }];
+
+                }
+            }
+        }
     }
 
     render(): HTMLElement {

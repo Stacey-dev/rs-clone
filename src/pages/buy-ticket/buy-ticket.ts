@@ -12,6 +12,7 @@ import Visa from '../../assets/icons/visa.png'
 import UnionPay from '../../assets/icons/union-pay.png'
 import { data } from "../../utils/dataLang";
 import { langArrBuyTicket } from "../../utils/dataLang";
+import { PageIds } from "../app/app";
 
 type Order = {
     name: string | null,
@@ -34,6 +35,7 @@ export class TicketPage extends Page {
 
     render() {
         const select = <HTMLSelectElement>document.querySelector('.header_language');
+
 
         const background = document.createElement('div');
         background.classList.add('buy-ticket__backg');
@@ -341,7 +343,7 @@ export class TicketPage extends Page {
             canvasContainer.classList.add('hidden');
             const path = window.location.hash.slice(1).split('?')[0];
             const url = new URL(window.location.toString());
-            url.hash = "prices-page";
+            url.hash = select.value === "ru" ? PageIds.PricesPageRu : PageIds.PricesPage;
             window.history.pushState({}, '', url);
             location.reload();
         }

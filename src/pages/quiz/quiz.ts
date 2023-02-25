@@ -3,7 +3,8 @@ import './quiz.css';
 import Chart from 'chart.js/auto';
 import { fishDataRu } from './quiz_BD/BD_animal_ru';
 import fishDataEn from "./quiz_BD/BD_animal_en";
-
+import { langArr } from "../../utils/dataLang";
+import { data } from "../../utils/dataLang";
 
 class QuizPage extends Page {
 
@@ -18,6 +19,17 @@ class QuizPage extends Page {
 
     render() {
         const select = <HTMLSelectElement>document.querySelector('.header_language');
+        if (select.value === 'ru') {
+            let langInHash = window.location.hash.slice(1).split('=')[1];
+            langInHash = select.value;
+            const path = window.location.hash.slice(1).split('=')[0];
+            const url = new URL(window.location.toString());
+            url.hash = path + '=' + langInHash;
+            window.history.pushState({}, '', url);
+            select.value = "ru";
+        }
+
+
 
         //отрисовываем основную часть страницы
         const wrapper_quiz = document.createElement('div');
@@ -57,6 +69,14 @@ class QuizPage extends Page {
       `;
         wrapper_quiz.innerHTML = informationLayout
         this.container.append(wrapper_quiz);
+
+        if (select.value === "ru") {
+            for (let key in langArr) {
+                if (this.container.querySelector('.' + key)) {
+                    this.container.querySelector('.' + key)!.innerHTML = langArr[key as keyof data][select.value as keyof { "ru": string, "en": string }];
+                }
+            }
+        }
 
         //анимация черепахи
         function swimTartuga() {
