@@ -10,7 +10,6 @@ import AmericanExpr from '../../assets/icons/american-express.svg'
 import Mastercard from '../../assets/icons/mastercard.svg'
 import Visa from '../../assets/icons/visa.png'
 import UnionPay from '../../assets/icons/union-pay.png'
-import { langArr } from "../../utils/dataLang";
 import { data } from "../../utils/dataLang";
 import { langArrBuyTicket } from "../../utils/dataLang";
 
@@ -35,6 +34,7 @@ export class TicketPage extends Page {
 
     render() {
         const select = <HTMLSelectElement>document.querySelector('.header_language');
+
         const background = document.createElement('div');
         background.classList.add('buy-ticket__backg');
         const buyingTicketContainer = document.createElement('div');
@@ -108,16 +108,6 @@ export class TicketPage extends Page {
 
         this.container.append(background, buyingTicketContainer);
 
-
-        //___________________________________________________переключение на другой язык
-        // if (select.value === 'ru') {
-        //     for (let key in langArr) {
-        //         if (this.container.querySelector('.' + key)) {
-        //             this.container.querySelector('.' + key)!.innerHTML = langArr[key as keyof data][select.value as keyof { "ru": string, "en": string }]
-        //         }
-        //     }
-        // }
-        //________________________________________________________________________________
 
         const calendar = <HTMLElement>this.container.querySelector('.selection__calendar');
         const containerForDrawnTickets = <HTMLDivElement>this.container.querySelector('.selection__tickets-container')
@@ -196,13 +186,6 @@ export class TicketPage extends Page {
 
         createOptionByuingTicket(ticketsSelectData, currentDayOptionsTickets[0], makingOrderButt, TicketPage.date, containerForDrawnTickets);
 
-        // if (select.value === 'ru') {
-        //     for (let key in langArr) {
-        //         if (this.container.querySelector('.' + key)) {
-        //             this.container.querySelector('.' + key)!.innerHTML = langArr[key as keyof data][select.value as keyof { "ru": string, "en": string }]
-        //         }
-        //     }
-        // }
 
         selectionButt.addEventListener('click', () => {
             progress.style.width = "calc(100% / 3)";

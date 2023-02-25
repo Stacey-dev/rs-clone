@@ -89,6 +89,7 @@ a:after {
     transition: width 0.3s ease-out;
 }
 
+
 a:focus:after,
 a:hover:after {
     width: 100%;

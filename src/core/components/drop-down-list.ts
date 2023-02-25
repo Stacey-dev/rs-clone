@@ -1,7 +1,7 @@
 import { Tickets } from "../../utils/dataBuyTicket";
 import { Ticket } from "../../utils/dataBuyTicket";
-import { Condion } from "../../utils/dataCondition";
 import { Conditions } from "../../utils/dataCondition";
+import { PageIds } from "../../pages/app/app";
 
 export function createDropDownListTicket(arrData: Tickets) {
     const container = document.createElement('div');
@@ -57,7 +57,9 @@ function createListTicket(obj: Ticket): HTMLDivElement {
     priceValue.innerHTML = obj.price;
 
     if (obj.buyOnline) {
-        const ticketButton = document.createElement('button');
+        const ticketButton = document.createElement('a');
+        ticketButton.setAttribute('target', '_blank');
+        ticketButton.href = `#${PageIds.TicketPage}`
         ticketButton.classList.add('option__ticket');
         containerPrice.append(ticketButton, priceValue)
     } else {

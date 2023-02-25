@@ -358,6 +358,30 @@ export const langArr: data = {
     "payment__title": {
         "ru": "Данные платёжной карты",
         "en": "Credit card details"
+    },
+    "quizName": {
+        "ru": "Викторина",
+        "en": "FishQuiz"
+    },
+    "taskDiscription": {
+        "ru": "Расположите фотографии рыб по их названиям в пустых ячейках",
+        "en": "Arrange photos of fish by their names in empty cells"
+    },
+    "btnQuiz": {
+        "ru": "СЛЕДУЮЩИЙ ВОПРОС",
+        "en": "NEXT QUESTION"
+    },
+    "resultText": {
+        "ru": "Результат",
+        "en": "Result"
+    },
+    "btnStatistik": {
+        "ru": "СТАТИСТИКА",
+        "en": "STATISTICS"
+    },
+    "btnMore": {
+        "ru": "ПОПРОБУЙ ЕЩЕ",
+        "en": "TRY AGAIN"
     }
 }
 

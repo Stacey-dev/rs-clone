@@ -14,6 +14,7 @@ import { data } from "../../utils/dataLang";
 import { ticketsDataRu } from "../../utils/dataBuyTicket";
 import { conditionsDataRu } from "../../utils/dataCondition";
 import { freeEntriesDataRu } from "../../utils/dataFreeEntries";
+import { PageIds } from "../app/app";
 
 export class PricesPage extends Page {
     static TextObject = {
@@ -48,7 +49,7 @@ export class PricesPage extends Page {
         const informationLayout: string = `<div class="tickets">
         <div class="tickets__wrapper">
             <h2 class="tickets__header tickets__header_tickets">Tickets</h2>
-            <button class="tickets__button" id="tickets-but">BUY YOUR COMBINED TICKETS</button>
+            <a href=#${PageIds.TicketPage} class="tickets__button" id="tickets-but" target="_blank">BUY YOUR COMBINED TICKETS</a>
             <div class="tickets__calendar block">
                 <div class="calendar__left block_left">
                     <p class="calendar__text price-calendar__text_head">Choose the day of your visit in the calendar to see the Price of the
@@ -75,7 +76,7 @@ export class PricesPage extends Page {
             <div class="experiences block">
                 <div class="experiences__left block_left">
                     <h2 class="tickets__header tickets__header_experiences">Oceanographic Experiences</h2>
-                    <button class="tickets__button experiences-but" id="experiences-but">BUY YOUR EXPERIENCE</button>
+                    <a href=#${PageIds.TicketPage} class="tickets__button experiences-but" id="experiences-but" target="_blank">BUY YOUR EXPERIENCE</a>
                 </div>
                 <div class="experiences__right block_right">
                     <div class="expeirences__options">
