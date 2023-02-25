@@ -92,7 +92,7 @@ img {
   border-radius: 0.5em;
   padding: 10px;
   cursor: move;
-  height: 14vh;
+  height: 8vw;
   width: 8vw;
   z-index: 50;
 }
@@ -263,6 +263,11 @@ img {
   border: 1px solid rgb(53, 52, 52);
   cursor: pointer;
 }
+.wrapperFishDiscription {
+  width: 100%;
+  height: 80px;
+
+}
 .taskDiscription {
   display: grid;
   width: 85%;
@@ -345,4 +350,9 @@ img {
   margin-left: 58.5vw;
   margin-top: -3.5vh;
   cursor: pointer;
+}
+.close:hover{
+  background: linear-gradient(#434148, #7079da); 
+  color: #000;
+  font-weight: 600;
 }
