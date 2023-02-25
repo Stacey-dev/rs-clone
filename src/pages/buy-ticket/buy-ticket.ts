@@ -2,6 +2,7 @@ import Page from "../../core/templates/page";
 import './buy-ticket.css'
 import { createInputCalendar } from "../../core/components/create-calendar-tickets";
 import { createOptionByuingTicket } from "../../core/components/optionsBuyingTickets";
+import { ticketsSelectDataRu } from "../../utils/dataTicketsSelection";
 import { ticketsSelectData } from "../../utils/dataTicketsSelection";
 import { addCardImg } from "../../core/components/addCardImg";
 import CardLogo from '../../assets/icons/card-logo.png';
@@ -9,6 +10,9 @@ import AmericanExpr from '../../assets/icons/american-express.svg'
 import Mastercard from '../../assets/icons/mastercard.svg'
 import Visa from '../../assets/icons/visa.png'
 import UnionPay from '../../assets/icons/union-pay.png'
+import { data } from "../../utils/dataLang";
+import { langArrBuyTicket } from "../../utils/dataLang";
+import { PageIds } from "../app/app";
 
 type Order = {
     name: string | null,
@@ -18,18 +22,20 @@ type Order = {
 
 // export const orders: Order[] = [];
 
-class TicketPage extends Page {
+export class TicketPage extends Page {
     static TextObject = {
         MainTitle: 'Ticket Page'
     }
-    date: string;
+    static date: string;
 
     constructor(id: string) {
         super(id);
-        this.date = `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(new Date().getDate()).padStart(2, '0')}`
+        TicketPage.date = `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(new Date().getDate()).padStart(2, '0')}`
     }
 
     render() {
+        const select = <HTMLSelectElement>document.querySelector('.header_language');
+
 
         const background = document.createElement('div');
         background.classList.add('buy-ticket__backg');
@@ -48,26 +54,26 @@ class TicketPage extends Page {
                 </div>
                 <div class="selection__warning">Select your entry time for Oceanogràfic València. You can enter Oceanogràfic València from the time selected.</div>
                 <div class="selection">
-                    <div class=${this.date}></div>
+                    <div class=${TicketPage.date}></div>
                 </div>
                 <div class="selection__tickets-container"></div>
             </div>
             <div class="tickets__registration hidden">
 
             <div class="registration__input-container">
-              <label class="registration__label" for="name">Enter your name</label>
+              <label class="registration__label label_name" for="name">Enter your name</label>
               <input class="registration__input" type="text" id="name" required minlength="2" maxlength="20" pattern="[a-zA-ZА-Яа-яЁё]+">
             </div>
             <div class="registration__input-container">
-              <label class="registration__label" for="surname">Enter your surname</label>
+              <label class="registration__label label_surname" for="surname">Enter your surname</label>
               <input class="registration__input" type="text" id="surname" required minlength="2" maxlength="20" pattern="[a-zA-ZА-Яа-яЁё]+">
             </div>
             <div class="registration__input-container">
-                <label class="registration__label" for="phone">Enter your phone</label>
+                <label class="registration__label label_phone" for="phone">Enter your phone</label>
                 <input class="registration__input" type="tel" id="phone" required pattern="[+][0-9]{3}[0-9]{2}[0-9]{7}" placeholder="+375291234567">
             </div>
             <div class="registration__input-container">
-              <label class="registration__label" for="t2">Enter your e-mail address</label>
+              <label class="registration__label label_e-mail" for="t2">Enter your e-mail address</label>
               <input class="registration__input" type="email" id="t2" name="email" required>
             </div>
 
@@ -76,17 +82,17 @@ class TicketPage extends Page {
                 <p class="payment__title">Credit card details</p>
                 <div class="payment__card-form">
                     <div class="payment__input-container">
-                        <label for="ccn" class="payment__label">Credit Card Number:</label>
+                        <label for="ccn" class="payment__label label_card-number">Credit Card Number:</label>
                         <input id="ccn" class="ccn payment__input" type="tel" inputmode="numeric" pattern="[0-9\s]{4}[ ][0-9\s]{4}[ ][0-9\s]{4}[ ][0-9\s]{4}" autocomplete="cc-number" maxlength="19" required placeholder="xxxx xxxx xxxx xxxx">
                         <div class="payment__container-card-img">
                         </div>
                     </div>
                     <div class="payment__input-container">
-                        <label for="valid" class="payment__label">Valid</label>
+                        <label for="valid" class="payment__label label_valid">Valid:</label>
                         <input id="valid" class="valid payment__input" type="tel" inputmode="numeric" pattern="[0-9\s]{2}[/][0-9\s]{2}" autocomplete="cc-number" required maxlength="5" placeholder="Valid Thru">
                     </div>
                     <div class="payment__input-container">
-                        <label for="cvv" class="payment__label">CVV:</label>
+                        <label for="cvv" class="payment__label label_cvv">CVV:</label>
                         <input id="cvv" class="cvv  payment__input" type="tel" inputmode="numeric" pattern="[0-9\s]{3}" autocomplete="cc-number" maxlength="3" required placeholder="Code">
                     </div>
                     <div class="payment__complete-container">
@@ -103,26 +109,34 @@ class TicketPage extends Page {
 
 
         this.container.append(background, buyingTicketContainer);
+
+
         const calendar = <HTMLElement>this.container.querySelector('.selection__calendar');
         const containerForDrawnTickets = <HTMLDivElement>this.container.querySelector('.selection__tickets-container')
 
 
         const selection = <HTMLElement>this.container.querySelector('.selection');
-        const currentDayOptionsTickets = <HTMLCollectionOf<HTMLElement>>this.container.getElementsByClassName(this.date);
+        const currentDayOptionsTickets = <HTMLCollectionOf<HTMLElement>>this.container.getElementsByClassName(TicketPage.date);
 
         createInputCalendar(calendar);
 
         const inputDate = <HTMLInputElement>this.container.querySelector('.selection__tickets-date');
 
         inputDate.addEventListener('input', () => {
-            this.date = inputDate.value;
+            TicketPage.date = inputDate.value;
 
-            if (selection.getElementsByClassName(`${this.date}`)[0]) {
+            if (selection.getElementsByClassName(`${TicketPage.date}`)[0]) {
                 console.log("Есть такой")
                 for (let child of selection.children) {
                     child.classList.add('hidden');
                 }
-                selection.getElementsByClassName(`${this.date}`)[0].classList.remove('hidden');
+                selection.getElementsByClassName(`${TicketPage.date}`)[0].classList.remove('hidden');
+                if (select.value === 'ru') {
+                    for (let key in langArrBuyTicket) {
+
+                        this.container.querySelector('.' + key)!.innerHTML = langArrBuyTicket[key as keyof data][select.value as keyof { "ru": string, "en": string }]
+                    }
+                }
 
             } else {
                 console.log("Нету такого");
@@ -134,8 +148,18 @@ class TicketPage extends Page {
                 otherDayOptionsTickets.classList.add(inputDate.value);
                 selection.append(otherDayOptionsTickets);
 
-                createOptionByuingTicket(ticketsSelectData, otherDayOptionsTickets, makingOrderButt, this.date, containerForDrawnTickets);
+                createOptionByuingTicket(ticketsSelectData, otherDayOptionsTickets, makingOrderButt, TicketPage.date, containerForDrawnTickets);
+
+                if (select.value === 'ru') {
+                    for (let key in langArrBuyTicket) {
+
+                        console.log(otherDayOptionsTickets.querySelector('.' + key))
+                        otherDayOptionsTickets.querySelector('.' + key)!.innerHTML = langArrBuyTicket[key as keyof data][select.value as keyof { "ru": string, "en": string }]
+                    }
+                }
             }
+
+
         })
 
         const makingOrderButt = <HTMLButtonElement>this.container.querySelector('.registration__button');
@@ -162,7 +186,8 @@ class TicketPage extends Page {
             })
         }
 
-        createOptionByuingTicket(ticketsSelectData, currentDayOptionsTickets[0], makingOrderButt, this.date, containerForDrawnTickets);
+        createOptionByuingTicket(ticketsSelectData, currentDayOptionsTickets[0], makingOrderButt, TicketPage.date, containerForDrawnTickets);
+
 
         selectionButt.addEventListener('click', () => {
             progress.style.width = "calc(100% / 3)";
@@ -318,7 +343,7 @@ class TicketPage extends Page {
             canvasContainer.classList.add('hidden');
             const path = window.location.hash.slice(1).split('?')[0];
             const url = new URL(window.location.toString());
-            url.hash = "prices-page";
+            url.hash = select.value === "ru" ? PageIds.PricesPageRu : PageIds.PricesPage;
             window.history.pushState({}, '', url);
             location.reload();
         }

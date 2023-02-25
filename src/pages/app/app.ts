@@ -12,11 +12,15 @@ import Footer from "../../core/components/footer/footer";
 import Main from '../../core/components/main';
 
 export const enum PageIds {
-    PricesPage = 'prices-page',
-    SchedulesPage = 'schedules-page',
-    QuizPage = 'quiz-page',
-    CiutatPage = 'ciutat-page',
-    TicketPage = 'ticket-page',
+    PricesPage = 'prices-page&lang=en',
+    PricesPageRu = 'prices-page&lang=ru',
+    SchedulesPage = 'schedules-page&lang=en',
+    SchedulesPageRu = 'schedules-page&lang=ru',
+    QuizPage = 'quiz-page&lang=en',
+    QuizPageRu = 'quiz-page&lang=ru',
+    CiutatPage = 'ciutat-page&lang=en',
+    TicketPage = 'ticket-page&lang=en',
+    TicketPageRu = 'ticket-page&lang=ru',
     ErrorPage = 'error-page'
 }
 export type Order = {
@@ -35,6 +39,7 @@ class App {
     static main: Main;
     static orders: Order[] = [];
 
+
     static renderNewPage(idPage: string): void {
         const currentPageHTML: Element | null = document.querySelector(`#${App.defaultPageId}`);
         if (currentPageHTML) {
@@ -47,15 +52,15 @@ class App {
         const path: string = splittedHash[0];
 
 
-        if (idPage === PageIds.PricesPage || path === '' || path.includes(PageIds.PricesPage)) {
+        if (idPage === PageIds.PricesPage || path === '' || path.includes(PageIds.PricesPage) || path.includes(PageIds.PricesPageRu)) {
             page = new PricesPage(idPage);
-        } else if (idPage === PageIds.SchedulesPage || path.includes(PageIds.SchedulesPage)) {
+        } else if (idPage === PageIds.SchedulesPage || path.includes(PageIds.SchedulesPage) || path.includes(PageIds.SchedulesPageRu)) {
             page = new SchedulesPage(idPage);
-        } else if (path.includes(PageIds.QuizPage) || path.includes(PageIds.QuizPage)) {
+        } else if (path.includes(PageIds.QuizPage) || path.includes(PageIds.QuizPageRu)) {
             page = new QuizPage(idPage);
-        } else if (path.includes(PageIds.CiutatPage) || path.includes(PageIds.CiutatPage)) {
+        } else if (path.includes(PageIds.CiutatPage)) {
             page = new CiutatPage(idPage);
-        } else if (path.includes(PageIds.TicketPage) || path.includes(PageIds.TicketPage)) {
+        } else if (path.includes(PageIds.TicketPage) || path.includes(PageIds.TicketPageRu)) {
             page = new TicketPage(idPage);
         } else {
             page = new ErrorPage(idPage, ErrorTypes.Error_404);

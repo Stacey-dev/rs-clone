@@ -25,6 +25,18 @@ class SchedulesPage extends Page {
 
     render() {
         const select = <HTMLSelectElement>document.querySelector('.header_language');
+        if (select.value === 'ru') {
+            let langInHash = window.location.hash.slice(1).split('=')[1];
+            langInHash = select.value;
+            const path = window.location.hash.slice(1).split('=')[0];
+            console.log(path)
+            const url = new URL(window.location.toString());
+            url.hash = path + '=' + langInHash;
+            window.history.pushState({}, '', url);
+            select.value = "ru"
+        }
+
+
         const saturdays = getAllSaturdays();
 
         const content = document.createElement('div');
