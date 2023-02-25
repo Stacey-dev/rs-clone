@@ -17,34 +17,31 @@ import PricesPage from "../../pages/prices-calendar/prices";
 import { createCalendarView } from "./create-calendar";
 import { langArrBuyTicket } from "../../utils/dataLang";
 
-const Buttoms: { id: string, text: string }[] = [
+const Buttoms: { id: string; text: string }[] = [
     {
         id: PageIds.PricesPage,
-        text: 'Prices and Calendar'
+        text: 'Prices and Calendar',
     },
     {
         id: PageIds.SchedulesPage,
-        text: 'Schedules'
+        text: 'Schedules',
     },
     {
         id: PageIds.QuizPage,
-        text: 'Quiz'
+        text: 'Quiz',
     },
     {
         id: PageIds.CiutatPage,
-        text: 'La Ciutat'
+        text: 'La Ciutat',
     },
     {
         id: PageIds.TicketPage,
-        text: 'BUY YOUR TICKET'
+        text: 'BUY YOUR TICKET',
     },
-
-]
+];
 class Header extends Component {
-
     constructor(tagName: string, className: string) {
-        super(tagName, className)
-
+        super(tagName, className);
     }
 
     createHeader() {
@@ -94,10 +91,8 @@ class Header extends Component {
         headerContainer.append(headerWrapper);
         this.container.append(headerContainer);
 
-
         window.onscroll = function () {
             let scrolled: number;
-
             scrolled = window.pageYOffset || document.documentElement.scrollTop;
             const header = <HTMLElement>document.querySelector('.container');
             const box_language = <HTMLElement>document.querySelector('.header_language');
@@ -123,7 +118,7 @@ class Header extends Component {
             }
         };
 
-        themeToggler.addEventListener('click', (e) => {
+        themeToggler.addEventListener('click', (e: MouseEvent) => {
             const toggler = <HTMLDivElement>e.target;
             const body = <HTMLBodyElement>document.querySelector('body');
 
@@ -140,12 +135,21 @@ class Header extends Component {
             const schedulesRightTile = <HTMLElement>document.querySelector('.schedules-tile_right');
             const schedulesTickets = <HTMLElement>document.querySelector('.tickets__wrapper');
 
+            const quizTasks = <HTMLElement>document.querySelector('.tasks');
+            const headerQuizContainer = <HTMLElement>document.querySelector('.containerHeaderQuiz');
+            const btnQuiz = <HTMLElement>document.querySelector('.btnQuiz');
+            const liLevel = <NodeListOf<Element>>document.querySelectorAll('.liLevel');
+            const liLevelActive = <HTMLElement>document.querySelector('.liLevelActiv');
+            const quizBox = <NodeListOf<Element>>document.querySelectorAll('.box');
+            const quizTaskBox = <NodeListOf<Element>>document.querySelectorAll('.task_box');
+
             if (toggler instanceof HTMLDivElement) {
                 if (toggler.classList.contains('dark')) {
                     toggler.classList.remove('dark');
                     body.style.backgroundColor = 'transparent';
                     switch (currentPageHash) {
                         case PageIds.PricesPage:
+                        case '':
                             information.classList.remove('dark');
                             pricesRightTile.classList.remove('dark');
                             tickets.classList.remove('dark');
@@ -157,12 +161,21 @@ class Header extends Component {
                             schedulesContent.classList.remove('dark');
                             schedulesRightTile.classList.remove('dark');
                             schedulesTickets.classList.remove('dark');
+                        case PageIds.QuizPage:
+                            quizTasks.classList.remove('dark');
+                            headerQuizContainer.classList.remove('dark');
+                            btnQuiz.classList.remove('dark');
+                            liLevel.forEach((item) => item.classList.remove('dark'));
+                            liLevelActive.classList.remove('dark');
+                            quizBox.forEach((item) => item.classList.remove('dark'));
+                            quizTaskBox.forEach((item) => item.classList.remove('dark'));
                     }
                 } else {
                     toggler.classList.add('dark');
                     body.style.backgroundColor = '#102f43';
                     switch (currentPageHash) {
                         case PageIds.PricesPage:
+                        case '':
                             information.classList.add('dark');
                             pricesRightTile.classList.add('dark');
                             tickets.classList.add('dark');
@@ -174,6 +187,14 @@ class Header extends Component {
                             schedulesContent.classList.add('dark');
                             schedulesRightTile.classList.add('dark');
                             schedulesTickets.classList.add('dark');
+                        case PageIds.QuizPage:
+                            quizTasks.classList.add('dark');
+                            headerQuizContainer.classList.add('dark');
+                            btnQuiz.classList.add('dark');
+                            liLevel.forEach((item) => item.classList.add('dark'));
+                            liLevelActive.classList.add('dark');
+                            quizBox.forEach((item) => item.classList.add('dark'));
+                            quizTaskBox.forEach((item) => item.classList.add('dark'));
                     }
                 }
             }
@@ -220,17 +241,17 @@ class Header extends Component {
 
 
             if (select.value === 'ru') {
-                document.querySelector('title')!.innerHTML = "RS Клон";
+                document.querySelector('title')!.innerHTML = 'RS Клон';
 
                 if (ticketOptions) {
-                    ticketOptions!.innerHTML = "";
+                    ticketOptions!.innerHTML = '';
                     for (let elem of ticketsDataRu) {
-                        ticketOptions!.append(createDropDownListTicket(elem))
+                        ticketOptions!.append(createDropDownListTicket(elem));
                     }
                 }
 
                 if (conditionOptions) {
-                    conditionOptions.innerHTML = "";
+                    conditionOptions.innerHTML = '';
                     conditionOptions.append(createDropDownListCondition(conditionsDataRu));
                 }
 
@@ -252,14 +273,14 @@ class Header extends Component {
                 document.querySelector('title')!.innerHTML = "RS Clone";
 
                 if (ticketOptions) {
-                    ticketOptions!.innerHTML = "";
+                    ticketOptions!.innerHTML = '';
                     for (let elem of ticketsData) {
-                        ticketOptions!.append(createDropDownListTicket(elem))
+                        ticketOptions!.append(createDropDownListTicket(elem));
                     }
                 }
 
                 if (conditionOptions) {
-                    conditionOptions.innerHTML = "";
+                    conditionOptions.innerHTML = '';
                     conditionOptions.append(createDropDownListCondition(conditionsData));
                 }
 
@@ -281,8 +302,6 @@ class Header extends Component {
         })
 
         return this.container;
-
-
     }
 }
 
