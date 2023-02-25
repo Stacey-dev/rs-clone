@@ -149,6 +149,7 @@ class Header extends Component {
                     body.style.backgroundColor = 'transparent';
                     switch (currentPageHash) {
                         case PageIds.PricesPage:
+                        case PageIds.PricesPageRu:
                         case '':
                             information.classList.remove('dark');
                             pricesRightTile.classList.remove('dark');
@@ -158,10 +159,12 @@ class Header extends Component {
                             freeEntries.classList.remove('dark');
                             break;
                         case PageIds.SchedulesPage:
+                        case PageIds.SchedulesPageRu:
                             schedulesContent.classList.remove('dark');
                             schedulesRightTile.classList.remove('dark');
                             schedulesTickets.classList.remove('dark');
                         case PageIds.QuizPage:
+                        case PageIds.QuizPageRu:
                             quizTasks.classList.remove('dark');
                             headerQuizContainer.classList.remove('dark');
                             btnQuiz.classList.remove('dark');
@@ -175,6 +178,7 @@ class Header extends Component {
                     body.style.backgroundColor = '#102f43';
                     switch (currentPageHash) {
                         case PageIds.PricesPage:
+                        case PageIds.PricesPageRu:
                         case '':
                             information.classList.add('dark');
                             pricesRightTile.classList.add('dark');
@@ -184,10 +188,12 @@ class Header extends Component {
                             freeEntries.classList.add('dark');
                             break;
                         case PageIds.SchedulesPage:
+                        case PageIds.SchedulesPageRu:
                             schedulesContent.classList.add('dark');
                             schedulesRightTile.classList.add('dark');
                             schedulesTickets.classList.add('dark');
                         case PageIds.QuizPage:
+                        case PageIds.QuizPageRu:
                             quizTasks.classList.add('dark');
                             headerQuizContainer.classList.add('dark');
                             btnQuiz.classList.add('dark');
