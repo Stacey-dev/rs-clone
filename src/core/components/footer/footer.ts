@@ -1,66 +1,70 @@
 import Component from '../../templates/components';
 import './index.css';
+import { langArrHeaderFooter } from '../../../utils/dataLang';
+import { data } from '../../../utils/dataLang';
 
 class Footer extends Component {
-  constructor(tagName: string, className: string) {
-    super(tagName, className);
-  }
+    constructor(tagName: string, className: string) {
+        super(tagName, className);
+    }
 
-  createFooter() {
-    const footerContainer: HTMLDivElement = document.createElement('div');
-    footerContainer.classList.add('container');
+    createFooter() {
+        const select = <HTMLSelectElement>document.querySelector('.header_language');
 
-    const footerWrapper: HTMLDivElement = document.createElement('div');
-    footerWrapper.classList.add('footer__wrapper');
+        const footerContainer: HTMLDivElement = document.createElement('div');
+        footerContainer.classList.add('container');
 
-    const footerText: HTMLDivElement = document.createElement('div');
-    footerText.classList.add('footer_row');
+        const footerWrapper: HTMLDivElement = document.createElement('div');
+        footerWrapper.classList.add('footer__wrapper');
 
-    footerText.innerHTML = `
+        const footerText: HTMLDivElement = document.createElement('div');
+        footerText.classList.add('footer_row');
+
+        footerText.innerHTML = `
     <div class="footer_col">
       <div class="menu-footer-1-en-container">
         <ul id="menu-footer-1-en" class="footer-nav">
           <li id="menu-item-21829" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-21829">
-            <a>Oceanogràfic</a>
+            <a class="footer__ul-oceanografic">Oceanogràfic</a>
             <ul class="sub-menu">
-              <li id="menu-item-21830" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21830"><a href="https://www.oceanografic.org/en/what-is-oceanografic/">What is Oceanogràfic?</a></li>
-              <li id="menu-item-21907" class="menu-item menu-item-type-post_type_archive menu-item-object-habitats menu-item-21907"><a href="https://www.oceanografic.org/en/habitats/">Habitats</a></li>
-              <li id="menu-item-21908" class="menu-item menu-item-type-post_type_archive menu-item-object-especie menu-item-21908"><a href="https://www.oceanografic.org/en/animales/">Animals</a></li>
-              <li id="menu-item-21832" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21832"><a href="https://www.oceanografic.org/en/fundacion/conservacion/">Conservation</a></li>
+              <li id="menu-item-21830" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21830"><a class="footer__li_ocenografic-1" href="https://www.oceanografic.org/en/what-is-oceanografic/">What is Oceanogràfic?</a></li>
+              <li id="menu-item-21907" class="menu-item menu-item-type-post_type_archive menu-item-object-habitats menu-item-21907"><a class="footer__li_ocenografic-2" href="https://www.oceanografic.org/en/habitats/">Habitats</a></li>
+              <li id="menu-item-21908" class="menu-item menu-item-type-post_type_archive menu-item-object-especie menu-item-21908"><a class="footer__li_ocenografic-3" href="https://www.oceanografic.org/en/animales/">Animals</a></li>
+              <li id="menu-item-21832" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21832"><a class="footer__li_ocenografic-4" href="https://www.oceanografic.org/en/fundacion/conservacion/">Conservation</a></li>
             </ul>
           </li>
         </ul>
-      </div>      
+      </div>
     </div>
   <div class="footer_col">
     <div class="menu-footer-2-en-container"><ul id="menu-footer-2-en" class="footer-nav">
         <li id="menu-item-21839" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-21839">
-        <a>Plan your visit</a>
+        <a class="footer__ul-visit">Plan your visit</a>
           <ul class="sub-menu">
-	          <li id="menu-item-21841" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21841"><a href="https://www.oceanografic.org/en/planifica-tu-visita/plano-del-parque/">Aquarium map</a></li>
-	          <li id="menu-item-21842" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21842"><a href="https://www.oceanografic.org/en/planifica-tu-visita/restauracion-y-tiendas/">Where to eat</a></li>
-	          <li id="menu-item-21843" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21843"><a href="https://www.oceanografic.org/en/planifica-tu-visita/hoy-en-el-acuario/">Aquarium today</a></li>
-	          <li id="menu-item-21844" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21844"><a href="https://www.oceanografic.org/en/faq/">Information, Services and Recommendations</a></li>
-	          <li id="menu-item-21845" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21845"><a href="https://www.oceanografic.org/en/planifica-tu-visita/how-to-get-here/">How to get here?</a></li>
-	          <li id="menu-item-21846" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21846"><a href="https://www.oceanografic.org/en/tickets/">Buy your ticket</a></li>
+	          <li id="menu-item-21841" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21841"><a class="footer__li_visit-1" href="https://www.oceanografic.org/en/planifica-tu-visita/plano-del-parque/">Aquarium map</a></li>
+	          <li id="menu-item-21842" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21842"><a class="footer__li_visit-2" href="https://www.oceanografic.org/en/planifica-tu-visita/restauracion-y-tiendas/">Where to eat</a></li>
+	          <li id="menu-item-21843" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21843"><a class="footer__li_visit-3" href="https://www.oceanografic.org/en/planifica-tu-visita/hoy-en-el-acuario/">Aquarium today</a></li>
+	          <li id="menu-item-21844" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21844"><a class="footer__li_visit-4" href="https://www.oceanografic.org/en/faq/">Information, Services and Recommendations</a></li>
+	          <li id="menu-item-21845" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21845"><a class="footer__li_visit-5" href="https://www.oceanografic.org/en/planifica-tu-visita/how-to-get-here/">How to get here?</a></li>
+	          <li id="menu-item-21846" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21846"><a class="footer__li_visit-6" href="https://www.oceanografic.org/en/tickets/">Buy your ticket</a></li>
           </ul>
         </li>
       </ul>
-    </div>      
+    </div>
   </div>
   <div class="footer_col">
-        <div class="menu-footer-3-en-container"><ul id="menu-footer-3-en" class="footer-nav"><li id="menu-item-21855" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21855"><a href="https://www.oceanografic.org/en/restaurante-submarino/">Submarine Restaurant</a></li>
-        <li id="menu-item-21856" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21856"><a href="https://www.oceanografic.org/en/events-2/">An exceptional venue</a></li>
-        <li id="menu-item-21857" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21857"><a href="https://www.oceanografic.org/en/escolares/">Schools</a></li>
-        <li id="menu-item-21858" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21858"><a href="https://www.oceanografic.org/en/?page_id=21759">The Club</a></li>
-        <li id="menu-item-21859" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-21859"><a target="_blank" rel="noopener" href="https://www.oceanografic.org/shoponline">Online shop</a></li>
-        <li id="menu-item-21861" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-21749 current_page_item menu-item-21861"><a href="https://www.oceanografic.org/en/fundacion/" aria-current="page">Oceanogràfic Foundation</a></li>
-        <li id="menu-item-21862" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21862"><a href="https://www.oceanografic.org/en/contacto/">Contact</a></li>
+        <div class="menu-footer-3-en-container"><ul id="menu-footer-3-en" class="footer-nav"><li id="menu-item-21855" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21855"><a class="footer__li_visit-7" href="https://www.oceanografic.org/en/restaurante-submarino/">Submarine Restaurant</a></li>
+        <li id="menu-item-21856" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21856"><a class="footer__li_visit-8" href="https://www.oceanografic.org/en/events-2/">An exceptional venue</a></li>
+        <li id="menu-item-21857" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21857"><a class="footer__li_visit-9" href="https://www.oceanografic.org/en/escolares/">Schools</a></li>
+        <li id="menu-item-21858" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21858"><a class="footer__li_visit-10" href="https://www.oceanografic.org/en/?page_id=21759">The Club</a></li>
+        <li id="menu-item-21859" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-21859"><a target="_blank" rel="noopener" class="footer__li_visit-11" href="https://www.oceanografic.org/shoponline">Online shop</a></li>
+        <li id="menu-item-21861" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-21749 current_page_item menu-item-21861"><a class="footer__li_visit-12" href="https://www.oceanografic.org/en/fundacion/" aria-current="page">Oceanogràfic Foundation</a></li>
+        <li id="menu-item-21862" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21862"><a class="footer__li_visit-13" href="https://www.oceanografic.org/en/contacto/">Contact</a></li>
       </ul>
-    </div>      
+    </div>
   </div>
   <div class="footer_col">
-        <a class="btn btn-footer" href="http://eepurl.com/cNd1uD" target="_blank">Subscribe to newsletter</a>
+        <a class="btn btn-footer footer__subscribe" href="http://eepurl.com/cNd1uD" target="_blank">Subscribe to newsletter</a>
         <a class="btn btn-footer nowrap" href="tel:+34960470647">
           <svg class="svg-inline--fa fa-phone fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="phone" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"></path></svg><!-- <i class="fas fa-phone"></i> --> 960 470 647</a>
         <div class="social-container">
@@ -132,13 +136,13 @@ class Footer extends Component {
                 </a>
               </div>
             </div>
-        </div>     
-      </div>      
+        </div>
+      </div>
     </div>`;
 
-    const postFooter: HTMLDivElement = document.createElement('div');
-    postFooter.classList.add('post-footer');
-    postFooter.innerHTML = `<div class="post-footer__wrapper">
+        const postFooter: HTMLDivElement = document.createElement('div');
+        postFooter.classList.add('post-footer');
+        postFooter.innerHTML = `<div class="post-footer__wrapper">
     <div class="item-post-footer">
       2023 ©
       |
@@ -155,15 +159,23 @@ class Footer extends Component {
         </a>
     </div>`;
 
-    footerWrapper.append(footerText);
-    footerContainer.append(footerWrapper);
-    this.container.append(footerContainer, postFooter);
-  }
+        footerWrapper.append(footerText);
+        footerContainer.append(footerWrapper);
+        this.container.append(footerContainer, postFooter);
+        if (select.value === 'ru') {
+            for (let key in langArrHeaderFooter) {
+                if (this.container.querySelector('.' + key)) {
+                    this.container.querySelector('.' + key)!.innerHTML = langArrHeaderFooter[key as keyof data][select.value as keyof { "ru": string, "en": string }];
 
-  render(): HTMLElement {
-    this.createFooter();
-    return this.container;
-  }
+                }
+            }
+        }
+    }
+
+    render(): HTMLElement {
+        this.createFooter();
+        return this.container;
+    }
 }
 
 export default Footer;

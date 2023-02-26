@@ -125,7 +125,19 @@
     transition: all 0.2s ease;
     z-index: 2;
     transform: scale(0.9);
+    background-color: transparent;
 }
+
+.tickets__button:focus::after,
+.tickets__button:hover::after {
+    width: 30px;
+}
+
+.tickets__button:hover {
+    background-color: #dbc364cd;
+}
+
+
 
 .block {
     display: flex;
@@ -379,6 +391,16 @@ td:hover {
     transition: all 0.2s ease;
     z-index: 2;
     transform: scale(0.9);
+    background-color: transparent;
+}
+
+.option__ticket:focus::after,
+.option__ticket:hover::after {
+    width: 30px;
+}
+
+.option__ticket:hover {
+    background-color: #dbc364cd;
 }
 
 .oceanographic-experiences {

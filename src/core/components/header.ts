@@ -11,10 +11,11 @@ import { conditionsDataRu } from '../../utils/dataCondition';
 import { freeEntriesData } from '../../utils/dataFreeEntries';
 import { freeEntriesDataRu } from '../../utils/dataFreeEntries';
 import { createSchedulesTable } from './schedulesTable';
-import { schedulesTableData } from '../../utils/schedulesData';
 import { schedulesSaturdayData } from '../../utils/schedulesData';
-import { schedulesTableDataRu } from '../../utils/schedulesData';
 import { schedulesSaturdayDataRu } from '../../utils/schedulesData';
+import PricesPage from '../../pages/prices-calendar/prices';
+import { createCalendarView } from './create-calendar';
+import { langArrBuyTicket } from '../../utils/dataLang';
 
 const Buttoms: { id: string; text: string }[] = [
   {
@@ -58,13 +59,16 @@ class Header extends Component {
     pageButtons.classList.add('header__nav');
     Buttoms.forEach((button) => {
       const buttonHTML = document.createElement('a');
-      buttonHTML.href = `#${button.id}`;
       buttonHTML.innerText = button.text;
-      buttonHTML.classList.add(button.id);
-      if (buttonHTML.textContent === 'BUY YOUR TICKET') {
+      if (buttonHTML.textContent === 'La Ciutat') {
+        buttonHTML.href = 'https://www.cac.es/va/home.html';
+      } else {
+        buttonHTML.href = `#${button.id}`;
+      }
+      buttonHTML.classList.add(button.id.split('&')[0]);
+      if (buttonHTML.textContent === 'BUY YOUR TICKET' || buttonHTML.textContent === 'La Ciutat') {
         buttonHTML.setAttribute('target', '_blank');
       }
-
       pageButtons.append(buttonHTML);
     });
 
@@ -121,7 +125,7 @@ class Header extends Component {
       }
     };
 
-    themeToggler.addEventListener('click', (e) => {
+    themeToggler.addEventListener('click', (e: MouseEvent) => {
       const toggler = <HTMLDivElement>e.target;
       const body = <HTMLBodyElement>document.querySelector('body');
 
@@ -138,12 +142,22 @@ class Header extends Component {
       const schedulesRightTile = <HTMLElement>document.querySelector('.schedules-tile_right');
       const schedulesTickets = <HTMLElement>document.querySelector('.tickets__wrapper');
 
+      const quizTasks = <HTMLElement>document.querySelector('.tasks');
+      const headerQuizContainer = <HTMLElement>document.querySelector('.containerHeaderQuiz');
+      const btnQuiz = <HTMLElement>document.querySelector('.btnQuiz');
+      const liLevel = <NodeListOf<Element>>document.querySelectorAll('.liLevel');
+      const liLevelActive = <HTMLElement>document.querySelector('.liLevelActiv');
+      const quizBox = <NodeListOf<Element>>document.querySelectorAll('.box');
+      const quizTaskBox = <NodeListOf<Element>>document.querySelectorAll('.task_box');
+
       if (toggler instanceof HTMLDivElement) {
         if (toggler.classList.contains('dark')) {
           toggler.classList.remove('dark');
           body.style.backgroundColor = 'transparent';
           switch (currentPageHash) {
             case PageIds.PricesPage:
+            case PageIds.PricesPageRu:
+            case '':
               information.classList.remove('dark');
               pricesRightTile.classList.remove('dark');
               tickets.classList.remove('dark');
@@ -152,15 +166,27 @@ class Header extends Component {
               freeEntries.classList.remove('dark');
               break;
             case PageIds.SchedulesPage:
+            case PageIds.SchedulesPageRu:
               schedulesContent.classList.remove('dark');
               schedulesRightTile.classList.remove('dark');
               schedulesTickets.classList.remove('dark');
+            case PageIds.QuizPage:
+            case PageIds.QuizPageRu:
+              quizTasks.classList.remove('dark');
+              headerQuizContainer.classList.remove('dark');
+              btnQuiz.classList.remove('dark');
+              liLevel.forEach((item) => item.classList.remove('dark'));
+              liLevelActive.classList.remove('dark');
+              quizBox.forEach((item) => item.classList.remove('dark'));
+              quizTaskBox.forEach((item) => item.classList.remove('dark'));
           }
         } else {
           toggler.classList.add('dark');
           body.style.backgroundColor = '#102f43';
           switch (currentPageHash) {
             case PageIds.PricesPage:
+            case PageIds.PricesPageRu:
+            case '':
               information.classList.add('dark');
               pricesRightTile.classList.add('dark');
               tickets.classList.add('dark');
@@ -169,9 +195,19 @@ class Header extends Component {
               freeEntries.classList.add('dark');
               break;
             case PageIds.SchedulesPage:
+            case PageIds.SchedulesPageRu:
               schedulesContent.classList.add('dark');
               schedulesRightTile.classList.add('dark');
               schedulesTickets.classList.add('dark');
+            case PageIds.QuizPage:
+            case PageIds.QuizPageRu:
+              quizTasks.classList.add('dark');
+              headerQuizContainer.classList.add('dark');
+              btnQuiz.classList.add('dark');
+              liLevel.forEach((item) => item.classList.add('dark'));
+              liLevelActive.classList.add('dark');
+              quizBox.forEach((item) => item.classList.add('dark'));
+              quizTaskBox.forEach((item) => item.classList.add('dark'));
           }
         }
       }
@@ -182,20 +218,42 @@ class Header extends Component {
     this.createHeader();
 
     const select = <HTMLSelectElement>this.container.querySelector('.header_language');
+    let langInHash = window.location.hash.slice(1).split('=')[1];
+    if (langInHash) {
+      select.value = langInHash;
+    }
 
     select.addEventListener('change', () => {
+      if (window.location.hash.length !== 0) {
+        let langInHash = window.location.hash.slice(1).split('=')[1];
+        langInHash = select.value;
+        const path = window.location.hash.slice(1).split('=')[0];
+        const url = new URL(window.location.toString());
+        url.hash = path + '=' + langInHash;
+        window.history.pushState({}, '', url);
+      }
+
       for (let key in langArr) {
         if (document.querySelector('.' + key)) {
-          console.log(document.querySelector('.' + key));
           document.querySelector('.' + key)!.innerHTML =
             langArr[key as keyof data][select.value as keyof { ru: string; en: string }];
         }
+      }
+
+      for (let key in langArrBuyTicket) {
+        document
+          .querySelectorAll('.' + key)
+          .forEach(
+            (el) =>
+              (el!.innerHTML = langArrBuyTicket[key as keyof data][select.value as keyof { ru: string; en: string }])
+          );
       }
 
       const ticketOptions = <HTMLDivElement>document.querySelector('.calendar__options');
       const conditionOptions = <HTMLDivElement>document.querySelector('.conditions__options');
       const freeEntriesOptions = <HTMLDivElement>document.querySelector('.free-entries__options');
       const schedulesTable = <HTMLDivElement>document.querySelector('.schedules__table');
+      const calendar = <HTMLDivElement>document.querySelector('.calendar');
 
       if (select.value === 'ru') {
         document.querySelector('title')!.innerHTML = 'RS Клон';
@@ -220,6 +278,10 @@ class Header extends Component {
           schedulesTable.innerHTML = '';
           schedulesTable.append(createSchedulesTable(schedulesSaturdayDataRu));
         }
+        if (calendar) {
+          calendar.innerHTML = '';
+          createCalendarView(calendar, 2023, PricesPage.currentMonth, select.value);
+        }
       } else {
         document.querySelector('title')!.innerHTML = 'RS Clone';
 
@@ -242,6 +304,10 @@ class Header extends Component {
         if (schedulesTable) {
           schedulesTable.innerHTML = '';
           schedulesTable.append(createSchedulesTable(schedulesSaturdayData));
+        }
+        if (calendar) {
+          calendar.innerHTML = '';
+          createCalendarView(calendar, 2023, PricesPage.currentMonth, select.value);
         }
       }
     });

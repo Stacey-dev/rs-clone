@@ -10,27 +10,41 @@ import { ticketsData } from "../../utils/dataBuyTicket";
 import { conditionsData } from "../../utils/dataCondition";
 import { freeEntriesData } from "../../utils/dataFreeEntries";
 import { langArr } from "../../utils/dataLang";
+import { langArrHeaderFooter } from "../../utils/dataLang";
 import { data } from "../../utils/dataLang";
 import { ticketsDataRu } from "../../utils/dataBuyTicket";
 import { conditionsDataRu } from "../../utils/dataCondition";
 import { freeEntriesDataRu } from "../../utils/dataFreeEntries";
+import { PageIds } from "../app/app";
 
-class PricesPage extends Page {
+export class PricesPage extends Page {
     static TextObject = {
         MainTitle: 'Prices Page'
     }
-    currentMonth: number;
-    currentYear: number;
+    static currentMonth: number;
+    static currentYear: number;
 
     constructor(id: string) {
         super(id);
-        this.currentMonth = new Date().getMonth();
-        this.currentYear = new Date().getFullYear();
+        PricesPage.currentMonth = new Date().getMonth();
+        PricesPage.currentYear = new Date().getFullYear();
+
     }
 
 
     render() {
         const select = <HTMLSelectElement>document.querySelector('.header_language');
+
+        if (select.value === 'ru') {
+            let langInHash = window.location.hash.slice(1).split('=')[1];
+            langInHash = select.value;
+            const path = window.location.hash.slice(1).split('=')[0];
+            const url = new URL(window.location.toString());
+            url.hash = path + '=' + langInHash;
+            window.history.pushState({}, '', url);
+            select.value = "ru"
+        }
+
 
         const content = document.createElement('div');
         content.classList.add('price-calendar__content');
@@ -48,7 +62,7 @@ class PricesPage extends Page {
         const informationLayout: string = `<div class="tickets">
         <div class="tickets__wrapper">
             <h2 class="tickets__header tickets__header_tickets">Tickets</h2>
-            <button class="tickets__button" id="tickets-but">BUY YOUR COMBINED TICKETS</button>
+            <a href=#${PageIds.TicketPage} class="tickets__button" id="tickets-but" target="_blank">BUY YOUR COMBINED TICKETS</a>
             <div class="tickets__calendar block">
                 <div class="calendar__left block_left">
                     <p class="calendar__text price-calendar__text_head">Choose the day of your visit in the calendar to see the Price of the
@@ -75,7 +89,7 @@ class PricesPage extends Page {
             <div class="experiences block">
                 <div class="experiences__left block_left">
                     <h2 class="tickets__header tickets__header_experiences">Oceanographic Experiences</h2>
-                    <button class="tickets__button experiences-but" id="experiences-but">BUY YOUR EXPERIENCE</button>
+                    <a href=#${PageIds.TicketPage} class="tickets__button experiences-but" id="experiences-but" target="_blank">BUY YOUR EXPERIENCE</a>
                 </div>
                 <div class="experiences__right block_right">
                     <div class="expeirences__options">
@@ -153,8 +167,13 @@ class PricesPage extends Page {
                     this.container.querySelector('.' + key)!.innerHTML = langArr[key as keyof data][select.value as keyof { "ru": string, "en": string }]
                 }
             }
+            for (let key in langArrHeaderFooter) {
+                if (document.querySelector('.' + key)) {
+                    document.querySelector('.' + key)!.innerHTML = langArrHeaderFooter[key as keyof data][select.value as keyof { "ru": string, "en": string }];
+                    console.log(document.querySelector('.' + key))
+                }
+            }
         }
-
         //________________________________________________________________________________
 
         const calendarContainer = <HTMLDivElement>this.container.querySelector('.calendar__schedules');
@@ -166,29 +185,29 @@ class PricesPage extends Page {
 
         const calendar = <HTMLDivElement>this.container.querySelector('.calendar');
 
-        createCalendarView(calendar, this.currentYear, this.currentMonth);
+        createCalendarView(calendar, PricesPage.currentYear, PricesPage.currentMonth, select.value);
         const calendarCells = <HTMLCollectionOf<Element>>this.container.getElementsByClassName('td__fill');
         highlightCell(calendarCells);
 
         butNext.addEventListener('click', () => {
             calendar.innerHTML = "";
-            this.currentMonth++;
-            if (this.currentMonth > 11) {
-                this.currentMonth = 0;
-                this.currentYear++;
+            PricesPage.currentMonth++;
+            if (PricesPage.currentMonth > 11) {
+                PricesPage.currentMonth = 0;
+                PricesPage.currentYear++;
             }
-            createCalendarView(calendar, this.currentYear, this.currentMonth);
+            createCalendarView(calendar, PricesPage.currentYear, PricesPage.currentMonth, select.value);
             highlightCell(calendarCells);
         })
 
         butPrev.addEventListener('click', () => {
             calendar.innerHTML = "";
-            this.currentMonth--;
-            if (this.currentMonth < 0) {
-                this.currentMonth = 11;
-                this.currentYear--;
+            PricesPage.currentMonth--;
+            if (PricesPage.currentMonth < 0) {
+                PricesPage.currentMonth = 11;
+                PricesPage.currentYear--;
             }
-            createCalendarView(calendar, this.currentYear, this.currentMonth);
+            createCalendarView(calendar, PricesPage.currentYear, PricesPage.currentMonth, select.value);
             highlightCell(calendarCells);
         })
 
@@ -208,8 +227,6 @@ class PricesPage extends Page {
 
         if (select.value === 'ru') {
             document.querySelector('title')!.innerHTML = "RS Клон";
-
-
             ticketOptions!.innerHTML = "";
             for (let elem of ticketsDataRu) {
                 ticketOptions!.append(createDropDownListTicket(elem))
@@ -218,8 +235,6 @@ class PricesPage extends Page {
             conditionOptions.append(createDropDownListCondition(conditionsDataRu));
             freeEntriesOptions.innerHTML = "";
             freeEntriesOptions.append(createDropDownListCondition(freeEntriesDataRu));
-
-
         }
 
         window.addEventListener('load', () => {
