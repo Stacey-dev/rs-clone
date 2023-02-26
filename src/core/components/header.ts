@@ -15,6 +15,7 @@ import { schedulesSaturdayData } from "../../utils/schedulesData";
 import { schedulesSaturdayDataRu } from "../../utils/schedulesData";
 import PricesPage from "../../pages/prices-calendar/prices";
 import { createCalendarView } from "./create-calendar";
+import { createCalendarView as createCalendarSchedules } from "./create-calendar-schedules";
 import { langArrBuyTicket } from "../../utils/dataLang";
 
 const Buttoms: { id: string; text: string }[] = [
@@ -244,6 +245,7 @@ class Header extends Component {
             const freeEntriesOptions = <HTMLDivElement>document.querySelector('.free-entries__options');
             const schedulesTable = <HTMLDivElement>document.querySelector('.schedules__table');
             const calendar = <HTMLDivElement>document.querySelector('.calendar');
+            const calendarWrapper = <HTMLDivElement>document.querySelector('.schedules__calendar');
 
 
             if (select.value === 'ru') {
@@ -273,6 +275,10 @@ class Header extends Component {
                     calendar.innerHTML = "";
                     createCalendarView(calendar, 2023, PricesPage.currentMonth, select.value);
                 }
+                if (calendarWrapper) {
+                    calendarWrapper.innerHTML = "";
+                    createCalendarSchedules(calendarWrapper, select.value)
+                }
 
 
             } else {
@@ -301,6 +307,10 @@ class Header extends Component {
                 if (calendar) {
                     calendar.innerHTML = "";
                     createCalendarView(calendar, 2023, PricesPage.currentMonth, select.value);
+                }
+                if (calendarWrapper) {
+                    calendarWrapper.innerHTML = "";
+                    createCalendarSchedules(calendarWrapper, select.value)
                 }
 
             }
