@@ -23,6 +23,86 @@ export const langArr: data = {
         "ru": "Купить билет",
         "en": "Buy your ticket"
     },
+    "footer__ul-oceanografic": {
+        "ru": "Океанография",
+        "en": "Oceanogràfic"
+    },
+    "footer__li_ocenografic-1": {
+        "ru": "Что такое океанография?",
+        "en": "What is Oceanogràfic?"
+    },
+    "footer__li_ocenografic-2": {
+        "ru": "Места обитания",
+        "en": "Habitats"
+    },
+    "footer__li_ocenografic-3": {
+        "ru": "Животные",
+        "en": "Animals"
+    },
+    "footer__li_ocenografic-4": {
+        "ru": "Сохранение",
+        "en": "Conservation"
+    },
+    "footer__ul-visit": {
+        "ru": "Спланируйте свой визит",
+        "en": "Plan your visit"
+    },
+    "footer__li_visit-1": {
+        "ru": "Карта аквариума",
+        "en": "Aquarium map"
+    },
+    "footer__li_visit-2": {
+        "ru": "Где поесть",
+        "en": "Where to eat"
+    },
+    "footer__li_visit-3": {
+        "ru": "Aquarium today",
+        "en": "Aquarium today"
+    },
+    "footer__li_visit-4": {
+        "ru": "Информация, услуги и рекомендации",
+        "en": "Information, Services and Recommendations"
+    },
+    "footer__li_visit-5": {
+        "ru": "Как сюда добраться?",
+        "en": "How to get here?"
+    },
+    "footer__li_visit-6": {
+        "ru": "Купите свой билет",
+        "en": "Buy your ticket"
+    },
+    "footer__li_visit-7": {
+        "ru": "Ресторан Подводная лодка",
+        "en": "Submarine Restaurant"
+    },
+    "footer__li_visit-8": {
+        "ru": "Исключительное место проведения",
+        "en": "An exceptional venue"
+    },
+    "footer__li_visit-9": {
+        "ru": "Школы",
+        "en": "Schools"
+    },
+    "footer__li_visit-10": {
+        "ru": "Клуб",
+        "en": "The Club"
+    },
+    "footer__li_visit-11": {
+        "ru": "Интернет-магазин",
+        "en": "Online shop"
+    },
+    "footer__li_visit-12": {
+        "ru": "Океанографический фонд",
+        "en": "Oceanogràfic Foundation"
+    },
+    "footer__li_visit-13": {
+        "ru": "Контакт",
+        "en": "Contact"
+    },
+    "footer__subscribe": {
+        "ru": "Подпишитесь на рассылку новостей",
+        "en": "Subscribe to newsletter"
+    },
     "tile_left": {
         "ru": "Цены и расписание",
         "en": "Prices and schedules"
@@ -114,6 +194,407 @@ export const langArr: data = {
     "sched-table__status": {
         "ru": "Статус",
         "en": "Status"
+    },
+    "selection__button": {
+        "ru": "Выберите билет",
+        "en": "Select your tickets"
+    },
+    "registration__button": {
+        "ru": "Оформление покупки",
+        "en": "Make a purchase"
+    },
+    "payment__button": {
+        "ru": "Оплата",
+        "en": "Payment"
+    },
+    "selection__calendar-label": {
+        "ru": "Оплата",
+        "en": "Select date"
+    },
+    "selection__warning": {
+        "ru": "Выберите дату для посещения Океанографической Валенсии. Вы можете посетить океанариум в выбранный день.",
+        "en": "Select your entry time for Oceanogràfic València. You can enter Oceanogràfic València from the time selected."
+    },
+    "title-OCEANOGRAFIC-0": {
+        "ru": "ОКЕАНОГРАФИКА -> ОНЛАЙН-БИЛЕТ",
+        "en": "OCEANOGRAFIC -> ONLINE-TICKET"
+    },
+    "title-OCEANOGRAFIC-1": {
+        "ru": "ОКЕАНОГРАФИКА -> ДОПОЛНЕНИЯ",
+        "en": "OCEANOGRAFIC -> SUPPLEMENTS"
+    },
+    "title-OCEANOGRAFIC-2": {
+        "ru": "ОКЕАНОГРАФИКА + МУЗЕЙ НАУКИ",
+        "en": "OCEANOGRAFIC + MUSEUM OF SCIENCE"
+    },
+    "title-OCEANOGRAFIC-3": {
+        "ru": "ОКЕАНОГРАФИКА + ПОЛУСФЕРА",
+        "en": "OCEANOGRAFIC + HEMISFERIC"
+    },
+    "title-OCEANOGRAFIC-4": {
+        "ru": "ОКЕАНОГРАФИКА + ПОЛУСФЕРА + МУЗЕЙ НАУКИ",
+        "en": "OCEANOGRAFIC + HEMISFERIC + MUSEUM OF SCIENCE"
+    },
+    "title-HEMISFERIC-5": {
+        "ru": "ПОЛУСФЕРА",
+        "en": "HEMISFERIC"
+    },
+    "title-MUSEUM-6": {
+        "ru": "МУЗЕЙ НАУКИ",
+        "en": "MUSEUM OF SCIENCE"
+    },
+    "title-HEMISFERIC-7": {
+        "ru": "ПОЛУСФЕРА + МУЗЕЙ НАУКИ",
+        "en": "HEMISFERIC + MUSEUM OF SCIENCE"
+    },
+    "ticket-OCEANOGRAFIC-0-Genera": {
+        "ru": "Общий билет",
+        "en": "General Ticket"
+    },
+    "ticket-OCEANOGRAFIC-0-Chil": {
+        "ru": "Детский билет (4 - 12 лет)",
+        "en": "Child Ticket (4 - 12 years)"
+    },
+    "ticket-OCEANOGRAFIC-0-Senio": {
+        "ru": "Билет для пенсионеров",
+        "en": "Senior Ticket"
+    },
+    "ticket-OCEANOGRAFIC-0-Ticke": {
+        "ru": "Билет для инвалидов",
+        "en": "Ticket for disabled"
+    },
+    "ticket-OCEANOGRAFIC-1-4": {
+        "ru": "4D кинотеатр",
+        "en": "4D Cinema"
+    },
+    "ticket-OCEANOGRAFIC-1-Th": {
+        "ru": "Море в твоих руках",
+        "en": "The sea in your hands"
+    },
+    "ticket-OCEANOGRAFIC-1-Backstag": {
+        "ru": "Закулисный тур",
+        "en": "Backstage Tour"
+    },
+    "ticket-OCEANOGRAFIC-2-Genera": {
+        "ru": "Общий билет",
+        "en": "General Ticket"
+    },
+    "ticket-OCEANOGRAFIC-2-Children": {
+        "ru": "Дети, пенсионеры, инвалиды",
+        "en": "Children, retired people, pensioners and people with functional disabilities"
+    },
+    "ticket-OCEANOGRAFIC-3-Genera": {
+        "ru": "Общий билет",
+        "en": "General admission"
+    },
+    "ticket-OCEANOGRAFIC-3-Children": {
+        "ru": "Дети, пенсионеры, инвалиды",
+        "en": "Children, retired people, pensioners and people with functional disabilities"
+    },
+    "ticket-OCEANOGRAFIC-4-Genera": {
+        "ru": "Общий билет",
+        "en": "General admission"
+    },
+    "ticket-OCEANOGRAFIC-4-Children": {
+        "ru": "Дети, пенсионеры, инвалиды",
+        "en": "Children, retired people, pensioners and people with functional disabilities"
+    },
+    "ticket-HEMISFERIC-5-Genera": {
+        "ru": "Общий билет",
+        "en": "General admission"
+    },
+    "ticket-HEMISFERIC-5-Children": {
+        "ru": "Дети, пенсионеры, инвалиды",
+        "en": "Children, retired people, pensioners and people with functional disabilities"
+    },
+    "ticket-MUSEUM-6-Genera": {
+        "ru": "Общий билет",
+        "en": "General admission"
+    },
+    "ticket-MUSEUM-6-Children": {
+        "ru": "Дети, пенсионеры, инвалиды",
+        "en": "Children, retired people, pensioners and people with functional disabilities"
+    },
+    "ticket-HEMISFERIC-7-Genera": {
+        "ru": "Общий билет",
+        "en": "General admission"
+    },
+    "ticket-HEMISFERIC-7-Children": {
+        "ru": "Дети, пенсионеры, инвалиды",
+        "en": "Children, retired people, pensioners and people with functional disabilities"
+    },
+    "label_name": {
+        "ru": "Введите своё имя",
+        "en": "Enter your name"
+    },
+    "label_surname": {
+        "ru": "Введите свою фамилию",
+        "en": "Enter your surname"
+    },
+    "label_phone": {
+        "ru": "Введите ваш номер телефона",
+        "en": "Enter your phone"
+    },
+    "label_e-mail": {
+        "ru": "Введите e-mail адрес",
+        "en": "Enter your e-mail address"
+    },
+    "label_card-number": {
+        "ru": "Номер карты:",
+        "en": "Credit Card Number:"
+    },
+    "label_valid": {
+        "ru": "Действительна до:",
+        "en": "Valid:"
+    },
+    "label_cvv": {
+        "ru": "CVV:",
+        "en": "CVV:"
+    },
+    "payment__complete": {
+        "ru": "Завершить платёж",
+        "en": "Complete the payment"
+    },
+    "payment__title": {
+        "ru": "Данные платёжной карты",
+        "en": "Credit card details"
+    },
+    "quizName": {
+        "ru": "Викторина",
+        "en": "FishQuiz"
+    },
+    "taskDiscription": {
+        "ru": "Расположите фотографии рыб по их названиям в пустых ячейках",
+        "en": "Arrange photos of fish by their names in empty cells"
+    },
+    "btnQuiz": {
+        "ru": "СЛЕДУЮЩИЙ ВОПРОС",
+        "en": "NEXT QUESTION"
+    },
+    "resultText": {
+        "ru": "Результат",
+        "en": "Result"
+    },
+    "btnStatistik": {
+        "ru": "СТАТИСТИКА",
+        "en": "STATISTICS"
+    },
+    "btnMore": {
+        "ru": "ПОПРОБУЙ ЕЩЕ",
+        "en": "TRY AGAIN"
     }
+}
 
+export const langArrBuyTicket: data = {
+    "title-OCEANOGRAFIC-0": {
+        "ru": "ОКЕАНОГРАФИКА -> ОНЛАЙН-БИЛЕТ",
+        "en": "OCEANOGRAFIC -> ONLINE-TICKET"
+    },
+    "title-OCEANOGRAFIC-1": {
+        "ru": "ОКЕАНОГРАФИКА -> ДОПОЛНЕНИЯ",
+        "en": "OCEANOGRAFIC -> SUPPLEMENTS"
+    },
+    "title-OCEANOGRAFIC-2": {
+        "ru": "ОКЕАНОГРАФИКА + МУЗЕЙ НАУКИ",
+        "en": "OCEANOGRAFIC + MUSEUM OF SCIENCE"
+    },
+    "title-OCEANOGRAFIC-3": {
+        "ru": "ОКЕАНОГРАФИКА + ПОЛУСФЕРА",
+        "en": "OCEANOGRAFIC + HEMISFERIC"
+    },
+    "title-OCEANOGRAFIC-4": {
+        "ru": "ОКЕАНОГРАФИКА + ПОЛУСФЕРА + МУЗЕЙ НАУКИ",
+        "en": "OCEANOGRAFIC + HEMISFERIC + MUSEUM OF SCIENCE"
+    },
+    "title-HEMISFERIC-5": {
+        "ru": "ПОЛУСФЕРА",
+        "en": "HEMISFERIC"
+    },
+    "title-MUSEUM-6": {
+        "ru": "МУЗЕЙ НАУКИ",
+        "en": "MUSEUM OF SCIENCE"
+    },
+    "title-HEMISFERIC-7": {
+        "ru": "ПОЛУСФЕРА + МУЗЕЙ НАУКИ",
+        "en": "HEMISFERIC + MUSEUM OF SCIENCE"
+    },
+    "ticket-OCEANOGRAFIC-0-Genera": {
+        "ru": "Общий билет",
+        "en": "General Ticket"
+    },
+    "ticket-OCEANOGRAFIC-0-Chil": {
+        "ru": "Детский билет (4 - 12 лет)",
+        "en": "Child Ticket (4 - 12 years)"
+    },
+    "ticket-OCEANOGRAFIC-0-Senio": {
+        "ru": "Билет для пенсионеров",
+        "en": "Senior Ticket"
+    },
+    "ticket-OCEANOGRAFIC-0-Ticke": {
+        "ru": "Билет для инвалидов",
+        "en": "Ticket for disabled"
+    },
+    "ticket-OCEANOGRAFIC-1-4": {
+        "ru": "4D кинотеатр",
+        "en": "4D Cinema"
+    },
+    "ticket-OCEANOGRAFIC-1-Th": {
+        "ru": "Море в твоих руках",
+        "en": "The sea in your hands"
+    },
+    "ticket-OCEANOGRAFIC-1-Backstag": {
+        "ru": "Закулисный тур",
+        "en": "Backstage Tour"
+    },
+    "ticket-OCEANOGRAFIC-2-Genera": {
+        "ru": "Общий билет",
+        "en": "General Ticket"
+    },
+    "ticket-OCEANOGRAFIC-2-Children": {
+        "ru": "Дети, пенсионеры, инвалиды",
+        "en": "Children, retired people, pensioners and people with functional disabilities"
+    },
+    "ticket-OCEANOGRAFIC-3-Genera": {
+        "ru": "Общий билет",
+        "en": "General admission"
+    },
+    "ticket-OCEANOGRAFIC-3-Children": {
+        "ru": "Дети, пенсионеры, инвалиды",
+        "en": "Children, retired people, pensioners and people with functional disabilities"
+    },
+    "ticket-OCEANOGRAFIC-4-Genera": {
+        "ru": "Общий билет",
+        "en": "General admission"
+    },
+    "ticket-OCEANOGRAFIC-4-Children": {
+        "ru": "Дети, пенсионеры, инвалиды",
+        "en": "Children, retired people, pensioners and people with functional disabilities"
+    },
+    "ticket-HEMISFERIC-5-Genera": {
+        "ru": "Общий билет",
+        "en": "General admission"
+    },
+    "ticket-HEMISFERIC-5-Children": {
+        "ru": "Дети, пенсионеры, инвалиды",
+        "en": "Children, retired people, pensioners and people with functional disabilities"
+    },
+    "ticket-MUSEUM-6-Genera": {
+        "ru": "Общий билет",
+        "en": "General admission"
+    },
+    "ticket-MUSEUM-6-Children": {
+        "ru": "Дети, пенсионеры, инвалиды",
+        "en": "Children, retired people, pensioners and people with functional disabilities"
+    },
+    "ticket-HEMISFERIC-7-Genera": {
+        "ru": "Общий билет",
+        "en": "General admission"
+    },
+    "ticket-HEMISFERIC-7-Children": {
+        "ru": "Дети, пенсионеры, инвалиды",
+        "en": "Children, retired people, pensioners and people with functional disabilities"
+    }
+}
+
+export const langArrHeaderFooter: data = {
+    "prices-page": {
+        "ru": "Цены",
+        "en": "Prices and Calendar"
+    },
+    "schedules-page": {
+        "ru": "Календарь",
+        "en": "Calendar"
+    },
+    "quiz-page": {
+        "ru": "Викторина",
+        "en": "Quiz"
+    },
+    "ciutat-page": {
+        "ru": "Сьютат",
+        "en": "La Ciutat"
+    },
+    "ticket-page": {
+        "ru": "Купить билет",
+        "en": "Buy your ticket"
+    },
+    "footer__ul-oceanografic": {
+        "ru": "Океанография",
+        "en": "Oceanogràfic"
+    },
+    "footer__li_ocenografic-1": {
+        "ru": "Что такое океанография?",
+        "en": "What is Oceanogràfic?"
+    },
+    "footer__li_ocenografic-2": {
+        "ru": "Места обитания",
+        "en": "Habitats"
+    },
+    "footer__li_ocenografic-3": {
+        "ru": "Животные",
+        "en": "Animals"
+    },
+    "footer__li_ocenografic-4": {
+        "ru": "Сохранение",
+        "en": "Conservation"
+    },
+    "footer__ul-visit": {
+        "ru": "Спланируйте свой визит",
+        "en": "Plan your visit"
+    },
+    "footer__li_visit-1": {
+        "ru": "Карта аквариума",
+        "en": "Aquarium map"
+    },
+    "footer__li_visit-2": {
+        "ru": "Где поесть",
+        "en": "Where to eat"
+    },
+    "footer__li_visit-3": {
+        "ru": "Aquarium today",
+        "en": "Aquarium today"
+    },
+    "footer__li_visit-4": {
+        "ru": "Информация, услуги и рекомендации",
+        "en": "Information, Services and Recommendations"
+    },
+    "footer__li_visit-5": {
+        "ru": "Как сюда добраться?",
+        "en": "How to get here?"
+    },
+    "footer__li_visit-6": {
+        "ru": "Купите свой билет",
+        "en": "Buy your ticket"
+    },
+    "footer__li_visit-7": {
+        "ru": "Ресторан Подводная лодка",
+        "en": "Submarine Restaurant"
+    },
+    "footer__li_visit-8": {
+        "ru": "Исключительное место проведения",
+        "en": "An exceptional venue"
+    },
+    "footer__li_visit-9": {
+        "ru": "Школы",
+        "en": "Schools"
+    },
+    "footer__li_visit-10": {
+        "ru": "Клуб",
+        "en": "The Club"
+    },
+    "footer__li_visit-11": {
+        "ru": "Интернет-магазин",
+        "en": "Online shop"
+    },
+    "footer__li_visit-12": {
+        "ru": "Океанографический фонд",
+        "en": "Oceanogràfic Foundation"
+    },
+    "footer__li_visit-13": {
+        "ru": "Контакт",
+        "en": "Contact"
+    },
+    "footer__subscribe": {
+        "ru": "Подпишитесь на рассылку новостей",
+        "en": "Subscribe to newsletter"
+    }
 }

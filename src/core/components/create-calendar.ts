@@ -53,7 +53,7 @@ function getAllSaturdays(date: Date) {
 }
 
 
-export function createCalendar(elem: HTMLDivElement, year: number, month: number) {
+export function createCalendar(elem: HTMLDivElement, year: number, month: number, lng: string) {
 
     let d = new Date(year, month);
     let saturdays = getAllSaturdays(d);
@@ -127,26 +127,26 @@ export function createCalendar(elem: HTMLDivElement, year: number, month: number
         workHours.classList.add('calendar__workHours');
 
         if (saturdays.includes(Number(item.textContent))) {
-            workHours.innerText = "10-20 h"
+            workHours.innerText = `${lng === "ru" ? "10-20 ч" : "10-20 h"}`
         } else {
-            workHours.innerText = "10-18 h"
+            workHours.innerText = `${lng === "ru" ? "10-18 ч" : "10-18 h"}`
         }
         item.append(workHours)
     }
     for (let item of td) {
         if (item.textContent && item.className.includes('td__highg-workloud')) {
             const message = document.createElement('div');
-            message.innerText = "Attention! It is better to buy tickets in advance!"
+            message.innerText = `${lng === "ru" ? "Внимание! Билеты лучше приобрести заранее" : "Attention! It is better to buy tickets in advance!"}`
             message.classList.add('calendar__message');
             item.append(message);
         } else if (item.textContent && item.className.includes('td__medium-workloud')) {
             const message = document.createElement('div');
-            message.innerText = "Medium workload"
+            message.innerText = `${lng === "ru" ? "Средняя загруженность" : "Medium workload"}`
             message.classList.add('calendar__message');
             item.append(message);
         } else if (item.textContent && item.className.includes('td__fill')) {
             const message = document.createElement('div');
-            message.innerText = "Low workload"
+            message.innerText = `${lng === "ru" ? "Низкая загруженность" : "Low workload"}`
             message.classList.add('calendar__message');
             item.append(message);
         }
@@ -161,10 +161,9 @@ function getDay(date: Date) { // получить номер дня недели
     return day - 1;
 }
 
+export function createCalendarView(elem: HTMLDivElement, year: number, numMonth: number, lng: string) {
 
-export function createCalendarView(elem: HTMLDivElement, year: number, numMonth: number) {
-
-    const monthName: string = new Date(year, numMonth).toLocaleString('en', {
+    const monthName: string = new Date(year, numMonth).toLocaleString(`${lng}`, {
         month: 'long'
     });
 
@@ -178,7 +177,7 @@ export function createCalendarView(elem: HTMLDivElement, year: number, numMonth:
     const calendar = document.createElement('div');
     calendar.classList.add('calendar');
 
-    createCalendar(calendar, year, numMonth);
+    createCalendar(calendar, year, numMonth, lng);
 
     monthContainer.append(monthNameContainer);
 
@@ -186,11 +185,11 @@ export function createCalendarView(elem: HTMLDivElement, year: number, numMonth:
     workloadContainer.classList.add('calendar__workLoad');
     workloadContainer.innerHTML = `<div class="calenadr__workLoad">
     <div class="workLoad__low"></div>
-    <span class="calendar__workLoad_text">- low workload</span>
+    <span class="calendar__workLoad_text">- ${lng === "ru" ? "низкая загруженность " : "low workload "}</span>
     <div class="workLoad__medium"></div>
-    <span class="calendar__workLoad_text">- medium workload</span>
+    <span class="calendar__workLoad_text">- ${lng === "ru" ? "средняя загруженность " : "medium workload "}</span>
     <div class="workLoad__high"></div>
-    <span class="calendar__workLoad_text">- high workload</span>
+    <span class="calendar__workLoad_text">- ${lng === "ru" ? "высокая загруженность " : "high workload "}</span>
 </div>`
 
     elem.append(monthContainer, calendar, workloadContainer);
