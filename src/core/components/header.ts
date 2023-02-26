@@ -331,7 +331,7 @@ class Header extends Component {
       <div class='authorization__wrapper'>
         <h3 class='authorization__title'>Registration</h3>
         <input class='authorization__input input' id='name' type='text' placeholder='Enter name...'>
-        <input class='authorization__input input input-phone' id='phone' type='tel' placeholder='Enter phone number...'>
+        <input class='authorization__input input input-phone' id='phone' type='number' placeholder='Enter phone number...'>
         <input class='authorization__input input input-password' id='password' type='password' placeholder='Enter password...'>
       </div>
     </form>
@@ -343,10 +343,6 @@ class Header extends Component {
     registerBtn.classList.add('button', 'register__button');
     registerBtn.setAttribute('type', 'submit');
     registerBtn.innerText = 'Register';
-
-    // registerBtn.addEventListener('click', () => {
-    //   this.validateForm() ? successOrder() : modalContainer.append(errorMsg);
-    // });
 
     modalContainer.append(registerBtn);
 
@@ -370,14 +366,6 @@ class Header extends Component {
 
     overlay.addEventListener('click', closeModal);
   }
-
-  // validateForm() {
-  //   let form = <HTMLFormElement>document.querySelector('authorization__form');
-  //   const formInputs = <NodeListOf<HTMLInputElement>>document.querySelectorAll('input');
-  //   const inputEmail = <HTMLInputElement>document.querySelector('input-email');
-  //   const inputPassword = <HTMLInputElement>document.querySelector('input-password');
-
-  // }
 }
 
 export default Header;
