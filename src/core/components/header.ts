@@ -327,12 +327,12 @@ class Header extends Component {
     modalContainer.classList.add('modal__container');
 
     modalContainer.innerHTML = `
-    <form>
+    <form class='authorization__form'>
       <div class='authorization__wrapper'>
         <h3 class='authorization__title'>Registration</h3>
-        <input class='authorization__input' id='name' type='text' placeholder='Enter name...'>
-        <input class='authorization__input' id='email' type='email' placeholder='Enter email...'>
-        <input class='authorization__input' id='password' type='password' placeholder='Enter password...'>
+        <input class='authorization__input input' id='name' type='text' placeholder='Enter name...'>
+        <input class='authorization__input input input-phone' id='phone' type='tel' placeholder='Enter phone number...'>
+        <input class='authorization__input input input-password' id='password' type='password' placeholder='Enter password...'>
       </div>
     </form>
     <p className='authorization__disclaimer'>
@@ -341,9 +341,22 @@ class Header extends Component {
 
     const registerBtn = <HTMLButtonElement>document.createElement('button');
     registerBtn.classList.add('button', 'register__button');
+    registerBtn.setAttribute('type', 'submit');
     registerBtn.innerText = 'Register';
 
+    // registerBtn.addEventListener('click', () => {
+    //   this.validateForm() ? successOrder() : modalContainer.append(errorMsg);
+    // });
+
     modalContainer.append(registerBtn);
+
+    registerBtn.addEventListener('click', () => {
+      console.log('working');
+      let form = <HTMLFormElement>document.querySelector('authorization__form');
+      const formInputs = <NodeListOf<HTMLInputElement>>document.querySelectorAll('input');
+      const inputPhone = <HTMLInputElement>document.querySelector('input-phone');
+      const inputPassword = <HTMLInputElement>document.querySelector('input-password');
+    });
 
     document.body.style.overflow = 'hidden';
     document.body.prepend(overlay);
@@ -357,6 +370,14 @@ class Header extends Component {
 
     overlay.addEventListener('click', closeModal);
   }
+
+  // validateForm() {
+  //   let form = <HTMLFormElement>document.querySelector('authorization__form');
+  //   const formInputs = <NodeListOf<HTMLInputElement>>document.querySelectorAll('input');
+  //   const inputEmail = <HTMLInputElement>document.querySelector('input-email');
+  //   const inputPassword = <HTMLInputElement>document.querySelector('input-password');
+
+  // }
 }
 
 export default Header;
