@@ -57,18 +57,18 @@ class Header extends Component {
 
         const pageButtons: HTMLDivElement = document.createElement('div');
 
-        pageButtons.classList.add('header__nav')
+        pageButtons.classList.add('header__nav');
         Buttoms.forEach((button) => {
             const buttonHTML = document.createElement('a');
             buttonHTML.innerText = button.text;
-            if (buttonHTML.textContent === "La Ciutat") {
-                buttonHTML.href = "https://www.cac.es/va/home.html";
+            if (buttonHTML.textContent === 'La Ciutat') {
+                buttonHTML.href = 'https://www.cac.es/va/home.html';
             } else {
                 buttonHTML.href = `#${button.id}`;
             }
-            buttonHTML.classList.add((button.id).split('&')[0]);
-            if (buttonHTML.textContent === "BUY YOUR TICKET" || buttonHTML.textContent === "La Ciutat") {
-                buttonHTML.setAttribute('target', '_blank')
+            buttonHTML.classList.add(button.id.split('&')[0]);
+            if (buttonHTML.textContent === 'BUY YOUR TICKET' || buttonHTML.textContent === 'La Ciutat') {
+                buttonHTML.setAttribute('target', '_blank');
             }
             pageButtons.append(buttonHTML);
         });
@@ -78,26 +78,31 @@ class Header extends Component {
 
         const option_language_en = <HTMLElement>document.createElement('option');
         option_language_en.classList.add('language_en');
-        option_language_en.innerText = "en";
+        option_language_en.innerText = 'en';
 
         const option_language_ru = <HTMLElement>document.createElement('option');
         option_language_ru.classList.add('language_ru');
         option_language_ru.innerText = 'ru';
 
+        const userAuth = <HTMLDivElement>document.createElement('div');
+        userAuth.classList.add('user__auth');
+
         const themeToggler = <HTMLDivElement>document.createElement('div');
         themeToggler.classList.add('theme_toggler');
 
         language.append(option_language_en, option_language_ru);
-        headerWrapper.append(logo, pageButtons, language, themeToggler);
+        headerWrapper.append(logo, pageButtons, language, userAuth, themeToggler);
         headerContainer.append(headerWrapper);
         this.container.append(headerContainer);
 
         window.onscroll = function () {
             let scrolled: number;
+
             scrolled = window.pageYOffset || document.documentElement.scrollTop;
             const header = <HTMLElement>document.querySelector('.container');
             const box_language = <HTMLElement>document.querySelector('.header_language');
             const box_ticket = <HTMLElement>document.querySelector('.ticket-page');
+            const userAuth = <HTMLElement>document.querySelector('.user__auth');
             const boxTheme = <HTMLElement>document.querySelector('.theme_toggler');
             if (scrolled > 5) {
                 header.style.width = '';
@@ -110,12 +115,14 @@ class Header extends Component {
                 box_language.style.display = 'none';
                 box_ticket.style.display = 'none';
                 boxTheme.style.display = 'none';
+                userAuth.style.display = 'none';
             }
             if (5 > scrolled) {
                 header.style.background = 'none';
                 box_language.style.display = 'grid';
                 box_ticket.style.display = 'grid';
                 boxTheme.style.display = 'block';
+                userAuth.style.display = 'block';
             }
         };
 
@@ -217,10 +224,7 @@ class Header extends Component {
             select.value = langInHash;
         }
 
-
-
         select.addEventListener('change', () => {
-
             if (window.location.hash.length !== 0) {
                 let langInHash = window.location.hash.slice(1).split('=')[1];
                 langInHash = select.value;
@@ -232,12 +236,18 @@ class Header extends Component {
 
             for (let key in langArr) {
                 if (document.querySelector('.' + key)) {
-                    document.querySelector('.' + key)!.innerHTML = langArr[key as keyof data][select.value as keyof { "ru": string, "en": string }];
+                    document.querySelector('.' + key)!.innerHTML =
+                        langArr[key as keyof data][select.value as keyof { ru: string; en: string }];
                 }
             }
 
             for (let key in langArrBuyTicket) {
-                document.querySelectorAll('.' + key).forEach((el) => el!.innerHTML = langArrBuyTicket[key as keyof data][select.value as keyof { "ru": string, "en": string }]);
+                document
+                    .querySelectorAll('.' + key)
+                    .forEach(
+                        (el) =>
+                            (el!.innerHTML = langArrBuyTicket[key as keyof data][select.value as keyof { ru: string; en: string }])
+                    );
             }
 
             const ticketOptions = <HTMLDivElement>document.querySelector('.calendar__options');
@@ -315,10 +325,58 @@ class Header extends Component {
 
             }
 
-        })
+            userAuth.addEventListener('click', this.showRegistrationForm);
 
-        return this.container;
-    }
+            return this.container;
+        }
+
+  showRegistrationForm() {
+            const overlay = <HTMLDivElement>document.createElement('div');
+            overlay.classList.add('overlay');
+
+            const modalContainer = <HTMLDivElement>document.createElement('div');
+            modalContainer.classList.add('modal__container');
+
+            modalContainer.innerHTML = `
+    <form class='authorization__form'>
+      <div class='authorization__wrapper'>
+        <h3 class='authorization__title'>Registration</h3>
+        <input class='authorization__input input' id='name' type='text' placeholder='Enter name...'>
+        <input class='authorization__input input input-phone' id='phone' type='number' placeholder='Enter phone number...'>
+        <input class='authorization__input input input-password' id='password' type='password' placeholder='Enter password...'>
+      </div>
+    </form>
+    <p className='authorization__disclaimer'>
+		If you have an account you can <a class='link login__link' href=''>login</a>
+	</p>`;
+
+            const registerBtn = <HTMLButtonElement>document.createElement('button');
+            registerBtn.classList.add('button', 'register__button');
+            registerBtn.setAttribute('type', 'submit');
+            registerBtn.innerText = 'Register';
+
+            modalContainer.append(registerBtn);
+
+            registerBtn.addEventListener('click', () => {
+                console.log('working');
+                let form = <HTMLFormElement>document.querySelector('authorization__form');
+                const formInputs = <NodeListOf<HTMLInputElement>>document.querySelectorAll('input');
+                const inputPhone = <HTMLInputElement>document.querySelector('input-phone');
+                const inputPassword = <HTMLInputElement>document.querySelector('input-password');
+            });
+
+            document.body.style.overflow = 'hidden';
+            document.body.prepend(overlay);
+            document.body.append(modalContainer);
+
+            const closeModal = (): void => {
+                modalContainer.remove();
+                overlay.remove();
+                document.body.style.overflowY = 'scroll';
+            };
+
+            overlay.addEventListener('click', closeModal);
+        }
 }
 
 export default Header;

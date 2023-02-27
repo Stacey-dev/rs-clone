@@ -119,9 +119,7 @@ class QuizPage extends Page {
             let idQuestionName = [];
             let fishDiscrip;
 
-
-
-            // переремешиваем блоки с фото и блоки с названиями
+          // переремешиваем блоки с фото и блоки с названиями
             const randomFishFoto = () => {
                 const fish = fishDataRu[level].slice();
                 return fish.sort(() => Math.random() - 0.5);
@@ -137,8 +135,7 @@ class QuizPage extends Page {
             const randomFishDiscription = (): void => {
                 const fish = select.value === "ru" ? fishDataRu[level].slice() : fishDataEn[level].slice();
                 let discFish = fish.sort(() => Math.random() - 0.5);
-                if (finishResult.length === 12) {
-
+                if (finishResult.length === 6  || finishResult.length === 12 || finishResult.length === 18  || finishResult.length === 24) {
                     fishDiscription.innerHTML = ` ${discFish[0].description}`;
                     fishDiscription.style.display = "grid";
                 }
@@ -171,69 +168,97 @@ class QuizPage extends Page {
             question();
 
             //  drag and drop
-            let dragAndDrop = () => {
+                const dragAndDrop = () => {
 
-                let curdrag = "";
-                let curdragel: HTMLElement;
-                let curdropel: HTMLElement;
-                let isLeave = false;
-                const imgs = [...document.querySelectorAll(".img_box")];
-
-                const divs = [...document.querySelectorAll(".task_box")];
-
-                const dispatcher = (evt: MouseEvent) => {
-                    switch (evt.type) {
-                        case "dragstart":
-                            curdragel = <HTMLElement>evt.target;
-                            isLeave = true;
-                            (<DataTransfer>(<DragEvent>evt).dataTransfer).setData(
-                                "text",
-                                (<HTMLElement>evt.target).id
-                            );
-                            curdrag = (<DataTransfer>(<DragEvent>evt).dataTransfer).getData("text");
-                            break;
-                        case "dragleave":
-                            isLeave = true;
-                            break;
-                        case "dragover":
-                            evt.preventDefault();
-                            curdropel = <HTMLElement>evt.target;
-                            isLeave = false;
-                            break;
-                        case "drop":
-                            evt.preventDefault();
-
-                            curdropel.appendChild(curdragel);
-
+                  let curdrag = "";
+                  let curdragel: HTMLDivElement;
+                  let curdropel: HTMLDivElement;
+                  let isLeave = false;
+                  const imgs = [...document.querySelectorAll(".img_box")];
+                  const divs = [...document.querySelectorAll(".task_box")];
+                  const dispatcher = (evt: DragEvent | TouchEvent | Event) => {
+                     switch (evt.type) {
+                       case "dragstart":
+                       case "touchstart":
+                        //console.log("ДОtouchstart",  curdragel);
+                         curdragel = <HTMLDivElement>evt.target;
+                        // console.log("Послеtouchstart",  curdragel);
+                         isLeave = true;
+                         if (evt.type === "dragstart") {
+                           (<DataTransfer>(<DragEvent>evt).dataTransfer).setData(
+                             "text",
+                             (<HTMLElement>evt.target).id
+                           );
+                           curdrag = (<DataTransfer>(<DragEvent>evt).dataTransfer).getData("text");
+                         } else if (evt.type === "touchstart") {
+                           curdrag = (<HTMLDivElement>evt.target).id;
+                        //   console.log("После после touchstart",  curdrag);
+                         }
+                         break;
+                       case "dragleave":
+                         isLeave = true;
+                         break;
+                       case "dragover":
+                       case "touchmove":
+                         evt.preventDefault();
+                         console.log("touchmove");
+                         isLeave = false;
+                         break;
+                       case "drop":
+                       case "touchend":
+                         evt.preventDefault();
+                         if (!isLeave) {
+                           if (evt.type === "drop") {
+                             curdropel = <HTMLDivElement>evt.target;
+                           } else if (evt.type === "touchend") {
+                            console.log("touchend", curdropel);
+                            
+                             curdropel = document.elementFromPoint(
+                              (<TouchEvent>evt).changedTouches[0].clientX,
+                              (<TouchEvent>evt).changedTouches[0].clientY
+                             ) as HTMLDivElement;
+                             console.log("elementFromPoint",curdropel);
+                             console.log((<TouchEvent>evt).changedTouches[0].clientY);
+                           }
+                           console.log("elementFromPoint2222",curdropel);
+                           console.log("curdragel2222", curdragel);
+                           curdropel.appendChild(curdragel);
                             const score = <HTMLElement>document.querySelector('.score');
-                            total_points += (curdragel.id === curdropel.id) ? 1 : 0;     //  Совпадают ? будет +1 : иначе 0
-                            score.textContent = `Score: ${total_points}`;
+                                total_points += (curdragel.id === curdropel.id) ? 1 : 0;     //  Совпадают ? будет +1 : иначе 0
+                                score.textContent = `Score: ${total_points}`;
+                                                 //получаем массив ОТВЕТОВ (id.картинок)
+                                finishResult.push(curdragel.id);
+                                randomFishDiscription()
+                         }
+                         break;
+                         default:
+                         break;
+                     }
 
-                            //получаем массив ОТВЕТОВ (id.картинок)
-                            finishResult.push(curdragel.id);
-                            fishDiscrip = randomFishDiscription()
-                            break;
-                        default:
-                            break;
-                    }
+                  
+                  };
+                  
+                  imgs.map((el) => {
+                    (<HTMLDivElement>el).addEventListener("dragstart", dispatcher);
+                    (<HTMLDivElement>el).addEventListener("touchstart", dispatcher);
+                  });
+                  
+                  divs.map((el) => {
+                    (<HTMLDivElement>el).addEventListener("dragover", dispatcher);
+                    (<HTMLDivElement>el).addEventListener("drop", dispatcher);
+                    (<HTMLDivElement>el).addEventListener("touchmove", dispatcher);
+                    (<HTMLDivElement>el).addEventListener("touchend", dispatcher);
+                  });
+                
                 };
-                imgs.map((el) => {
-                    (<HTMLElement>el).addEventListener("dragstart", dispatcher);
-                });
-
-                divs.map((el) => {
-                    (<HTMLElement>el).addEventListener("dragover", dispatcher);
-                    (<HTMLElement>el).addEventListener("drop", dispatcher);
-                });
-
-            };
-            dragAndDrop();
+                dragAndDrop();
+                
+                
 
             // переходим к следующему вопросу
             const btnNextQuestion = <HTMLElement>document.querySelector('.btnQuiz');
             btnNextQuestion.addEventListener('click', (event: Event) => {
-                fishDiscription.remove()
-                newLvl();
+                  newLvl();
             });
             // пройти викторину ещё раз
             const btnMore = <HTMLElement>document.querySelector('.btnMore');
@@ -324,7 +349,8 @@ class QuizPage extends Page {
                 for (let elem of blocksImg) {
                     elem.remove()
                 }
-                if (level === 3) {
+                fishDiscription.style.display = "none";
+          if (level === 3) {
                     containerQuizBox.remove();
                     drawResult();
                     winText.textContent = `${select.value === 'ru' ? `Вы ответили на все вопросы и набрали ${total_points} из 24 возможных баллов!` : `You answered all the questions and scored ${total_points} out of 24 possible points`}`;
@@ -359,7 +385,6 @@ class QuizPage extends Page {
                 activLavel[level - 1].classList.remove('liLevelActiv');
                 currentFishName = randomFishName();
                 currentFishFoto = randomFishFoto();
-                fishDiscrip = randomFishDiscription();
                 question();
                 dragAndDrop();
             }
