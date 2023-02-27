@@ -6,6 +6,7 @@ import fishDataEn from "./quiz_BD/BD_animal_en";
 import { langArr } from "../../utils/dataLang";
 import { data } from "../../utils/dataLang";
 
+
 class QuizPage extends Page {
 
     static TextObject = {
@@ -18,6 +19,7 @@ class QuizPage extends Page {
     }
 
     render() {
+
         const select = <HTMLSelectElement>document.querySelector('.header_language');
         if (select.value === 'ru') {
             let langInHash = window.location.hash.slice(1).split('=')[1];
@@ -180,9 +182,7 @@ class QuizPage extends Page {
                      switch (evt.type) {
                        case "dragstart":
                        case "touchstart":
-                        //console.log("ДОtouchstart",  curdragel);
                          curdragel = <HTMLDivElement>evt.target;
-                        // console.log("Послеtouchstart",  curdragel);
                          isLeave = true;
                          if (evt.type === "dragstart") {
                            (<DataTransfer>(<DragEvent>evt).dataTransfer).setData(
@@ -191,8 +191,11 @@ class QuizPage extends Page {
                            );
                            curdrag = (<DataTransfer>(<DragEvent>evt).dataTransfer).getData("text");
                          } else if (evt.type === "touchstart") {
-                           curdrag = (<HTMLDivElement>evt.target).id;
-                        //   console.log("После после touchstart",  curdrag);
+                           curdragel = <HTMLDivElement>evt.target;
+                           curdragel.style.position = 'fixed';
+                           curdragel.style.marginLeft = '-4.6vw';
+                           curdragel.style.height = String(curdragel.clientHeight);
+                           curdragel.style.width = String(curdragel.clientWidth);
                          }
                          break;
                        case "dragleave":
@@ -201,8 +204,9 @@ class QuizPage extends Page {
                        case "dragover":
                        case "touchmove":
                          evt.preventDefault();
-                         console.log("touchmove");
                          isLeave = false;
+                         curdragel.style.left = String((<TouchEvent>evt).changedTouches[0].clientX -curdragel.clientWidth/2);
+                         curdragel.style.top = String((<TouchEvent>evt).changedTouches[0].clientY - curdragel.clientHeight/2);
                          break;
                        case "drop":
                        case "touchend":
@@ -211,17 +215,19 @@ class QuizPage extends Page {
                            if (evt.type === "drop") {
                              curdropel = <HTMLDivElement>evt.target;
                            } else if (evt.type === "touchend") {
-                            console.log("touchend", curdropel);
-                            
-                             curdropel = document.elementFromPoint(
-                              (<TouchEvent>evt).changedTouches[0].clientX,
-                              (<TouchEvent>evt).changedTouches[0].clientY
-                             ) as HTMLDivElement;
-                             console.log("elementFromPoint",curdropel);
-                             console.log((<TouchEvent>evt).changedTouches[0].clientY);
+                                    if ((<any>evt).clientX) {
+                                        curdropel = <HTMLDivElement>document.elementFromPoint((<any>evt).clientX, (<any>evt).clientY);
+                                      } else {
+                                        curdropel = <HTMLDivElement>document.elementFromPoint((<TouchEvent>evt).changedTouches[0].clientX, (<TouchEvent>evt).changedTouches[0].clientY);
+                                      }
+                                      <HTMLElement>curdropel.appendChild(curdragel);
+                                curdragel.style.left = '5vw';
+                                curdragel.style.top = '';
+                                curdragel.style.height = '';
+                                curdragel.style.width = '';
+                                curdragel.style.position = '';
+                                curdragel.style.zIndex = '';
                            }
-                           console.log("elementFromPoint2222",curdropel);
-                           console.log("curdragel2222", curdragel);
                            curdropel.appendChild(curdragel);
                             const score = <HTMLElement>document.querySelector('.score');
                                 total_points += (curdragel.id === curdropel.id) ? 1 : 0;     //  Совпадают ? будет +1 : иначе 0
@@ -234,30 +240,27 @@ class QuizPage extends Page {
                          default:
                          break;
                      }
-
-                  
+                 
                   };
                   
                   imgs.map((el) => {
                     (<HTMLDivElement>el).addEventListener("dragstart", dispatcher);
                     (<HTMLDivElement>el).addEventListener("touchstart", dispatcher);
+                    (<HTMLDivElement>el).addEventListener("touchmove", dispatcher);
+                    (<HTMLDivElement>el).addEventListener("touchend", dispatcher);
                   });
                   
                   divs.map((el) => {
                     (<HTMLDivElement>el).addEventListener("dragover", dispatcher);
                     (<HTMLDivElement>el).addEventListener("drop", dispatcher);
-                    (<HTMLDivElement>el).addEventListener("touchmove", dispatcher);
-                    (<HTMLDivElement>el).addEventListener("touchend", dispatcher);
                   });
                 
                 };
                 dragAndDrop();
-                
-                
 
             // переходим к следующему вопросу
             const btnNextQuestion = <HTMLElement>document.querySelector('.btnQuiz');
-            btnNextQuestion.addEventListener('click', (event: Event) => {
+            btnNextQuestion.addEventListener('click', (evt: Event) => {
                   newLvl();
             });
             // пройти викторину ещё раз
@@ -392,7 +395,6 @@ class QuizPage extends Page {
         };
         setTimeout(renderQuiz, 4000);
         return this.container;
-
     }
 }
 

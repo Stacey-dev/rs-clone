@@ -120,7 +120,7 @@ class Header extends Component {
                 boxTheme.style.display = 'none';
                 userAuth.style.display = 'none';
             }
-            if (5 > scrolled) {
+            if (0 >= scrolled) {
                 header.style.background = 'none';
                 box_language.style.display = 'grid';
                 box_ticket.style.display = 'grid';
