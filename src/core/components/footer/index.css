@@ -1,0 +1,162 @@
+footer {
+  position: relative;
+  z-index: 5;
+  background: #dec86e;
+  padding: 40px 0 0;
+  color: #102f43;
+}
+
+.footer__wrapper {
+  color: #102f43;
+  margin: 0 auto;
+  width: 80vw;
+}
+
+.footer_col {
+  flex: 0 0 25%;
+  max-width: 25%;
+  position: relative;
+  width: 100%;
+}
+
+.footer_row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+footer ul.footer-nav ul.sub-menu li:first-of-type {
+  margin-top: 5px;
+}
+
+footer ul.footer-nav ul.sub-menu {
+  list-style: none;
+  padding-left: 20px;
+}
+
+footer ul.footer-nav li {
+  line-height: 19px;
+  margin-bottom: 12px;
+}
+
+footer ul.footer-nav a {
+  color: #102f43;
+  padding-bottom: 4px;
+}
+
+.btn.btn-footer {
+  color: #dec86e;
+  background: #102f43;
+  margin-bottom: 15px;
+  transition: all 0.2s ease-in-out;
+  width: 80%;
+  text-align: left;
+  white-space: normal;
+}
+
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+}
+
+footer .social-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 85%;
+}
+
+footer .logos-container .logos-row {
+  display: flex;
+  margin: 15px 0 0;
+}
+
+footer .logos-container .row:first-of-type {
+  margin: 20px 0 0;
+}
+
+footer .logos-container a {
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+footer .logos-container .logos-item {
+  display: flex;
+  align-items: center;
+}
+
+.img-fluid {
+  max-width: 70%;
+  height: auto;
+}
+
+footer ul.footer-nav a {
+  display: inline-block;
+  vertical-align: middle;
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.logos-item {
+  flex: 0 0 33.3333333333%;
+  max-width: 33.3333333333%;
+  position: relative;
+  width: 100%;
+}
+
+.twitter,
+.facebook,
+.instagram,
+.youtube,
+.tiktok,
+.linkedin {
+  fill: #102f43;
+  transition: fill 0.2s ease-in-out;
+}
+
+.btn-social svg:hover path {
+  fill: #e7d898;
+}
+
+.post-footer {
+  background: #e7d898;
+  font-size: 14px;
+  padding: 15px;
+  color: #102f43;
+}
+
+.post-footer__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+}
+
+.item-post-footer .authors_link {
+  margin: 0 20px;
+  color: #102f43;
+}
+
+.item-post-footer .authors_link:hover {
+  border-bottom: 1px solid #102f43;
+}
+
+.rs_img {
+  width: 100px;
+  height: 50px;
+  background-image: url(../../../assets/icons/rs_school_js.svg);
+  background-repeat: no-repeat;
+}

@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "module": "esnext",
+        "outDir": "./dist",
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "allowJs": true,
+        "target": "es2017",
+        "noImplicitAny": true,
+        "strict": true,
+        "lib": [
+            "es5",
+            "es6",
+            "dom",
+            "dom.iterable",
+            "ES2021.String"
+        ],
+    },
+    "include": [
+        "./src/**/*",
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

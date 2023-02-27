@@ -1,0 +1,194 @@
+@font-face {
+    font-family: 'Libre';
+    src: url('../../assets/font/LibreBaskerville-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'LibreBold';
+    src: url('../../assets/font/LibreBaskerville-Bold.ttf') format('truetype');
+}
+
+.schedules__content {
+    margin-top: -5%;
+    background-color: white;
+}
+
+.schedules__content.dark {
+    background-color: #102f43;
+}
+
+.schedules__toTop {
+    transform: translateY(-10%);
+    transition: transform 1s linear;
+}
+
+.schedules-tile_left {
+    background: #102f43;
+    color: #fff;
+    font-weight: 300;
+    font-size: 44px;
+    line-height: 52px;
+    text-transform: uppercase;
+    padding: 50px 50px 140px 50px;
+    margin-top: -185px;
+    width: 50%;
+}
+
+.schedules-tile_right {
+    background-color: white;
+    color: #3ca0b9;
+    font-family: LibreBold;
+    font-size: 21px;
+    font-weight: 400;
+    line-height: 35px;
+    padding: 20px 15px;
+    width: 50%;
+}
+
+.schedules-tile_right.dark {
+    background-color: #154e5e;
+    color: #fff;
+}
+
+.schedules__buttons-top {
+    background-color: white;
+    padding-top: 60px;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: end;
+    gap: 20px;
+    position: relative;
+}
+
+.schedules__content.dark .schedules__buttons-top {
+    background-color: #102f43;
+}
+
+.schedules__button-right {
+    background: #dec86e;
+    color: white;
+    border: none;
+    padding: 0.375rem 0.75rem;
+    cursor: pointer;
+}
+
+.schedules__calendar {
+    width: 280px;
+    background-color: white;
+    position: relative;
+    box-shadow: 5px 5px 10px rgba(70, 66, 66, 0.529), -5px 5px 10px rgba(70, 66, 66, 0.529);
+}
+
+.schedules__calendar-container {
+    position: absolute;
+    top: 104px;
+    right: 0;
+}
+
+.sched-calendar__month-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #dec86e;
+    border: 0.5px solid white;
+}
+
+.sched-calendar__table {
+    height: 10px;
+    background-color: white;
+}
+
+.calendar_schedules-page {
+    padding-bottom: 5px;
+}
+
+.calendar__monthName {
+    color: white;
+}
+
+.td__currentDay {
+    background-color: #dec86e;
+}
+
+.td__pastDay {
+    background-color: #389db995;
+    color: white;
+}
+
+.td__futureDay {
+    background-color: #10597c;
+    color: white;
+}
+
+.sched-table__header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sched-table__cell {
+    border-bottom: 1px solid #3ca0b9;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem;
+    font-size: 16px;
+    border-top: 1px solid #3ca0b9;
+    color: #10597c;
+}
+
+.schedules__content.dark .sched-table__cell {
+    background-color: #184461;
+    color: #fff;
+}
+
+.sched-table__activity {
+    width: 100%;
+}
+
+.sched-table__hour,
+.sched-table__location,
+.sched-table__status {
+    width: calc(100% / 4);
+    display: flex;
+    justify-content: start;
+}
+
+.sched-table__status {
+    justify-content: end;
+}
+
+.sched-table__cell_filled {
+    font-size: 16px;
+    border-top: 1px solid #3ca0b9;
+    color: #10597c;
+    background-color: #dbeaf1;
+}
+
+.schedules__content.dark .sched-table__cell.sched-table__cell_filled {
+    background-color: #10597c;
+}
+
+.schedules__explanation {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+.schedules__content.dark .schedules__explanation {
+    background-color: #102f43;
+    color: #fff;
+}
+
+.activity__icon {
+    width: 18px;
+}
+
+@media screen and (max-width: 990px) {
+    .schedules-tile_left {
+        width: 96%;
+        padding: 20px;
+    }
+
+    .schedules-tile_right {
+        width: 96.9%;
+        font-size: 15px;
+    }
+}
