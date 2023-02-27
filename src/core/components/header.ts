@@ -330,30 +330,73 @@ class Header extends Component {
     <form class='authorization__form'>
       <div class='authorization__wrapper'>
         <h3 class='authorization__title'>Registration</h3>
-        <input class='authorization__input input' id='name' type='text' placeholder='Enter name...'>
-        <input class='authorization__input input input-phone' id='phone' type='number' placeholder='Enter phone number...'>
+        <input class='authorization__input input input-name' id='name' type='text' placeholder='Enter name...'>
+        <li class='authorization__rules-text'>The name should have more than 3 letters</li>
+        <input class='authorization__input input input-phone' id='phone' type='tel' placeholder='Enter phone number...'">
+        <li class='authorization__rules-text'>The phone number should start from "+" and have 9 - 12 numbers</li>
         <input class='authorization__input input input-password' id='password' type='password' placeholder='Enter password...'>
+        <li class='authorization__rules-text'>The password should be from 6 to 14 characters and have at least 1 number, 1 upper case letter, 1 lower case letter</li>
       </div>
     </form>
-    <p className='authorization__disclaimer'>
-		If you have an account you can <a class='link login__link' href=''>login</a>
-	</p>`;
+    <p class='authorization__disclaimer'>
+		  If you have an account you can <a class='link login__link' href=''>login</a>
+	  </p>`;
 
     const registerBtn = <HTMLButtonElement>document.createElement('button');
     registerBtn.classList.add('button', 'register__button');
     registerBtn.setAttribute('type', 'submit');
     registerBtn.innerText = 'Register';
 
-    modalContainer.append(registerBtn);
-
     registerBtn.addEventListener('click', () => {
-      console.log('working');
-      let form = <HTMLFormElement>document.querySelector('authorization__form');
       const formInputs = <NodeListOf<HTMLInputElement>>document.querySelectorAll('input');
-      const inputPhone = <HTMLInputElement>document.querySelector('input-phone');
-      const inputPassword = <HTMLInputElement>document.querySelector('input-password');
+      const inputName = <HTMLInputElement>document.getElementsByClassName('input-name')[0];
+      const inputPhone = <HTMLInputElement>document.getElementsByClassName('input-phone')[0];
+      const inputPassword = <HTMLInputElement>document.getElementsByClassName('input-password')[0];
+
+      let nameValue = inputName.value;
+      let phoneValue = inputPhone.value;
+      let passwordValue = inputPassword.value;
+      const emptyInputs = Array.from(formInputs).filter((input) => input.value === '');
+
+      const nameRegExp = /^[A-Za-z]{3,12}$/;
+      const phoneRegExp = /^\+[0-9]{9,12}$/;
+      const passwordRegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,14}$/;
+
+      formInputs.forEach((input) => {
+        if (input.value === '') {
+          input.classList.add('error');
+        } else {
+          input.classList.remove('error');
+        }
+      });
+
+      if (emptyInputs.length !== 0) {
+        return false;
+      }
+
+      if (!nameRegExp.test(nameValue)) {
+        inputName.classList.add('error');
+        return false;
+      } else {
+        inputName.classList.remove('error');
+      }
+
+      if (!phoneRegExp.test(phoneValue)) {
+        inputPhone.classList.add('error');
+        return false;
+      } else {
+        inputPhone.classList.remove('error');
+      }
+
+      if (!passwordRegExp.test(passwordValue)) {
+        inputPassword.classList.add('error');
+        return false;
+      } else {
+        inputPassword.classList.remove('error');
+      }
     });
 
+    modalContainer.append(registerBtn);
     document.body.style.overflow = 'hidden';
     document.body.prepend(overlay);
     document.body.append(modalContainer);
