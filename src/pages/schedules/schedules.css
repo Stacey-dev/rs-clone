@@ -98,6 +98,10 @@
     background-color: white;
 }
 
+.calendar_schedules-page {
+    padding-bottom: 5px;
+}
+
 .calendar__monthName {
     color: white;
 }
