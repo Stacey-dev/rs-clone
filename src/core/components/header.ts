@@ -170,6 +170,7 @@ class Header extends Component {
               schedulesContent.classList.remove('dark');
               schedulesRightTile.classList.remove('dark');
               schedulesTickets.classList.remove('dark');
+              break;
             case PageIds.QuizPage:
             case PageIds.QuizPageRu:
               quizTasks.classList.remove('dark');
@@ -179,6 +180,7 @@ class Header extends Component {
               liLevelActive.classList.remove('dark');
               quizBox.forEach((item) => item.classList.remove('dark'));
               quizTaskBox.forEach((item) => item.classList.remove('dark'));
+              break;
           }
         } else {
           toggler.classList.add('dark');
@@ -199,6 +201,7 @@ class Header extends Component {
               schedulesContent.classList.add('dark');
               schedulesRightTile.classList.add('dark');
               schedulesTickets.classList.add('dark');
+              break;
             case PageIds.QuizPage:
             case PageIds.QuizPageRu:
               quizTasks.classList.add('dark');
@@ -208,6 +211,7 @@ class Header extends Component {
               liLevelActive.classList.add('dark');
               quizBox.forEach((item) => item.classList.add('dark'));
               quizTaskBox.forEach((item) => item.classList.add('dark'));
+              break;
           }
         }
       }
