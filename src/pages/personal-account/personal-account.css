@@ -1,0 +1,61 @@
+@font-face {
+    font-family: 'Libre';
+    src: url('../../assets/font/LibreBaskerville-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'LibreBold';
+    src: url('../../assets/font/LibreBaskerville-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'WorkSans-Italic';
+    src: url('../../assets/font/WorkSans-Italic-VariableFont_wght.ttf') format('truetype');
+}
+
+.personal__background {
+    background-image: url(../../assets/images/home-bg-tortugas.jpeg);
+    background-repeat: no-repeat;
+    height: 100vh;
+    overflow: hidden;
+    background-size: cover;
+    padding-top: 5%;
+}
+
+.personal__data {
+    border-radius: 5px;
+    border: 1px solid white;
+    display: flex;
+    width: 100%;
+    background-color: #041c2e69;
+}
+
+.personal__name {
+    width: calc(100% / 4);
+    border-right: 1px solid white;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+}
+
+.personal__tickets {
+    width: calc(100% - (100% / 4));
+    font-size: 20px;
+    color: white;
+    text-align: center;
+}
+
+.name-user {
+    border-top: 1px solid white;
+    font-size: 25px;
+    color: rgb(255, 255, 255);
+    font-family: 'WorkSans-Italic';
+    text-align: start;
+    padding: 15px;
+}
+
+.users-tickets {
+    border-top: 1px solid white;
+    width: 100%;
+    text-align: start
+}

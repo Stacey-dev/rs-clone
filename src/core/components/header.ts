@@ -41,8 +41,11 @@ const Buttoms: { id: string; text: string }[] = [
     },
 ];
 class Header extends Component {
+    static userId: number | null;
+
     constructor(tagName: string, className: string) {
         super(tagName, className);
+        Header.userId = null;
     }
 
     createHeader() {
@@ -257,7 +260,6 @@ class Header extends Component {
             const calendar = <HTMLDivElement>document.querySelector('.calendar');
             const calendarWrapper = <HTMLDivElement>document.querySelector('.schedules__calendar');
 
-
             if (select.value === 'ru') {
                 document.querySelector('title')!.innerHTML = 'RS Клон';
 
@@ -274,25 +276,23 @@ class Header extends Component {
                 }
 
                 if (freeEntriesOptions) {
-                    freeEntriesOptions.innerHTML = "";
+                    freeEntriesOptions.innerHTML = '';
                     freeEntriesOptions.append(createDropDownListCondition(freeEntriesDataRu));
                 }
                 if (schedulesTable) {
-                    schedulesTable.innerHTML = "";
+                    schedulesTable.innerHTML = '';
                     schedulesTable.append(createSchedulesTable(schedulesSaturdayDataRu));
                 }
                 if (calendar) {
-                    calendar.innerHTML = "";
+                    calendar.innerHTML = '';
                     createCalendarView(calendar, 2023, PricesPage.currentMonth, select.value);
                 }
                 if (calendarWrapper) {
                     calendarWrapper.innerHTML = "";
                     createCalendarSchedules(calendarWrapper, select.value)
                 }
-
-
             } else {
-                document.querySelector('title')!.innerHTML = "RS Clone";
+                document.querySelector('title')!.innerHTML = 'RS Clone';
 
                 if (ticketOptions) {
                     ticketOptions!.innerHTML = '';
@@ -307,76 +307,239 @@ class Header extends Component {
                 }
 
                 if (freeEntriesOptions) {
-                    freeEntriesOptions.innerHTML = "";
+                    freeEntriesOptions.innerHTML = '';
                     freeEntriesOptions.append(createDropDownListCondition(freeEntriesData));
                 }
                 if (schedulesTable) {
-                    schedulesTable.innerHTML = "";
+                    schedulesTable.innerHTML = '';
                     schedulesTable.append(createSchedulesTable(schedulesSaturdayData));
                 }
                 if (calendar) {
-                    calendar.innerHTML = "";
+                    calendar.innerHTML = '';
                     createCalendarView(calendar, 2023, PricesPage.currentMonth, select.value);
                 }
                 if (calendarWrapper) {
                     calendarWrapper.innerHTML = "";
                     createCalendarSchedules(calendarWrapper, select.value)
                 }
+            }
+        });
 
+        const userAuth = <HTMLDivElement>this.container.querySelector('.user__auth');
+
+        userAuth.addEventListener('click', () => {
+            if (Object.values(localStorage).length !== 0) {
+                this.showExitForm();
+            } else {
+                this.showRegistrationForm()
             }
 
-            userAuth.addEventListener('click', this.showRegistrationForm);
+        });
 
-            return this.container;
+        return this.container;
+    }
+
+    showRegistrationForm() {
+        const overlay = <HTMLDivElement>document.createElement('div');
+        overlay.classList.add('overlay');
+
+        const modalContainer = <HTMLDivElement>document.createElement('div');
+        modalContainer.classList.add('modal__container');
+
+        modalContainer.innerHTML = `<div class="login-form">
+        <form class='authorization__form'>
+            <div class='authorization__wrapper'>
+                <h3 class='authorization__title'>Login</h3>
+                <input class='authorization__input input input-e-mail' id='e-mail' type='text' placeholder='Enter e-mail...'>
+                <input class='authorization__input input input-password' id='password' type='password' placeholder='Enter password...'>
+            </div>
+        </form>
+        <p className='authorization__disclaimer'>
+            If you don't have an account, you can <button class='link register__link' href=''>register</button>
+        </p>
+    </div>
+    <div class="registration-form hidden">
+        <form class='authorization__form'>
+            <div class='authorization__wrapper'>
+                <h3 class='authorization__title'>Register</h3>
+                <input class='authorization__input input register__input-e-mail' id='e-mail' type='text' placeholder='Enter e-mail...'>
+                <input class='authorization__input input register__input-name' id='name' type='text' placeholder='Enter name...'>
+                <input class='authorization__input input register__input-password' id='password' type='password' placeholder='Enter password...'>
+            </div>
+        </form>
+    </div>`;
+
+        const loginForm = <HTMLDivElement>modalContainer.querySelector('.login-form');
+        const registrationForm = <HTMLDivElement>modalContainer.querySelector('.registration-form');
+
+        const loginBtn = <HTMLButtonElement>document.createElement('button');
+        loginBtn.classList.add('button', 'login__button');
+        loginBtn.setAttribute('type', 'submit');
+        loginBtn.innerText = 'Login';
+
+        const registerBtn = <HTMLButtonElement>document.createElement('button');
+        registerBtn.classList.add('button', 'register__button');
+        registerBtn.setAttribute('type', 'submit');
+        registerBtn.innerText = 'Register';
+
+        modalContainer.append(loginBtn);
+
+        type LoginData = {
+            email: string | null,
+            name: string | null,
+            password: string | null;
         }
 
-  showRegistrationForm() {
-            const overlay = <HTMLDivElement>document.createElement('div');
-            overlay.classList.add('overlay');
+        const loginData: LoginData = {
+            email: null,
+            name: null,
+            password: null
+        };
 
-            const modalContainer = <HTMLDivElement>document.createElement('div');
-            modalContainer.classList.add('modal__container');
+        const email = <HTMLInputElement>modalContainer.querySelector('.input-e-mail');
+        const password = <HTMLInputElement>modalContainer.querySelector('.input-password');
+        const emailRegistr = <HTMLInputElement>modalContainer.querySelector('.register__input-e-mail');
+        const passwordRegistr = <HTMLInputElement>modalContainer.querySelector('.register__input-password');
+        const nameUser = <HTMLInputElement>modalContainer.querySelector('.register__input-name')
 
-            modalContainer.innerHTML = `
-    <form class='authorization__form'>
-      <div class='authorization__wrapper'>
-        <h3 class='authorization__title'>Registration</h3>
-        <input class='authorization__input input' id='name' type='text' placeholder='Enter name...'>
-        <input class='authorization__input input input-phone' id='phone' type='number' placeholder='Enter phone number...'>
-        <input class='authorization__input input input-password' id='password' type='password' placeholder='Enter password...'>
-      </div>
-    </form>
-    <p className='authorization__disclaimer'>
-		If you have an account you can <a class='link login__link' href=''>login</a>
-	</p>`;
+        email.addEventListener('change', () => {
+            loginData.email = email.value;
 
-            const registerBtn = <HTMLButtonElement>document.createElement('button');
-            registerBtn.classList.add('button', 'register__button');
-            registerBtn.setAttribute('type', 'submit');
-            registerBtn.innerText = 'Register';
+        })
 
-            modalContainer.append(registerBtn);
+        emailRegistr.addEventListener('change', () => {
+            loginData.email = emailRegistr.value;
 
-            registerBtn.addEventListener('click', () => {
-                console.log('working');
-                let form = <HTMLFormElement>document.querySelector('authorization__form');
-                const formInputs = <NodeListOf<HTMLInputElement>>document.querySelectorAll('input');
-                const inputPhone = <HTMLInputElement>document.querySelector('input-phone');
-                const inputPassword = <HTMLInputElement>document.querySelector('input-password');
+        })
+
+        nameUser.addEventListener('change', () => {
+            loginData.name = nameUser.value;
+        })
+
+        password.addEventListener('change', () => {
+            loginData.password = password.value;
+        })
+
+        passwordRegistr.addEventListener('change', () => {
+            loginData.password = passwordRegistr.value;
+        })
+
+        loginBtn.addEventListener('click', async () => {
+
+            const response = await fetch('http://localhost:3000/login', {
+                method: "POST",
+                body: JSON.stringify(loginData),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
+            if (response.ok) {
+                const responseJson = await response.json();
+                const { accessToken, user } = responseJson;
+                localStorage.accessToken = accessToken;
+                if (user !== null) {
+                    localStorage.user = JSON.stringify(user);
+                    const valuesLocStor: string[] = Object.values(localStorage);
+                    Header.userId = JSON.parse(valuesLocStor[1]).id;
 
-            document.body.style.overflow = 'hidden';
-            document.body.prepend(overlay);
-            document.body.append(modalContainer);
+                }
 
-            const closeModal = (): void => {
-                modalContainer.remove();
-                overlay.remove();
-                document.body.style.overflowY = 'scroll';
-            };
+                const path = window.location.hash.slice(1).split('?')[0];
+                const url = new URL(window.location.toString());
+                url.hash = PageIds.PersonalAccauntPage;
+                window.history.pushState({}, '', url);
+                location.reload();
+            }
+        });
 
-            overlay.addEventListener('click', closeModal);
-        }
+        const registerLink = <HTMLButtonElement>modalContainer.querySelector('.register__link');
+        registerLink.addEventListener('click', () => {
+            loginForm.classList.add('hidden');
+            registrationForm.classList.remove('hidden');
+            loginBtn.remove()
+            modalContainer.append(registerBtn);
+        });
+
+        registerBtn.addEventListener('click', async () => {
+            const response = await fetch('http://localhost:3000/register', {
+                method: "POST",
+                body: JSON.stringify(loginData),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (response.ok) {
+                const responseJson = await response.json();
+                const { accessToken, user } = responseJson;
+
+                localStorage.accessToken = accessToken;
+                if (user !== null) {
+                    localStorage.setItem('user', JSON.stringify(user));
+                    const valuesLocStor: string[] = Object.values(localStorage);
+                    Header.userId = JSON.parse(valuesLocStor[1]).id;
+                }
+
+                const url = new URL(window.location.toString());
+                url.hash = PageIds.PersonalAccauntPage;
+                window.history.pushState({}, '', url);
+                location.reload();
+            }
+        })
+
+        document.body.style.overflow = 'hidden';
+        document.body.prepend(overlay);
+        document.body.append(modalContainer);
+
+        const closeModal = (): void => {
+            modalContainer.remove();
+            overlay.remove();
+            document.body.style.overflowY = 'scroll';
+        };
+
+        overlay.addEventListener('click', closeModal);
+    }
+
+    showExitForm() {
+        const overlay = <HTMLDivElement>document.createElement('div');
+        overlay.classList.add('overlay');
+
+        const exitContainer = <HTMLDivElement>document.createElement('div');
+        exitContainer.classList.add('exit__container');
+
+        exitContainer.innerHTML = `
+        <button class="toAccount__button">To account</button>
+        <button class="exit__button">Exit</button>`;
+
+        document.body.style.overflow = 'hidden';
+        document.body.prepend(overlay);
+        document.body.append(exitContainer);
+
+        const exitBtn = <HTMLButtonElement>exitContainer.querySelector('.exit__button');
+        exitBtn.addEventListener('click', () => {
+            window.localStorage.clear();
+            const url = new URL(window.location.toString());
+            url.hash = PageIds.PricesPage;
+            window.history.pushState({}, '', url);
+            location.reload();
+        });
+
+        const toAccountBtn = <HTMLButtonElement>exitContainer.querySelector('.toAccount__button');
+        toAccountBtn.addEventListener('click', () => {
+            const url = new URL(window.location.toString());
+            url.hash = PageIds.PersonalAccauntPage;
+            window.history.pushState({}, '', url);
+            location.reload();
+        })
+
+        const closeModal = (): void => {
+            exitContainer.remove();
+            overlay.remove();
+            document.body.style.overflowY = 'scroll';
+        };
+
+        overlay.addEventListener('click', closeModal);
+
+    }
 }
 
 export default Header;

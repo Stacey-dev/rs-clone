@@ -13,6 +13,7 @@ import UnionPay from '../../assets/icons/union-pay.png'
 import { data } from "../../utils/dataLang";
 import { langArrBuyTicket } from "../../utils/dataLang";
 import { PageIds } from "../app/app";
+import App from "../app/app";
 
 type Order = {
     name: string | null,
@@ -333,9 +334,20 @@ export class TicketPage extends Page {
 
         //__________________________________________________________________canvas activation
 
-        completePaymentButt.addEventListener('click', () => {
-            canvasContainer.classList.remove('hidden');
+        completePaymentButt.addEventListener('click', async () => {
+            if (Object.values(localStorage).length !== 0) {
+                for (let ticket of App.orders) {
+                    const response = await fetch('http://localhost:3000/tickets', {
+                        method: "POST",
+                        body: JSON.stringify(ticket),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                }
+            }
 
+            canvasContainer.classList.remove('hidden');
             setTimeout(reload, 2000);
         })
 
@@ -347,6 +359,7 @@ export class TicketPage extends Page {
             window.history.pushState({}, '', url);
             location.reload();
         }
+
 
         return this.container;
     }

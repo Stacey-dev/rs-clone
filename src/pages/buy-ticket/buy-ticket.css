@@ -309,11 +309,12 @@
     overflow: hidden;
     display: flex;
     justify-content: center;
+
+    margin-right: 10px;
 }
 
 .payment__card-img {
     width: 100%;
-
 }
 
 .payment__title {
