@@ -8,6 +8,11 @@
     src: url('./assets/font/LibreBaskerville-Regular.ttf') format('truetype');
 }
 
+@font-face {
+    font-family: 'WorkSans-Italic';
+    src: url('./assets/font/WorkSans-Italic-VariableFont_wght.ttf') format('truetype');
+}
+
 a,
 a:visited {
     text-decoration: none;
@@ -264,7 +269,19 @@ a:hover:after {
 }
 
 .authorization__form {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
+}
+
+.authorization__incorrect {
+    margin-top: 10px;
+    font-family: WorkSans-Italic;
+    color: red;
+}
+
+.registration__incorrect {
+    margin-top: 10px;
+    font-family: WorkSans-Italic;
+    color: red;
 }
 
 .authorization__wrapper {
@@ -277,6 +294,33 @@ a:hover:after {
     /* font-family: 'sofia-pro', 'Times New Roman'; */
     font-size: 28px;
     text-align: center;
+    margin-bottom: 15px;
+    font-size: 28px;
+    text-align: center;
+    color: #10597c;
+}
+
+.authorization__input {
+    width: 350px;
+    height: 50px;
+    margin-bottom: 20px;
+    padding-left: 5px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #8ca0b4;
+    font-size: 16px;
+    font-weight: 600;
+    color: #2d465d;
+    width: 350px;
+    height: 45px;
+    margin-bottom: 5px;
+    padding-left: 5px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #8ca0b4;
+    font-size: 16px;
+    font-weight: 600;
+    color: #2d465d;
 }
 
 .authorization__input {
@@ -292,12 +336,24 @@ a:hover:after {
     color: #2d465d;
 }
 
-.authorization__input:first-of-type {
-    margin-top: 30px;
+.input.error {
+    border: 1px solid #c91e1e;
+}
+
+.error__text {
+    color: #c91e1e;
+    font-size: 12px;
+}
+
+.authorization__rules-text {
+    list-style-type: none;
+    width: 350px;
+    margin-bottom: 10px;
+    font-size: 12px;
 }
 
 .authorization__disclaimer {
-    margin-top: 50px;
+    margin-top: 40px;
 }
 
 .link.register__link {

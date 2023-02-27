@@ -354,8 +354,11 @@ class Header extends Component {
                 <input class='authorization__input input input-password' id='password' type='password' placeholder='Enter password...'>
             </div>
         </form>
-        <p className='authorization__disclaimer'>
+        <p class='authorization__disclaimer'>
             If you don't have an account, you can <button class='link register__link' href=''>register</button>
+        </p>
+        <p class='authorization__incorrect hidden'>
+            Incorrect e-mail or password
         </p>
     </div>
     <div class="registration-form hidden">
@@ -364,13 +367,20 @@ class Header extends Component {
                 <h3 class='authorization__title'>Register</h3>
                 <input class='authorization__input input register__input-e-mail' id='e-mail' type='text' placeholder='Enter e-mail...'>
                 <input class='authorization__input input register__input-name' id='name' type='text' placeholder='Enter name...'>
+                <li class='authorization__rules-text'>The name should have more than 3 letters</li>
                 <input class='authorization__input input register__input-password' id='password' type='password' placeholder='Enter password...'>
+                <li class='authorization__rules-text'>The password should be from 4 to 14 characters and have at least 1 number, 1 upper case letter, 1 lower case letter</li>
             </div>
         </form>
+        <p class='registration__incorrect hidden'>
+        A user with this e-mail exists
+        </p>
     </div>`;
 
         const loginForm = <HTMLDivElement>modalContainer.querySelector('.login-form');
         const registrationForm = <HTMLDivElement>modalContainer.querySelector('.registration-form');
+        const incorrectMessage = <HTMLParagraphElement>modalContainer.querySelector('.authorization__incorrect')
+        const incorrectRegisterMessage = <HTMLParagraphElement>modalContainer.querySelector('.registration__incorrect')
 
         const loginBtn = <HTMLButtonElement>document.createElement('button');
         loginBtn.classList.add('button', 'login__button');
@@ -401,6 +411,7 @@ class Header extends Component {
         const emailRegistr = <HTMLInputElement>modalContainer.querySelector('.register__input-e-mail');
         const passwordRegistr = <HTMLInputElement>modalContainer.querySelector('.register__input-password');
         const nameUser = <HTMLInputElement>modalContainer.querySelector('.register__input-name')
+
 
         email.addEventListener('change', () => {
             loginData.email = email.value;
@@ -449,6 +460,8 @@ class Header extends Component {
                 url.hash = PageIds.PersonalAccauntPage;
                 window.history.pushState({}, '', url);
                 location.reload();
+            } else {
+                incorrectMessage.classList.remove('hidden');
             }
         });
 
@@ -461,6 +474,42 @@ class Header extends Component {
         });
 
         registerBtn.addEventListener('click', async () => {
+
+            const formInputs = <NodeListOf<HTMLInputElement>>registrationForm.querySelectorAll('input');
+            const emptyInputs = Array.from(formInputs).filter((input) => input.value === '');
+            let nameRegistrValue = nameUser.value;
+            let passwordRegistrValue = passwordRegistr.value;
+
+            const nameRegExp = /^[A-Za-z]{3,12}$/;
+            const passwordRegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,14}$/;
+
+
+            formInputs.forEach((input) => {
+                if (input.value === '') {
+                    input.classList.add('error');
+                } else {
+                    input.classList.remove('error');
+                }
+            });
+
+            if (emptyInputs.length !== 0) {
+                return false;
+            }
+
+            if (!nameRegExp.test(nameRegistrValue)) {
+                nameUser.classList.add('error');
+                return false;
+            } else {
+                nameUser.classList.remove('error');
+            }
+
+            if (!passwordRegExp.test(passwordRegistrValue)) {
+                passwordRegistr.classList.add('error');
+                return false;
+            } else {
+                passwordRegistr.classList.remove('error');
+            }
+
             const response = await fetch('http://localhost:3000/register', {
                 method: "POST",
                 body: JSON.stringify(loginData),
@@ -483,6 +532,8 @@ class Header extends Component {
                 url.hash = PageIds.PersonalAccauntPage;
                 window.history.pushState({}, '', url);
                 location.reload();
+            } else {
+                incorrectRegisterMessage.classList.remove('hidden')
             }
         })
 
