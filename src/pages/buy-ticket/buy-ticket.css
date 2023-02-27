@@ -309,8 +309,7 @@
     overflow: hidden;
     display: flex;
     justify-content: center;
-
-    margin-right: 10px;
+    padding-bottom: 30px;
 }
 
 .payment__card-img {
@@ -406,4 +405,32 @@
     position: absolute;
     top: 0;
     left: 0;
+}
+
+@media screen and (max-width: 950px) {
+    .payment__container-card-img {
+        width: 30px;
+        padding-bottom: 17px;
+    }
+
+    .tickets__nav {
+        margin-top: -7%;
+    }
+}
+
+
+@media screen and (max-width: 720px) {
+    .ticket__payment {
+        width: 90%;
+    }
+
+    .payment__label {
+        font-size: 15px;
+    }
+
+    .tickets__nav {
+        margin-top: -10.5%;
+        font-size: 14px;
+        font-weight: 400;
+    }
 }
