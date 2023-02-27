@@ -86,9 +86,9 @@ export function getAllSaturdays() {
 }
 
 
-export function createCalendarView(elem: HTMLDivElement) {
+export function createCalendarView(elem: HTMLDivElement, lng: string) {
 
-    const monthName: string = new Date().toLocaleString('en', {
+    const monthName: string = new Date().toLocaleString(`${lng}`, {
         month: 'long'
     });
 
@@ -102,7 +102,7 @@ export function createCalendarView(elem: HTMLDivElement) {
     monthNameContainer.innerText = `${monthName} ${year}`;
 
     const calendar = document.createElement('div');
-    calendar.classList.add('calendar');
+    calendar.classList.add('calendar_schedules-page');
 
     createCalendar(calendar);
 

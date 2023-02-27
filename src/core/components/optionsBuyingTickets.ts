@@ -10,6 +10,16 @@ type Order = {
 }
 
 export function createOptionByuingTicket(arr: Tickets[], containerForOptions: HTMLElement, button: HTMLButtonElement, date: string, containerForTickets: HTMLDivElement) {
+
+    const valuesLocStor: string[] = Object.values(localStorage);
+    let userId: number | null = null;
+
+    if (Object.values(localStorage).length !== 0) {
+        userId = JSON.parse(valuesLocStor[1]).id;
+    }
+
+
+
     for (let ticketsGroup of arr) {
         const title = document.createElement('div');
         title.classList.add('selection__option-title');
@@ -64,6 +74,7 @@ export function createOptionByuingTicket(arr: Tickets[], containerForOptions: HT
 
                     App.orders.splice(indexUpdateOrder, 1);
                     App.orders.length === 0 ? button.disabled = true : button.disabled = false;
+                    console.log("orsers", App.orders)
                     drawTicket(containerForTickets, App.orders)
                 }
 
@@ -89,15 +100,30 @@ export function createOptionByuingTicket(arr: Tickets[], containerForOptions: HT
                 if (updateOrder.length !== 0) {
                     updateOrder[0].amount = amount;
                     updateOrder[0].price = +(updateOrder[0].price! + parseFloat(elem.price)).toFixed(2);
+                    console.log("orsers", App.orders)
 
                     drawTicket(containerForTickets, App.orders)
                 } else {
-                    App.orders.push({
-                        name: elem.name,
-                        date: date,
-                        amount: amount,
-                        price: parseFloat(elem.price)
-                    });
+                    if (Object.values(localStorage).length !== 0) {
+                        App.orders.push({
+                            name: elem.name,
+                            date: date,
+                            amount: amount,
+                            price: parseFloat(elem.price),
+                            userId: userId
+                        });
+                        console.log("orsers", App.orders)
+                    } else {
+                        App.orders.push({
+                            name: elem.name,
+                            date: date,
+                            amount: amount,
+                            price: parseFloat(elem.price),
+                            userId: null
+                        });
+                        console.log("orsers", App.orders)
+                    }
+
                     drawTicket(containerForTickets, App.orders)
                 }
             });

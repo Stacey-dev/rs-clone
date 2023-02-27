@@ -5,6 +5,7 @@ import SchedulesPage from "../schedules/schedules";
 import QuizPage from "../quiz/quiz";
 import CiutatPage from "../la-ciutat/la-ciutat";
 import TicketPage from "../buy-ticket/buy-ticket";
+import PersonalAccPage from "../personal-account/personal-account";
 import ErrorPage from "../error/error";
 import { ErrorTypes } from "../error/error";
 import Header from "../../core/components/header";
@@ -21,13 +22,16 @@ export const enum PageIds {
     CiutatPage = 'ciutat-page&lang=en',
     TicketPage = 'ticket-page&lang=en',
     TicketPageRu = 'ticket-page&lang=ru',
+    PersonalAccauntPage = 'personal-page&lang=en',
     ErrorPage = 'error-page'
 }
 export type Order = {
     name: string | null,
     date: string | null,
     amount: number | null,
-    price: number | null
+    price: number | null,
+    userId: number | null
+
 }
 
 class App {
@@ -62,6 +66,8 @@ class App {
             page = new CiutatPage(idPage);
         } else if (path.includes(PageIds.TicketPage) || path.includes(PageIds.TicketPageRu)) {
             page = new TicketPage(idPage);
+        } else if (path.includes(PageIds.PersonalAccauntPage)) {
+            page = new PersonalAccPage(idPage);
         } else {
             page = new ErrorPage(idPage, ErrorTypes.Error_404);
         }

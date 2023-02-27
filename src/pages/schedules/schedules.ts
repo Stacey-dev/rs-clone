@@ -109,7 +109,7 @@ class SchedulesPage extends Page {
         const calendarWrapper = <HTMLDivElement>this.container.querySelector('.schedules__calendar');
         calendarContainer.classList.add('hidden');
 
-        createCalendarView(calendarWrapper);
+        createCalendarView(calendarWrapper, select.value);
 
         buttonToCalendar.addEventListener('click', () => {
             calendarContainer.classList.toggle("hidden")
