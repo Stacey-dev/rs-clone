@@ -24,14 +24,14 @@ class PersonalAccPage extends Page {
     }
 
     async getNameUser() {
-        const response = await fetch(`http://localhost:3000/users/${Header.userId}`);
+        const response = await fetch(`https://rs-clone-server-production-43e3.up.railway.app/users/${Header.userId}`);
         const responseJson: User = await response.json();
         return responseJson.firstName
     }
 
     async getTicketsUser() {
         try {
-            const response = await fetch("http://localhost:3000/600/tickets", {
+            const response = await fetch("https://rs-clone-server-production-43e3.up.railway.app/600/tickets", {
                 headers: {
                     "Authorization": `Bearer ${this.getAuthToken()}`
                 }

@@ -437,7 +437,7 @@ class Header extends Component {
 
         loginBtn.addEventListener('click', async () => {
 
-            const response = await fetch('http://localhost:3000/login', {
+            const response = await fetch('https://rs-clone-server-production-43e3.up.railway.app/login', {
                 method: "POST",
                 body: JSON.stringify(loginData),
                 headers: {
@@ -509,7 +509,7 @@ class Header extends Component {
                 passwordRegistr.classList.remove('error');
             }
 
-            const response = await fetch('http://localhost:3000/register', {
+            const response = await fetch('https://rs-clone-server-production-43e3.up.railway.app/register', {
                 method: "POST",
                 body: JSON.stringify(loginData),
                 headers: {

@@ -349,7 +349,7 @@ export class TicketPage extends Page {
         completePaymentButt.addEventListener('click', async () => {
             if (Object.values(localStorage).length !== 0) {
                 for (let ticket of App.orders) {
-                    const response = await fetch('http://localhost:3000/tickets', {
+                    const response = await fetch('https://rs-clone-server-production-43e3.up.railway.app/tickets', {
                         method: "POST",
                         body: JSON.stringify(ticket),
                         headers: {
