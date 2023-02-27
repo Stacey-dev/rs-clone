@@ -395,7 +395,6 @@ class QuizPage extends Page {
         };
         setTimeout(renderQuiz, 4000);
         return this.container;
-
     }
 }
 

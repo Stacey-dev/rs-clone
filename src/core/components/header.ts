@@ -95,9 +95,9 @@ class Header extends Component {
     this.container.append(headerContainer);
 
     window.onscroll = function () {
-      let scrolled: number;
+  
 
-      scrolled = window.pageYOffset || document.documentElement.scrollTop;
+      const scrolled:number = window.pageYOffset || document.documentElement.scrollTop;
       const header = <HTMLElement>document.querySelector('.container');
       const box_language = <HTMLElement>document.querySelector('.header_language');
       const box_ticket = <HTMLElement>document.querySelector('.ticket-page');
