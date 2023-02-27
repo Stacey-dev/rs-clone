@@ -4,23 +4,23 @@ import { langArrHeaderFooter } from '../../../utils/dataLang';
 import { data } from '../../../utils/dataLang';
 
 class Footer extends Component {
-    constructor(tagName: string, className: string) {
-        super(tagName, className);
-    }
+  constructor(tagName: string, className: string) {
+    super(tagName, className);
+  }
 
-    createFooter() {
-        const select = <HTMLSelectElement>document.querySelector('.header_language');
+  createFooter() {
+    const select = <HTMLSelectElement>document.querySelector('.header_language');
 
-        const footerContainer: HTMLDivElement = document.createElement('div');
-        footerContainer.classList.add('container');
+    const footerContainer: HTMLDivElement = document.createElement('div');
+    footerContainer.classList.add('container');
 
-        const footerWrapper: HTMLDivElement = document.createElement('div');
-        footerWrapper.classList.add('footer__wrapper');
+    const footerWrapper: HTMLDivElement = document.createElement('div');
+    footerWrapper.classList.add('footer__wrapper');
 
-        const footerText: HTMLDivElement = document.createElement('div');
-        footerText.classList.add('footer_row');
+    const footerText: HTMLDivElement = document.createElement('div');
+    footerText.classList.add('footer_row');
 
-        footerText.innerHTML = `
+    footerText.innerHTML = `
     <div class="footer_col">
       <div class="menu-footer-1-en-container">
         <ul id="menu-footer-1-en" class="footer-nav">
@@ -140,9 +140,9 @@ class Footer extends Component {
       </div>
     </div>`;
 
-        const postFooter: HTMLDivElement = document.createElement('div');
-        postFooter.classList.add('post-footer');
-        postFooter.innerHTML = `<div class="post-footer__wrapper">
+    const postFooter: HTMLDivElement = document.createElement('div');
+    postFooter.classList.add('post-footer');
+    postFooter.innerHTML = `<div class="post-footer__wrapper">
     <div class="item-post-footer">
       2023 ©
       |
@@ -159,23 +159,23 @@ class Footer extends Component {
         </a>
     </div>`;
 
-        footerWrapper.append(footerText);
-        footerContainer.append(footerWrapper);
-        this.container.append(footerContainer, postFooter);
-        if (select.value === 'ru') {
-            for (let key in langArrHeaderFooter) {
-                if (this.container.querySelector('.' + key)) {
-                    this.container.querySelector('.' + key)!.innerHTML = langArrHeaderFooter[key as keyof data][select.value as keyof { "ru": string, "en": string }];
-
-                }
-            }
+    footerWrapper.append(footerText);
+    footerContainer.append(footerWrapper);
+    this.container.append(footerContainer, postFooter);
+    if (select.value === 'ru') {
+      for (const key in langArrHeaderFooter) {
+        if (this.container.querySelector('.' + key)) {
+          this.container.querySelector('.' + key)!.innerHTML =
+            langArrHeaderFooter[key as keyof data][select.value as keyof { ru: string; en: string }];
         }
+      }
     }
+  }
 
-    render(): HTMLElement {
-        this.createFooter();
-        return this.container;
-    }
+  render(): HTMLElement {
+    this.createFooter();
+    return this.container;
+  }
 }
 
 export default Footer;
