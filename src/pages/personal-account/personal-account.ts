@@ -72,10 +72,6 @@ class PersonalAccPage extends Page {
         nameUser.innerHTML = nameUserValue;
 
         const usersTickets = <HTMLDivElement>layoutPersonal.querySelector('.users-tickets')
-        const usersTicketName = <HTMLDivElement>layoutPersonal.querySelector('.tickets-user__name');
-        const usersTicketDate = <HTMLDivElement>layoutPersonal.querySelector('.tickets-user__date')
-        const usersTicketAmount = <HTMLDivElement>layoutPersonal.querySelector('.tickets-user__amount')
-        const usersTicketPrice = <HTMLDivElement>layoutPersonal.querySelector('.tickets-user__price')
 
 
         this.getTicketsUser().then((ticketsArray) => {

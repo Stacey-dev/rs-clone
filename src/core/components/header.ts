@@ -452,7 +452,6 @@ class Header extends Component {
                     localStorage.user = JSON.stringify(user);
                     const valuesLocStor: string[] = Object.values(localStorage);
                     Header.userId = JSON.parse(valuesLocStor[1]).id;
-
                 }
 
                 const path = window.location.hash.slice(1).split('?')[0];

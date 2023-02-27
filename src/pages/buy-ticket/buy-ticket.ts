@@ -63,7 +63,7 @@ export class TicketPage extends Page {
 
             <div class="registration__input-container">
               <label class="registration__label label_name" for="name">Enter your name</label>
-              <input class="registration__input" type="text" id="name" required minlength="2" maxlength="20" pattern="[a-zA-ZА-Яа-яЁё]+">
+              <input class="registration__input reg__input-name" type="text" id="name" required minlength="2" maxlength="20" pattern="[a-zA-ZА-Яа-яЁё]+">
             </div>
             <div class="registration__input-container">
               <label class="registration__label label_surname" for="surname">Enter your surname</label>
@@ -75,7 +75,7 @@ export class TicketPage extends Page {
             </div>
             <div class="registration__input-container">
               <label class="registration__label label_e-mail" for="t2">Enter your e-mail address</label>
-              <input class="registration__input" type="email" id="t2" name="email" required>
+              <input class="registration__input reg__input-email" type="email" id="t2" name="email" required>
             </div>
 
             </div>
@@ -216,6 +216,18 @@ export class TicketPage extends Page {
             selectionContainer.classList.add('hidden');
             registrationContainer.classList.remove('hidden');
             paymentContainer.classList.add('hidden');
+
+            const userNameInput = <HTMLInputElement>this.container.querySelector('.reg__input-name')
+            const userEmailInput = <HTMLInputElement>this.container.querySelector('.reg__input-email')
+
+            if (Object.values(localStorage).length !== 0) {
+                const valuesLocStor: string[] = Object.values(localStorage);
+                const nameUserValue = JSON.parse(valuesLocStor[1]).name;
+                const emailUserValue = JSON.parse(valuesLocStor[1]).email;
+
+                userNameInput.value = nameUserValue;
+                userEmailInput.value = emailUserValue;
+            }
         });
 
         paymentButt.addEventListener('click', () => {
@@ -237,6 +249,7 @@ export class TicketPage extends Page {
 
         const cardImgContainer = <HTMLDivElement>this.container.querySelector('.payment__container-card-img');
         addCardImg(cardImgContainer, CardLogo)
+
 
         //_______________________________________________________card number
 
@@ -269,7 +282,6 @@ export class TicketPage extends Page {
             if (index !== 0 && !(index % 2)) seed += "/";
             return seed + next;
         }, "");
-
 
 
         for (let elem of paymentInputs) {
