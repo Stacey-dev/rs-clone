@@ -93,10 +93,36 @@ class Header extends Component {
     const themeToggler = <HTMLDivElement>document.createElement('div');
     themeToggler.classList.add('theme_toggler');
 
+    const burger_menu_wrapper = <HTMLDivElement>document.createElement('div');
+    burger_menu_wrapper.classList.add('burger_menu');
+    burger_menu_wrapper.innerHTML = `  
+     <section class="top-nav">
+     <input id="burger_menu" class="input_bm" type="checkbox" />
+     <label class='menu-button-container' for="burger_menu">
+       <div class='menu-button'></div>
+     </label>
+       <ul class="menu">
+         <li><a class="li_bm" href="#prices-page&lang=en">Prices and Calendar</a></li>
+         <li><a class="li_bm" href="#schedules-page&lang=en">Schedules</a></li>
+         <li><a class="li_bm" href="#quiz-page&lang=en">Quiz</a></li>
+         <li><a class="li_bm" href="#ciutat-page&lang=en">La Ciutat</a></li>
+         <li><a class="li_bm" href="#ticket-page&lang=en">BUY YOUR TICKET</a></li>
+         <li><a class="li_bm" href="#personal-page&lang=en">Personal accaunt</a></li>
+         </ul>
+     </section>
+   `;
+
     language.append(option_language_en, option_language_ru);
-    headerWrapper.append(logo, pageButtons, language, userAuth, themeToggler);
+    headerWrapper.append(logo, pageButtons, language, userAuth, themeToggler, burger_menu_wrapper);
     headerContainer.append(headerWrapper);
     this.container.append(headerContainer);
+
+    const li_bm = <HTMLCollectionOf<Element>>burger_menu_wrapper.getElementsByClassName('li_bm');
+    const input_bm = <HTMLInputElement>burger_menu_wrapper.getElementsByClassName('input_bm')[0];
+    
+    for (let el of li_bm) {
+     el.addEventListener('click', () => {input_bm.checked = false; });
+    }
 
     window.onscroll = function () {
       // let scrolled: number;
@@ -107,6 +133,7 @@ class Header extends Component {
       const box_ticket = <HTMLElement>document.querySelector('.ticket-page');
       const userAuth = <HTMLElement>document.querySelector('.user__auth');
       const boxTheme = <HTMLElement>document.querySelector('.theme_toggler');
+      const burger_menu = <HTMLDivElement>document.querySelector('burger_menu');
       if (scrolled > 5) {
         header.style.width = '';
         header.style.background = '#102f43';
@@ -116,16 +143,18 @@ class Header extends Component {
         header.style.zIndex = '2000';
         header.style.transition = 'all 2s ease';
         box_language.style.display = 'none';
-        box_ticket.style.display = 'none';
+        box_ticket.style.opacity = '1';
         boxTheme.style.display = 'none';
         userAuth.style.display = 'none';
+        burger_menu.style.display = 'flex';
       }
       if (0 >= scrolled) {
         header.style.background = 'none';
         box_language.style.display = 'grid';
-        box_ticket.style.display = 'grid';
+        box_ticket.style.opacity = '1';
         boxTheme.style.display = 'block';
         userAuth.style.display = 'block';
+        burger_menu.style.display = 'flex';
       }
     };
 
