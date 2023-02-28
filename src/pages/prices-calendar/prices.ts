@@ -18,45 +18,45 @@ import { freeEntriesDataRu } from '../../utils/dataFreeEntries';
 import { PageIds } from '../app/app';
 
 export class PricesPage extends Page {
-  static TextObject = {
-    MainTitle: 'Prices Page',
-  };
-  static currentMonth: number;
-  static currentYear: number;
+    static TextObject = {
+        MainTitle: 'Prices Page',
+    };
+    static currentMonth: number;
+    static currentYear: number;
 
-  constructor(id: string) {
-    super(id);
-    PricesPage.currentMonth = new Date().getMonth();
-    PricesPage.currentYear = new Date().getFullYear();
-  }
-
-  render() {
-    const select = <HTMLSelectElement>document.querySelector('.header_language');
-
-    if (select.value === 'ru') {
-      let langInHash = window.location.hash.slice(1).split('=')[1];
-      langInHash = select.value;
-      const path = window.location.hash.slice(1).split('=')[0];
-      const url = new URL(window.location.toString());
-      url.hash = path + '=' + langInHash;
-      window.history.pushState({}, '', url);
-      select.value = 'ru';
+    constructor(id: string) {
+        super(id);
+        PricesPage.currentMonth = new Date().getMonth();
+        PricesPage.currentYear = new Date().getFullYear();
     }
 
-    const content = document.createElement('div');
-    content.classList.add('price-calendar__content');
+    render() {
+        const select = <HTMLSelectElement>document.querySelector('.header_language');
 
-    const tiles: HTMLDivElement = document.createElement('div');
-    tiles.classList.add('tile');
+        if (select.value === 'ru') {
+            let langInHash = window.location.hash.slice(1).split('=')[1];
+            langInHash = select.value;
+            const path = window.location.hash.slice(1).split('=')[0];
+            const url = new URL(window.location.toString());
+            url.hash = path + '=' + langInHash;
+            window.history.pushState({}, '', url);
+            select.value = 'ru';
+        }
 
-    const tilesLayout = `
+        const content = document.createElement('div');
+        content.classList.add('price-calendar__content');
+
+        const tiles: HTMLDivElement = document.createElement('div');
+        tiles.classList.add('tile');
+
+        const tilesLayout = `
         <div class="tile_left">PRICES AND SCHEDULES</div>
         <div class="tile_right">You can buy tickets online, avoiding queues and wait-times, or at the ticket office.</div>`;
-    tiles.innerHTML = tilesLayout;
+        tiles.innerHTML = tilesLayout;
 
-    const information: HTMLDivElement = document.createElement('div');
-    information.classList.add('information');
-    const informationLayout = `<div class="tickets">
+        const information: HTMLDivElement = document.createElement('div');
+        information.classList.add('information');
+        const informationLayout = `<div class="tickets">
         <div class="tickets__wrapper">
             <h2 class="tickets__header tickets__header_tickets">Tickets</h2>
             <a href=#${PageIds.TicketPage} class="tickets__button" id="tickets-but" target="_blank">BUY YOUR COMBINED TICKETS</a>
@@ -122,7 +122,7 @@ export class PricesPage extends Page {
     </div>
     <div class="conditions">
         <div class="tickets__wrapper">
-            <div class="block">
+            <div class="conditions__block block">
                 <div class="conditions__left block_left">
                     <h2 class="conditions__header">CONDITIONS</h2>
                     <p class="conditions__text">Free entry for children under the age of 4
@@ -151,94 +151,94 @@ export class PricesPage extends Page {
         </div>
     </div>
     `;
-    information.innerHTML = informationLayout;
-    content.append(tiles, information);
+        information.innerHTML = informationLayout;
+        content.append(tiles, information);
 
-    this.container.append(renderBackground(Video), content);
+        this.container.append(renderBackground(Video), content);
 
-    //___________________________________________________переключение на другой язык
-    if (select.value === 'ru') {
-      for (const key in langArr) {
-        if (this.container.querySelector('.' + key)) {
-          this.container.querySelector('.' + key)!.innerHTML =
-            langArr[key as keyof data][select.value as keyof { ru: string; en: string }];
+        //___________________________________________________переключение на другой язык
+        if (select.value === 'ru') {
+            for (const key in langArr) {
+                if (this.container.querySelector('.' + key)) {
+                    this.container.querySelector('.' + key)!.innerHTML =
+                        langArr[key as keyof data][select.value as keyof { ru: string; en: string }];
+                }
+            }
+            for (const key in langArrHeaderFooter) {
+                if (document.querySelector('.' + key)) {
+                    document.querySelector('.' + key)!.innerHTML =
+                        langArrHeaderFooter[key as keyof data][select.value as keyof { ru: string; en: string }];
+                    console.log(document.querySelector('.' + key));
+                }
+            }
         }
-      }
-      for (const key in langArrHeaderFooter) {
-        if (document.querySelector('.' + key)) {
-          document.querySelector('.' + key)!.innerHTML =
-            langArrHeaderFooter[key as keyof data][select.value as keyof { ru: string; en: string }];
-          console.log(document.querySelector('.' + key));
+        //________________________________________________________________________________
+
+        const calendarContainer = <HTMLDivElement>this.container.querySelector('.calendar__schedules');
+        const butPrev: HTMLButtonElement = document.createElement('button');
+        const butNext: HTMLButtonElement = document.createElement('button');
+        butPrev.classList.add('calendar__button_left');
+        butNext.classList.add('calendar__button_right');
+        calendarContainer.append(butPrev, butNext);
+
+        const calendar = <HTMLDivElement>this.container.querySelector('.calendar');
+
+        createCalendarView(calendar, PricesPage.currentYear, PricesPage.currentMonth, select.value);
+        const calendarCells = <HTMLCollectionOf<Element>>this.container.getElementsByClassName('td__fill');
+        highlightCell(calendarCells);
+
+        butNext.addEventListener('click', () => {
+            calendar.innerHTML = '';
+            PricesPage.currentMonth++;
+            if (PricesPage.currentMonth > 11) {
+                PricesPage.currentMonth = 0;
+                PricesPage.currentYear++;
+            }
+            createCalendarView(calendar, PricesPage.currentYear, PricesPage.currentMonth, select.value);
+            highlightCell(calendarCells);
+        });
+
+        butPrev.addEventListener('click', () => {
+            calendar.innerHTML = '';
+            PricesPage.currentMonth--;
+            if (PricesPage.currentMonth < 0) {
+                PricesPage.currentMonth = 11;
+                PricesPage.currentYear--;
+            }
+            createCalendarView(calendar, PricesPage.currentYear, PricesPage.currentMonth, select.value);
+            highlightCell(calendarCells);
+        });
+
+        const ticketOptions = <HTMLDivElement>this.container.querySelector('.calendar__options');
+
+        for (const elem of ticketsData) {
+            ticketOptions.append(createDropDownListTicket(elem));
         }
-      }
+
+        const conditionOptions = <HTMLDivElement>this.container.querySelector('.conditions__options');
+        conditionOptions.append(createDropDownListCondition(conditionsData));
+
+        const freeEntriesOptions = <HTMLDivElement>this.container.querySelector('.free-entries__options');
+        freeEntriesOptions.append(createDropDownListCondition(freeEntriesData));
+
+        if (select.value === 'ru') {
+            document.querySelector('title')!.innerHTML = 'RS Клон';
+            ticketOptions!.innerHTML = '';
+            for (const elem of ticketsDataRu) {
+                ticketOptions!.append(createDropDownListTicket(elem));
+            }
+            conditionOptions.innerHTML = '';
+            conditionOptions.append(createDropDownListCondition(conditionsDataRu));
+            freeEntriesOptions.innerHTML = '';
+            freeEntriesOptions.append(createDropDownListCondition(freeEntriesDataRu));
+        }
+
+        window.addEventListener('load', () => {
+            content.classList.add('toTop');
+        });
+
+        return this.container;
     }
-    //________________________________________________________________________________
-
-    const calendarContainer = <HTMLDivElement>this.container.querySelector('.calendar__schedules');
-    const butPrev: HTMLButtonElement = document.createElement('button');
-    const butNext: HTMLButtonElement = document.createElement('button');
-    butPrev.classList.add('calendar__button_left');
-    butNext.classList.add('calendar__button_right');
-    calendarContainer.append(butPrev, butNext);
-
-    const calendar = <HTMLDivElement>this.container.querySelector('.calendar');
-
-    createCalendarView(calendar, PricesPage.currentYear, PricesPage.currentMonth, select.value);
-    const calendarCells = <HTMLCollectionOf<Element>>this.container.getElementsByClassName('td__fill');
-    highlightCell(calendarCells);
-
-    butNext.addEventListener('click', () => {
-      calendar.innerHTML = '';
-      PricesPage.currentMonth++;
-      if (PricesPage.currentMonth > 11) {
-        PricesPage.currentMonth = 0;
-        PricesPage.currentYear++;
-      }
-      createCalendarView(calendar, PricesPage.currentYear, PricesPage.currentMonth, select.value);
-      highlightCell(calendarCells);
-    });
-
-    butPrev.addEventListener('click', () => {
-      calendar.innerHTML = '';
-      PricesPage.currentMonth--;
-      if (PricesPage.currentMonth < 0) {
-        PricesPage.currentMonth = 11;
-        PricesPage.currentYear--;
-      }
-      createCalendarView(calendar, PricesPage.currentYear, PricesPage.currentMonth, select.value);
-      highlightCell(calendarCells);
-    });
-
-    const ticketOptions = <HTMLDivElement>this.container.querySelector('.calendar__options');
-
-    for (const elem of ticketsData) {
-      ticketOptions.append(createDropDownListTicket(elem));
-    }
-
-    const conditionOptions = <HTMLDivElement>this.container.querySelector('.conditions__options');
-    conditionOptions.append(createDropDownListCondition(conditionsData));
-
-    const freeEntriesOptions = <HTMLDivElement>this.container.querySelector('.free-entries__options');
-    freeEntriesOptions.append(createDropDownListCondition(freeEntriesData));
-
-    if (select.value === 'ru') {
-      document.querySelector('title')!.innerHTML = 'RS Клон';
-      ticketOptions!.innerHTML = '';
-      for (const elem of ticketsDataRu) {
-        ticketOptions!.append(createDropDownListTicket(elem));
-      }
-      conditionOptions.innerHTML = '';
-      conditionOptions.append(createDropDownListCondition(conditionsDataRu));
-      freeEntriesOptions.innerHTML = '';
-      freeEntriesOptions.append(createDropDownListCondition(freeEntriesDataRu));
-    }
-
-    window.addEventListener('load', () => {
-      content.classList.add('toTop');
-    });
-
-    return this.container;
-  }
 }
 
 export default PricesPage;
