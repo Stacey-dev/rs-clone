@@ -119,21 +119,21 @@ class Header extends Component {
 
     const li_bm = <HTMLCollectionOf<Element>>burger_menu_wrapper.getElementsByClassName('li_bm');
     const input_bm = <HTMLInputElement>burger_menu_wrapper.getElementsByClassName('input_bm')[0];
-    
-    for (let el of li_bm) {
-     el.addEventListener('click', () => {input_bm.checked = false; });
+
+    for (const el of li_bm) {
+      el.addEventListener('click', () => {
+        input_bm.checked = false;
+      });
     }
 
     window.onscroll = function () {
-      // let scrolled: number;
-
       const scrolled = window.pageYOffset || document.documentElement.scrollTop;
       const header = <HTMLElement>document.querySelector('.container');
       const box_language = <HTMLElement>document.querySelector('.header_language');
       const box_ticket = <HTMLElement>document.querySelector('.ticket-page');
       const userAuth = <HTMLElement>document.querySelector('.user__auth');
       const boxTheme = <HTMLElement>document.querySelector('.theme_toggler');
-      const burger_menu = <HTMLDivElement>document.querySelector('burger_menu');
+      const burger_menu = <HTMLDivElement>document.getElementsByClassName('burger_menu')[0];
       if (scrolled > 5) {
         header.style.width = '';
         header.style.background = '#102f43';
