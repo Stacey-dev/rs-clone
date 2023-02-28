@@ -146,11 +146,11 @@ class Footer extends Component {
     <div class="item-post-footer">
       2023 ©
       |
-      All rights reserved              |
+      All rights reserved              <span>|</span>
       <a href="https://github.com/Shrai-dev" class="authors_link">Anastasiia</a>
-      |
+      <span>|</span>
       <a href="https://github.com/korbut13" class="authors_link">Svetlana</a>
-      |
+      <span>|</span>
       <a href="https://github.com/sergiipol" class="authors_link">Sergii</a>
     </div>
     <div class="rs">
