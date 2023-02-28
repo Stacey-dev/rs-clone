@@ -154,10 +154,15 @@ class Header extends Component {
       const quizBox = <NodeListOf<Element>>document.querySelectorAll('.box');
       const quizTaskBox = <NodeListOf<Element>>document.querySelectorAll('.task_box');
 
+      const footer = <HTMLElement>document.querySelector('.footer');
+      const devInfo = <HTMLElement>document.querySelector('.post-footer');
+
       if (toggler instanceof HTMLDivElement) {
         if (toggler.classList.contains('dark')) {
           toggler.classList.remove('dark');
           body.style.backgroundColor = 'transparent';
+          footer.classList.remove('dark');
+          devInfo.classList.remove('dark');
           switch (currentPageHash) {
             case PageIds.PricesPage:
             case PageIds.PricesPageRu:
@@ -189,6 +194,8 @@ class Header extends Component {
         } else {
           toggler.classList.add('dark');
           body.style.backgroundColor = '#102f43';
+          footer.classList.add('dark');
+          devInfo.classList.add('dark');
           switch (currentPageHash) {
             case PageIds.PricesPage:
             case PageIds.PricesPageRu:
