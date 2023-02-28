@@ -309,7 +309,6 @@
     overflow: hidden;
     display: flex;
     justify-content: center;
-    padding-bottom: 30px;
 }
 
 .payment__card-img {
@@ -409,18 +408,77 @@
 }
 
 @media screen and (max-width: 950px) {
-    .payment__container-card-img {
-        width: 30px;
-        padding-bottom: 17px;
-    }
-
     .tickets__nav {
         margin-top: -7%;
+    }
+
+    #start {
+        width: 35%;
+    }
+
+    .selection {
+        width: 100%;
+    }
+
+    .selection__warning {
+        width: 80%;
+    }
+
+    .selection__tickets-container {
+        position: relative;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .payment__container-card-img {
+        width: 30px;
+    }
+
+    .selection__ticket-price {
+        font-size: 1rem;
+    }
+
+    .selection__ticket-name {
+        font-size: 1rem;
+        margin-left: 10px;
+    }
+
+    .selection__ticket-amount {
+        width: 35px;
+        font-size: 1rem;
+        font-weight: 400;
+    }
+
+    .tickets__registration {
+        width: 90%;
+    }
+
+    .payment__input {
+        width: 45%;
+        font-size: 13px;
+        font-weight: 300;
+    }
+
+    .payment__container-card-img {
+        right: 30%;
+        top: 60%;
     }
 }
 
 
 @media screen and (max-width: 720px) {
+    .tickets__nav {
+        margin-top: -10.5%;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .selection__button,
+    .registration__button,
+    .payment__button {
+        font-size: 14px;
+    }
+
     .ticket__payment {
         width: 90%;
     }
@@ -429,9 +487,81 @@
         font-size: 15px;
     }
 
+    .selection__ticket-price {
+        font-size: 0.8rem;
+    }
+
+    .tickets__registration {
+        padding: 20px;
+    }
+
+    .registration__label {
+        font-size: 0.8rem;
+    }
+
+    .payment__container-card-img {
+        top: 58%;
+    }
+}
+
+@media screen and (max-width: 550px) {
     .tickets__nav {
-        margin-top: -10.5%;
-        font-size: 14px;
+        margin-top: -14%;
+    }
+
+    .selection__option-title {
         font-weight: 400;
+    }
+
+    .payment__container-card-img {
+        top: 60%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .tickets__nav {
+        margin-top: -17%;
+    }
+
+    #start {
+        width: 45%;
+    }
+
+    .selection__button,
+    .registration__button,
+    .payment__button {
+        font-size: 13px;
+    }
+
+    .selection__ticket-name {
+        font-size: 0.7rem;
+    }
+
+    .selection__ticket-price {
+        border: none;
+        font-size: 0.6rem;
+    }
+
+    .selection__ticket-amount {
+        width: 30px;
+        font-size: 0.8rem;
+        font-weight: 300;
+    }
+
+    .ticket__name {
+        font-size: 1rem;
+    }
+
+    .registration__label {
+        font-size: 0.6rem;
+    }
+
+    .registration__input {
+        font-size: 13px;
+        font-weight: 400;
+    }
+
+    .payment__label {
+        font-size: 12px;
     }
 }

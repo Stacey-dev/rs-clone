@@ -183,12 +183,53 @@
 
 @media screen and (max-width: 990px) {
     .schedules-tile_left {
-        width: 96%;
-        padding: 20px;
+        width: 95%;
+        padding: 2% 0 2% 5%;
     }
 
     .schedules-tile_right {
-        width: 96.9%;
+        width: 98%;
+        padding: 2% 0 2% 2%;
         font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .schedules__calendar-container {
+        top: 50px;
+    }
+
+    .schedules-tile_left {
+        font-size: 25px;
+    }
+
+    .schedules__buttons-top {
+        padding-top: 15px;
+    }
+
+    .schedules__table {
+        width: 107%;
+    }
+
+    .sched-table__activity {
+        width: 60%;
+    }
+
+    .sched-table__cell {
+        gap: 20px;
+        font-size: 15px;
+        padding: 2px;
+    }
+
+    .schedules__explanation {
+        padding-bottom: 0px;
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .sched-table__cell {
+        gap: 10px;
+        font-size: 13px;
     }
 }
