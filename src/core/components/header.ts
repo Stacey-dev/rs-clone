@@ -137,8 +137,9 @@ class Header extends Component {
       const burger_menu = <HTMLDivElement>document.querySelector('.burger_menu');      
 
       if (scrolled > 5) {
-        header.style.width = '100%';
+        header.style.width = '';
         header.style.background = '#102f43';
+        // header.style.width = '';
         header.style.position = 'fixed';
         header.style.height = '60px';
         header.style.marginTop = '0';
@@ -152,6 +153,7 @@ class Header extends Component {
         burger_menu.style.width = '50px';
         top_nav.style.marginLeft = '58vw';
         headerWrapper.style.gridTemplateColumns= "1fr 5fr";
+        // headerWrapper.style.width = " ";
       }
       if (0 >= scrolled) {
         header.style.background = 'none';
@@ -161,7 +163,8 @@ class Header extends Component {
         userAuth.style.display = 'block';
         burger_menu.style.display = 'grid';
         top_nav.style.marginLeft = '0';
-        headerWrapper.style.gridTemplateColumns= "1fr 1fr 1fr 1fr 1fr";
+        headerWrapper.style.gridTemplateColumns= "1fr 12fr 1fr 1fr 1fr";
+        // headerWrapper.style.width = " ";
       }
     };
 
