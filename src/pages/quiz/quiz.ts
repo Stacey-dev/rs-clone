@@ -375,8 +375,8 @@ class QuizPage extends Page {
                         getQuizResult(userId)
                             .then((quizResult) => {
                                 if (quizResult) {
-                                    let scoreServer: number = Object.values(quizResult).reduce((accum, cur) => accum + cur, 0);
-                                    let scoreCurrent: number = Object.values(this.quizResult).reduce((accum, cur) => accum + cur, 0);
+                                    const scoreServer: number = Object.values(quizResult).reduce((accum, cur) => accum + cur, 0);
+                                    const scoreCurrent: number = Object.values(this.quizResult).reduce((accum, cur) => accum + cur, 0);
 
                                     scoreServer < scoreCurrent ? updateResultQuizInServer(userId, this.quizResult) : console.log("новый результат хуже")
                                 } else {
