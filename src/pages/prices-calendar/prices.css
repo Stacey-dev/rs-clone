@@ -616,6 +616,14 @@ td:hover {
     .calendar__message {
         display: none;
     }
+
+    .options__container-name {
+        width: 95%;
+    }
+
+    .option {
+        width: 85%;
+    }
 }
 
 @media screen and (max-width: 400px) {
