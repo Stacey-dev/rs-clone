@@ -119,6 +119,7 @@ class Header extends Component {
 
     const li_bm = <HTMLCollectionOf<Element>>burger_menu_wrapper.getElementsByClassName('li_bm');
     const input_bm = <HTMLInputElement>burger_menu_wrapper.getElementsByClassName('input_bm')[0];
+    const top_nav = <HTMLDivElement>burger_menu_wrapper.getElementsByClassName('top-nav')[0];
 
     for (const el of li_bm) {
       el.addEventListener('click', () => {
@@ -133,9 +134,10 @@ class Header extends Component {
       const box_ticket = <HTMLElement>document.querySelector('.ticket-page');
       const userAuth = <HTMLElement>document.querySelector('.user__auth');
       const boxTheme = <HTMLElement>document.querySelector('.theme_toggler');
-      const burger_menu = <HTMLDivElement>document.getElementsByClassName('burger_menu')[0];
+      const burger_menu = <HTMLDivElement>document.querySelector('.burger_menu');      
+
       if (scrolled > 5) {
-        header.style.width = '';
+        header.style.width = '100%';
         header.style.background = '#102f43';
         header.style.position = 'fixed';
         header.style.height = '60px';
@@ -146,7 +148,10 @@ class Header extends Component {
         box_ticket.style.opacity = '1';
         boxTheme.style.display = 'none';
         userAuth.style.display = 'none';
-        burger_menu.style.display = 'flex';
+        burger_menu.style.display = 'grid';
+        burger_menu.style.width = '50px';
+        top_nav.style.marginLeft = '58vw';
+        headerWrapper.style.gridTemplateColumns= "1fr 5fr";
       }
       if (0 >= scrolled) {
         header.style.background = 'none';
@@ -154,7 +159,9 @@ class Header extends Component {
         box_ticket.style.opacity = '1';
         boxTheme.style.display = 'block';
         userAuth.style.display = 'block';
-        burger_menu.style.display = 'flex';
+        burger_menu.style.display = 'grid';
+        top_nav.style.marginLeft = '0';
+        headerWrapper.style.gridTemplateColumns= "1fr 1fr 1fr 1fr 1fr";
       }
     };
 
