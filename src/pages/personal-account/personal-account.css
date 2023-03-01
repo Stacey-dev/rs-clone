@@ -28,11 +28,11 @@
     display: flex;
     width: 100%;
     background-color: #041c2e69;
-    margin-top: 50px;
+    margin: 50px 0px 100px 0px;
 }
 
 .personal__name {
-    width: calc(100% / 4);
+    width: 40%;
     border-right: 1px solid white;
     font-size: 20px;
     color: white;
@@ -40,7 +40,7 @@
 }
 
 .personal__tickets {
-    width: calc(100% - (100% / 4));
+    width: 60%;
     font-size: 20px;
     color: white;
     text-align: center;
@@ -115,4 +115,24 @@
     cursor: pointer;
     -webkit-appearance: none;
     margin-top: -7px;
+}
+
+@media screen and (max-width: 750px) {
+    .personal__name {
+        font-size: 16px;
+    }
+
+    .name-user {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .personal__name {
+        font-size: 13px;
+    }
+
+    .tickets__selection {
+        width: 95%;
+    }
 }

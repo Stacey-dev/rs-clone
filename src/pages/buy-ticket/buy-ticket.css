@@ -461,7 +461,7 @@
 
     .payment__container-card-img {
         right: 30%;
-        top: 60%;
+        top: 48%;
     }
 }
 
@@ -500,7 +500,7 @@
     }
 
     .payment__container-card-img {
-        top: 58%;
+        top: 45%;
     }
 }
 
@@ -513,9 +513,6 @@
         font-weight: 400;
     }
 
-    .payment__container-card-img {
-        top: 60%;
-    }
 }
 
 @media screen and (max-width: 450px) {
