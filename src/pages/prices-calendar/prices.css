@@ -596,6 +596,10 @@ td:hover {
     .conditions__block {
         margin-top: -50px;
     }
+
+    .calendar__message {
+        left: 0px;
+    }
 }
 
 @media screen and (max-width: 750px) {
@@ -605,6 +609,20 @@ td:hover {
 
     .tickets__wrapper {
         width: calc(100% - 15%);
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .calendar__message {
+        display: none;
+    }
+
+    .options__container-name {
+        width: 95%;
+    }
+
+    .option {
+        width: 85%;
     }
 }
 

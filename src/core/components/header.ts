@@ -119,7 +119,7 @@ class Header extends Component {
          <li><a class="li_bm" href="#prices-page&lang=en">Prices and Calendar</a></li>
          <li><a class="li_bm" href="#schedules-page&lang=en">Schedules</a></li>
          <li><a class="li_bm" href="#quiz-page&lang=en">Quiz</a></li>
-         <li><a class="li_bm" href="#ciutat-page&lang=en">La Ciutat</a></li>
+         <li><a class="li_bm" href="https://www.cac.es/va/home.html" target="_blank">La Ciutat</a></li>
          <li><a class="li_bm" href="#ticket-page&lang=en">BUY YOUR TICKET</a></li>
          <li><a class="li_bm" href="#personal-page&lang=en">Personal accaunt</a></li>
          </ul>
@@ -168,6 +168,7 @@ class Header extends Component {
                 headerWrapper.style.gridTemplateColumns = "1fr 5fr";
             }
             if (0 >= scrolled) {
+                header.style.width = '100%';
                 header.style.background = 'none';
                 box_language.style.display = 'grid';
                 box_ticket.style.opacity = '1';
