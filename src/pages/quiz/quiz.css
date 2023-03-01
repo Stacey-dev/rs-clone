@@ -55,7 +55,8 @@
   top: 12%;
   padding-top: 5%;
   width: 90%;
-  gap: 1.2vh;
+  height: 38vw;
+  gap: 1vw;
   z-index: 50;
   background: linear-gradient(#184461, #2d8299);
   border-radius: 5em;
@@ -70,14 +71,14 @@
   display: grid;
   position: relative;
   width: 1vw;
-  height: 60vh;
+  height: 30vw;
   grid-template-rows: 2fr 2fr 1fr;
   z-index: 50;
   text-align: center;
   justify-self: center;
   justify-items: center;
   justify-content: center;
-  margin-top: 12vh;
+  margin-top: 6vw;
   padding-top: 20px;
 }
 .img_box {
@@ -144,11 +145,11 @@
 .btnQuiz {
   position: absolute;
   display: grid;
-  height: 5vh;
+  height: 5vw;
   align-self: flex-end;
   align-content: center;
   margin-top: 0;
-  margin-bottom: 1.5em;
+  margin-bottom: 1vw;
   margin-left: calc(50% - 80px);
   font-size: 12px;
   background: linear-gradient(#184461, #2d8299);
@@ -256,7 +257,7 @@
   padding-left: 5%;
   padding-right: 5%;
   position: absolute;
-  margin-top: 28vh;
+  margin-top: 12vw;
   font-size: 1.5vw;
   background: linear-gradient(#5fc4f7, #9198e5);
   color: rgb(26, 24, 24);
@@ -356,17 +357,16 @@
   color: #000;
   font-weight: 600;
 }
+
 @media (max-width: 800px) {
-  .wrapper_quiz{
-    height: 60vh;
-  }
+  
   .tasks{
-    height: 35vh;
+    height: 45vw;
    }
    .containerImg{
-    height: 25vh;
-    margin-top: 3vh;
-    padding-top: 25px;
+    
+    margin-top: 8vw;
+    gap: 1vw;
    }
    .fishDiscription{
     margin-top: 8vh;
@@ -413,4 +413,12 @@
   .close{
     font-size: 3vw;
   }
+  .box {
+    width: 6vw;
+    height: 6vw;
+  }
+  .animal_name{
+    font-size: 1.4vw;
+  }
+  
 }
