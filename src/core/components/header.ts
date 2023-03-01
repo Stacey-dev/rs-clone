@@ -120,13 +120,14 @@ class Header extends Component {
     const li_bm = <HTMLCollectionOf<Element>>burger_menu_wrapper.getElementsByClassName('li_bm');
     const input_bm = <HTMLInputElement>burger_menu_wrapper.getElementsByClassName('input_bm')[0];
     const top_nav = <HTMLDivElement>burger_menu_wrapper.getElementsByClassName('top-nav')[0];
-    
-    for (let el of li_bm) {
-     el.addEventListener('click', () => {input_bm.checked = false; });
+
+    for (const el of li_bm) {
+      el.addEventListener('click', () => {
+        input_bm.checked = false;
+      });
     }
 
     window.onscroll = function () {
-
       const scrolled = window.pageYOffset || document.documentElement.scrollTop;
       const header = <HTMLElement>document.querySelector('.container');
       const box_language = <HTMLElement>document.querySelector('.header_language');
@@ -134,6 +135,7 @@ class Header extends Component {
       const userAuth = <HTMLElement>document.querySelector('.user__auth');
       const boxTheme = <HTMLElement>document.querySelector('.theme_toggler');
       const burger_menu = <HTMLDivElement>document.querySelector('.burger_menu');      
+
       if (scrolled > 5) {
         header.style.width = '100%';
         header.style.background = '#102f43';
@@ -188,10 +190,15 @@ class Header extends Component {
       const quizBox = <NodeListOf<Element>>document.querySelectorAll('.box');
       const quizTaskBox = <NodeListOf<Element>>document.querySelectorAll('.task_box');
 
+      const footer = <HTMLElement>document.querySelector('.footer');
+      const devInfo = <HTMLElement>document.querySelector('.post-footer');
+
       if (toggler instanceof HTMLDivElement) {
         if (toggler.classList.contains('dark')) {
           toggler.classList.remove('dark');
           body.style.backgroundColor = 'transparent';
+          footer.classList.remove('dark');
+          devInfo.classList.remove('dark');
           switch (currentPageHash) {
             case PageIds.PricesPage:
             case PageIds.PricesPageRu:
@@ -223,6 +230,8 @@ class Header extends Component {
         } else {
           toggler.classList.add('dark');
           body.style.backgroundColor = '#102f43';
+          footer.classList.add('dark');
+          devInfo.classList.add('dark');
           switch (currentPageHash) {
             case PageIds.PricesPage:
             case PageIds.PricesPageRu:
