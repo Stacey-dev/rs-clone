@@ -1,4 +1,4 @@
-import { QuisResult } from "../pages/personal-account/personal-account"
+import { QuizResult } from "../pages/personal-account/personal-account"
 import { Order } from "../pages/app/app";
 import { User } from "../pages/personal-account/personal-account";
 import { LoginData } from "../core/components/header";
@@ -7,7 +7,7 @@ import { url } from "./url";
 type DataUser = {
     email: string;
     name: string;
-    quisResult: QuisResult | null;
+    quizResults: QuizResult[] | null;
     id: number;
 }
 
@@ -55,10 +55,10 @@ export async function addTicketToAccount(ticket: Order) {
     return response
 }
 
-export async function getQuizResult(id: number) {
+export async function getQuizResults(id: number) {
     const response = await fetch(`${url}/users/${id}`);
     const responseJson: User = await response.json();
-    return responseJson.quisResult;
+    return responseJson.quizResults;
 }
 
 export async function getUser(id: number) {
@@ -68,11 +68,20 @@ export async function getUser(id: number) {
 }
 
 
-export async function updateResultQuizInServer(userId: number, quizRes: QuisResult): Promise<QuisResult> {
+export async function updateResultQuizInServer(userId: number, quizRes: QuizResult): Promise<QuizResult> {
     const response: Response = await fetch(`${url}/users/${userId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ quisResult: quizRes })
+        body: JSON.stringify({ quizResult: quizRes })
+    });
+    return response.json();
+}
+
+export async function setResultQuizInServer(userId: number, quizResults: QuizResult[]) {
+    const response: Response = await fetch(`${url}/users/${userId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ quizResults: quizResults })
     });
     return response.json();
 }

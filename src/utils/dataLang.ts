@@ -382,6 +382,18 @@ export const langArr: data = {
     "btnMore": {
         "ru": "ПОПРОБУЙ ЕЩЕ",
         "en": "TRY AGAIN"
+    },
+    "personal__name_title": {
+        "ru": "Имя",
+        "en": "Name"
+    },
+    "personal__statistic_title": {
+        "ru": "Лучшие результаты викторины",
+        "en": "The best results of the quiz"
+    },
+    "personal__tickets_title": {
+        "ru": "История покупок",
+        "en": "Buying history"
     }
 }
 

@@ -1,9 +1,11 @@
 import Page from '../../core/templates/page';
 import './personal-account.css';
 import { drawTicket } from '../../core/components/drawTicket';
-import { createQuizResults } from '../../core/components/bestQuizResult';
-import { getQuizResult } from '../../utils/requests';
+import { createQuizResults } from '../../core/components/drawQuizResult';
+import { getQuizResults } from '../../utils/requests';
 import { getTicketsUserFromServer } from '../../utils/requests';
+import { langArr } from '../../utils/dataLang';
+import { data } from '../../utils/dataLang';
 
 export type User = {
     email: string;
@@ -11,11 +13,11 @@ export type User = {
     surname: string,
     phone: string,
     password: string;
-    quisResult: QuisResult | null;
+    quizResults: QuizResult[] | null;
     id: number;
 };
 
-export type QuisResult = {
+export type QuizResult = {
     scoreLevel1: number;
     scoreLevel2: number;
     scoreLevel3: number;
@@ -44,18 +46,29 @@ class PersonalAccPage extends Page {
 
 
     render() {
+        const select = <HTMLSelectElement>document.querySelector('.header_language');
+
+        if (select.value === 'ru') {
+            let langInHash = window.location.hash.slice(1).split('=')[1];
+            langInHash = select.value;
+            const path = window.location.hash.slice(1).split('=')[0];
+            const url = new URL(window.location.toString());
+            url.hash = path + '=' + langInHash;
+            window.history.pushState({}, '', url);
+            select.value = 'ru';
+        }
 
         const layoutString = `<div class="personal__background">
         <div class="tickets__wrapper">
             <div class="personal__data">
-                <div class="personal__name">Name
+                <div class="personal__name"><span class ="personal__name_title">Name</span>
                     <div class="name-user"></div>
                     <div class="surname-user"></div>
                     <div class="phone-user"></div>
-                    <div class="personal-statistic">There are no quiz results yet
+                    <div class="personal-statistic"><span class ="personal__statistic_title">There are no quiz results yet</span>
                     </div>
                 </div>
-                <div class="personal__tickets">Buying history
+                <div class="personal__tickets"><span class ="personal__tickets_title">Buying history</span>
                     <div class="users-tickets"></div>
                 </div>
             </div>
@@ -65,6 +78,17 @@ class PersonalAccPage extends Page {
         const layoutPersonal = document.createElement('div');
         layoutPersonal.innerHTML = layoutString;
         this.container.append(layoutPersonal);
+
+        //___________________________________________________переключение на другой язык
+        if (select.value === 'ru') {
+            for (const key in langArr) {
+                if (this.container.querySelector('.' + key)) {
+                    this.container.querySelector('.' + key)!.innerHTML =
+                        langArr[key as keyof data][select.value as keyof { ru: string; en: string }];
+                }
+            }
+        }
+        //________________________________________________________________________________
 
         const nameUser = <HTMLDivElement>this.container.querySelector('.name-user');
         const surnameUser = <HTMLDivElement>this.container.querySelector('.surname-user');
@@ -96,27 +120,18 @@ class PersonalAccPage extends Page {
                 console.log('No tickets');
             });
 
-
-        getQuizResult(userId)
-            .then((quizResult) => {
-                if (quizResult) {
+        getQuizResults(userId)
+            .then((results) => {
+                if (results) {
                     statisticContainer.innerHTML = "";
-                    statisticContainer.innerHTML = "The best result of the quiz";
-
-                    this.level1 = quizResult.scoreLevel1;
-                    this.level2 = quizResult.scoreLevel2;
-                    this.level3 = quizResult.scoreLevel3;
-                    this.level4 = quizResult.scoreLevel4;
-
-                    createQuizResults(statisticContainer, this.level1, this.level2, this.level3, this.level4)
+                    statisticContainer.innerHTML = `<span class="personal__statistic_title">The best results of the quiz</span>`;
+                    createQuizResults(statisticContainer, results, select.value);
                 }
             })
             .catch((e) => {
-                statisticContainer.innerHTML = "";
-                statisticContainer.innerHTML = 'There are no quiz results yet';
                 console.log('There are no quiz results yet')
+                console.log(e)
             })
-
 
         return this.container;
     }
