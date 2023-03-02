@@ -5,8 +5,9 @@ import { fishDataRu } from './quiz_BD/BD_animal_ru';
 import fishDataEn from './quiz_BD/BD_animal_en';
 import { langArr } from '../../utils/dataLang';
 import { data } from '../../utils/dataLang';
-import { QuisResult, User } from '../personal-account/personal-account';
-import { getQuizResult } from '../../utils/requests';
+import { QuizResult, User } from '../personal-account/personal-account';
+import { getQuizResults } from '../../utils/requests';
+import { setResultQuizInServer } from '../../utils/requests';
 import { updateResultQuizInServer } from '../../utils/requests';
 import { getUser } from '../../utils/requests';
 
@@ -14,7 +15,8 @@ class QuizPage extends Page {
     static TextObject = {
         MainTitle: 'Quiz Page',
     };
-    quizResult: QuisResult;
+    quizResult: QuizResult;
+    quizResults: QuizResult[];
 
     constructor(id: string) {
         super(id);
@@ -23,7 +25,8 @@ class QuizPage extends Page {
             scoreLevel2: 0,
             scoreLevel3: 0,
             scoreLevel4: 0
-        }
+        };
+        this.quizResults = [];
     }
 
     render() {
@@ -368,22 +371,38 @@ class QuizPage extends Page {
                     if (localStorage.getItem("user") !== null) {
 
                         const userAsString = localStorage.getItem("user");
-
                         const userId: number = userAsString !== null ? JSON.parse(userAsString).id : null;
-                        const user: User = await getUser(userId)
 
-                        getQuizResult(userId)
-                            .then((quizResult) => {
-                                if (quizResult) {
-                                    const scoreServer: number = Object.values(quizResult).reduce((accum, cur) => accum + cur, 0);
-                                    const scoreCurrent: number = Object.values(this.quizResult).reduce((accum, cur) => accum + cur, 0);
+                        getQuizResults(userId)
+                            .then((quizResults) => {
+                                if (quizResults) {
 
-                                    scoreServer < scoreCurrent ? updateResultQuizInServer(userId, this.quizResult) : console.log("новый результат хуже")
+                                    switch (quizResults.length) {
+                                        case 0:
+                                            this.quizResults.push(this.quizResult);
+                                            setResultQuizInServer(userId, this.quizResults);
+                                            break;
+                                        case 1:
+                                        case 2:
+                                            this.quizResults.push(this.quizResult);
+                                            // const newRes = quizResults.concat(this.quizResults)
+                                            setResultQuizInServer(userId, quizResults.concat(this.quizResults));
+                                            break;
+                                        case 3:
+                                            // const sortedResults = quizResults.sort((el1, el2) => (el1.scoreLevel1 + el1.scoreLevel2 + el1.scoreLevel3 + el1.scoreLevel4) - (el2.scoreLevel1 + el2.scoreLevel2 + el2.scoreLevel3 + el2.scoreLevel4));
+
+                                            const sortedResults = quizResults.sort((el1, el2) => (Object.values(el1).reduce((a, c) => a + c, 0)) - (Object.values(el2).reduce((a, c) => a + c, 0)))
+
+                                            if (Object.values(sortedResults[0]).reduce((accum, cur) => accum + cur, 0) < Object.values(this.quizResult).reduce((accum, cur) => accum + cur, 0)) {
+                                                sortedResults.shift();
+                                                sortedResults.push(this.quizResult);
+                                                setResultQuizInServer(userId, sortedResults);
+                                            }
+                                            break;
+                                    }
                                 } else {
-                                    console.log("нету результатов пока что")
-                                    console.log("Это this.quizRes", this.quizResult)
-                                    console.log("это", user)
-                                    updateResultQuizInServer(userId, this.quizResult)
+                                    this.quizResults.push(this.quizResult);
+                                    setResultQuizInServer(userId, this.quizResults);
                                 }
                             })
                     }
