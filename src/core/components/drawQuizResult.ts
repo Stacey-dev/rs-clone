@@ -1,4 +1,4 @@
-import { QuizResult } from "../../pages/personal-account/personal-account";
+import { QuizResult } from "../../utils/types";
 export function createQuizResults(container: HTMLDivElement, results: QuizResult[], lng: string) {
 
     const sortesResults = results.sort((el1, el2) => (Object.values(el2).reduce((a, c) => a + c, 0)) - (Object.values(el1).reduce((a, c) => a + c, 0)));

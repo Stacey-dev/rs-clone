@@ -11,11 +11,11 @@ import { conditionsData } from '../../utils/dataCondition';
 import { freeEntriesData } from '../../utils/dataFreeEntries';
 import { langArr } from '../../utils/dataLang';
 import { langArrHeaderFooter } from '../../utils/dataLang';
-import { data } from '../../utils/dataLang';
+import { LanguageArr } from '../../utils/types';
 import { ticketsDataRu } from '../../utils/dataBuyTicket';
 import { conditionsDataRu } from '../../utils/dataCondition';
 import { freeEntriesDataRu } from '../../utils/dataFreeEntries';
-import { PageIds } from '../app/app';
+import { PageIds } from '../../utils/types';
 
 export class PricesPage extends Page {
     static TextObject = {
@@ -161,14 +161,14 @@ export class PricesPage extends Page {
             for (const key in langArr) {
                 if (this.container.querySelector('.' + key)) {
                     this.container.querySelector('.' + key)!.innerHTML =
-                        langArr[key as keyof data][select.value as keyof { ru: string; en: string }];
+                        langArr[key as keyof LanguageArr][select.value as keyof { ru: string; en: string }];
                 }
             }
             for (const key in langArrHeaderFooter) {
                 if (document.querySelector('.' + key)) {
                     document.querySelector('.' + key)!.innerHTML =
-                        langArrHeaderFooter[key as keyof data][select.value as keyof { ru: string; en: string }];
-                    console.log(document.querySelector('.' + key));
+                        langArrHeaderFooter[key as keyof LanguageArr][select.value as keyof { ru: string; en: string }];
+
                 }
             }
         }

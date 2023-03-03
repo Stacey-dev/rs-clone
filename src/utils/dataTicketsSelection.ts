@@ -1,4 +1,4 @@
-import { Tickets } from "./dataBuyTicket"
+import { Tickets } from "./types"
 
 export const ticketsSelectData: Tickets[] = [
     [{

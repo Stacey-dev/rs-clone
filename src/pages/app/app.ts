@@ -6,32 +6,13 @@ import CiutatPage from '../la-ciutat/la-ciutat';
 import TicketPage from '../buy-ticket/buy-ticket';
 import PersonalAccPage from '../personal-account/personal-account';
 import ErrorPage from '../error/error';
-import { ErrorTypes } from '../error/error';
+import { ErrorTypes } from '../../utils/types';
 import Header from '../../core/components/header';
 import Footer from '../../core/components/footer/footer';
 import Main from '../../core/components/main';
+import { PageIds } from '../../utils/types';
+import { Order } from '../../utils/types';
 
-export const enum PageIds {
-    PricesPage = 'prices-page&lang=en',
-    PricesPageRu = 'prices-page&lang=ru',
-    SchedulesPage = 'schedules-page&lang=en',
-    SchedulesPageRu = 'schedules-page&lang=ru',
-    QuizPage = 'quiz-page&lang=en',
-    QuizPageRu = 'quiz-page&lang=ru',
-    CiutatPage = 'ciutat-page&lang=en',
-    TicketPage = 'ticket-page&lang=en',
-    TicketPageRu = 'ticket-page&lang=ru',
-    PersonalAccauntPage = 'personal-page&lang=en',
-    PersonalAccauntPageRu = 'personal-page&lang=ru',
-    ErrorPage = 'error-page',
-}
-export type Order = {
-    name: string | null;
-    date: string | null;
-    amount: number | null;
-    price: number | null;
-    userId: number | null;
-};
 
 class App {
     private static container: HTMLElement = document.body;

@@ -1,10 +1,8 @@
 import Page from '../../core/templates/page';
-import { PageIds } from '../app/app';
-import './error.css'
+import { PageIds } from '../../utils/types';
+import { ErrorTypes } from '../../utils/types';
+import './error.css';
 
-export const enum ErrorTypes {
-    Error_404 = 404,
-}
 
 class ErrorPage extends Page {
     private errorType: ErrorTypes | string;

@@ -1,10 +1,4 @@
-export type Condion = {
-    title: string;
-    people: string[];
-    explanation: string;
-}
-
-export type Conditions = Condion[];
+import { Conditions } from "./types"
 
 export const conditionsData: Conditions = [{
     title: "REDUCED ADMISSION",

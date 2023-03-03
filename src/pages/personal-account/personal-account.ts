@@ -5,24 +5,8 @@ import { createQuizResults } from '../../core/components/drawQuizResult';
 import { getQuizResults } from '../../utils/requests';
 import { getTicketsUserFromServer } from '../../utils/requests';
 import { langArr } from '../../utils/dataLang';
-import { data } from '../../utils/dataLang';
+import { LanguageArr } from '../../utils/types';
 
-export type User = {
-    email: string;
-    name: string;
-    surname: string,
-    phone: string,
-    password: string;
-    quizResults: QuizResult[] | null;
-    id: number;
-};
-
-export type QuizResult = {
-    scoreLevel1: number;
-    scoreLevel2: number;
-    scoreLevel3: number;
-    scoreLevel4: number;
-};
 
 class PersonalAccPage extends Page {
     static TextObject = {
@@ -43,7 +27,6 @@ class PersonalAccPage extends Page {
     getAuthToken() {
         return localStorage.accessToken;
     }
-
 
     render() {
         const select = <HTMLSelectElement>document.querySelector('.header_language');
@@ -84,7 +67,7 @@ class PersonalAccPage extends Page {
             for (const key in langArr) {
                 if (this.container.querySelector('.' + key)) {
                     this.container.querySelector('.' + key)!.innerHTML =
-                        langArr[key as keyof data][select.value as keyof { ru: string; en: string }];
+                        langArr[key as keyof LanguageArr][select.value as keyof { ru: string; en: string }];
                 }
             }
         }
@@ -129,8 +112,7 @@ class PersonalAccPage extends Page {
                 }
             })
             .catch((e) => {
-                console.log('There are no quiz results yet')
-                console.log(e)
+                console.log('There are no quiz results yet');
             })
 
         return this.container;

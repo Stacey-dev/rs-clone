@@ -1,7 +1,7 @@
 import Component from '../templates/components';
-import { PageIds } from '../../pages/app/app';
+import { PageIds } from '../../utils/types';
 import { langArr } from '../../utils/dataLang';
-import { data } from '../../utils/dataLang';
+import { LanguageArr } from '../../utils/types';
 import { ticketsData } from '../../utils/dataBuyTicket';
 import { ticketsDataRu } from '../../utils/dataBuyTicket';
 import { createDropDownListTicket } from './drop-down-list';
@@ -17,7 +17,7 @@ import PricesPage from '../../pages/prices-calendar/prices';
 import { createCalendarView } from './create-calendar';
 import { createCalendarView as createCalendarSchedules } from './create-calendar-schedules';
 import { langArrBuyTicket } from '../../utils/dataLang';
-import { QuizResult } from '../../pages/personal-account/personal-account';
+import { QuizResult } from '../../utils/types';
 import { login } from '../../utils/requests';
 import { registration } from '../../utils/requests';
 import { goToAnotherPage } from '../../utils/goToAnotherPage';
@@ -302,7 +302,7 @@ class Header extends Component {
             for (const key in langArr) {
                 if (document.querySelector('.' + key)) {
                     document.querySelector('.' + key)!.innerHTML =
-                        langArr[key as keyof data][select.value as keyof { ru: string; en: string }];
+                        langArr[key as keyof LanguageArr][select.value as keyof { ru: string; en: string }];
                 }
             }
 
@@ -311,7 +311,7 @@ class Header extends Component {
                     .querySelectorAll('.' + key)
                     .forEach(
                         (el) =>
-                            (el!.innerHTML = langArrBuyTicket[key as keyof data][select.value as keyof { ru: string; en: string }])
+                            (el!.innerHTML = langArrBuyTicket[key as keyof LanguageArr][select.value as keyof { ru: string; en: string }])
                     );
             }
 

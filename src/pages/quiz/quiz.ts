@@ -4,12 +4,11 @@ import Chart from 'chart.js/auto';
 import { fishDataRu } from './quiz_BD/BD_animal_ru';
 import fishDataEn from './quiz_BD/BD_animal_en';
 import { langArr } from '../../utils/dataLang';
-import { data } from '../../utils/dataLang';
-import { QuizResult, User } from '../personal-account/personal-account';
+import { LanguageArr } from '../../utils/types';
+import { QuizResult } from '../../utils/types';
 import { getQuizResults } from '../../utils/requests';
 import { setResultQuizInServer } from '../../utils/requests';
-import { updateResultQuizInServer } from '../../utils/requests';
-import { getUser } from '../../utils/requests';
+
 
 class QuizPage extends Page {
     static TextObject = {
@@ -85,7 +84,7 @@ class QuizPage extends Page {
             for (const key in langArr) {
                 if (this.container.querySelector('.' + key)) {
                     this.container.querySelector('.' + key)!.innerHTML =
-                        langArr[key as keyof data][select.value as keyof { ru: string; en: string }];
+                        langArr[key as keyof LanguageArr][select.value as keyof { ru: string; en: string }];
                 }
             }
         }

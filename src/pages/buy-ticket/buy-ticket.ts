@@ -9,9 +9,9 @@ import AmericanExpr from '../../assets/icons/american-express.svg';
 import Mastercard from '../../assets/icons/mastercard.svg';
 import Visa from '../../assets/icons/visa.png';
 import UnionPay from '../../assets/icons/union-pay.png';
-import { data } from '../../utils/dataLang';
+import { LanguageArr } from '../../utils/types';
 import { langArrBuyTicket } from '../../utils/dataLang';
-import { PageIds } from '../app/app';
+import { PageIds } from '../../utils/types';
 import App from '../app/app';
 import { addTicketToAccount } from '../../utils/requests';
 import { goToAnotherPage } from '../../utils/goToAnotherPage';
@@ -119,7 +119,7 @@ export class TicketPage extends Page {
             TicketPage.date = inputDate.value;
 
             if (selection.getElementsByClassName(`${TicketPage.date}`)[0]) {
-                console.log('Есть такой');
+
                 for (const child of selection.children) {
                     child.classList.add('hidden');
                 }
@@ -127,11 +127,11 @@ export class TicketPage extends Page {
                 if (select.value === 'ru') {
                     for (const key in langArrBuyTicket) {
                         this.container.querySelector('.' + key)!.innerHTML =
-                            langArrBuyTicket[key as keyof data][select.value as keyof { ru: string; en: string }];
+                            langArrBuyTicket[key as keyof LanguageArr][select.value as keyof { ru: string; en: string }];
                     }
                 }
             } else {
-                console.log('Нету такого');
+
                 for (const child of selection.children) {
                     child.classList.add('hidden');
                 }
@@ -150,9 +150,9 @@ export class TicketPage extends Page {
 
                 if (select.value === 'ru') {
                     for (const key in langArrBuyTicket) {
-                        console.log(otherDayOptionsTickets.querySelector('.' + key));
+
                         otherDayOptionsTickets.querySelector('.' + key)!.innerHTML =
-                            langArrBuyTicket[key as keyof data][select.value as keyof { ru: string; en: string }];
+                            langArrBuyTicket[key as keyof LanguageArr][select.value as keyof { ru: string; en: string }];
                     }
                 }
             }
