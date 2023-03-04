@@ -1,6 +1,6 @@
 import { Tickets } from "./types"
 
-export const ticketsSelectData: Tickets[] = [
+export const onlineTicketsData: Tickets[] = [
     [{
         title: "OCEANOGRAFIC -> ONLINE-TICKET",
         name: "General Ticket",
@@ -107,7 +107,7 @@ export const ticketsSelectData: Tickets[] = [
     ]
 ]
 
-export const ticketsSelectDataRu: Tickets[] = [
+export const onlineTicketsDataRu: Tickets[] = [
     [{
         title: "ОКЕАНОГРАФИКА -> ОНЛАЙН-БИЛЕТ",
         name: "Общий билет",

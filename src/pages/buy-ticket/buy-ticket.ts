@@ -2,8 +2,8 @@ import Page from '../../core/templates/page';
 import './buy-ticket.css';
 import { createInputCalendar } from '../../core/components/create-calendar-tickets';
 import { createOptionByuingTicket } from '../../core/components/optionsBuyingTickets';
-import { ticketsSelectData } from '../../utils/dataTicketsSelection';
-import { addCardImg } from '../../core/components/addCardImg';
+import { onlineTicketsData } from '../../utils/dataOnlineTickets';
+import { addCardLogo } from '../../core/components/addCardLogo';
 import CardLogo from '../../assets/icons/card-logo.png';
 import AmericanExpr from '../../assets/icons/american-express.svg';
 import Mastercard from '../../assets/icons/mastercard.svg';
@@ -141,7 +141,7 @@ export class TicketPage extends Page {
                 selection.append(otherDayOptionsTickets);
 
                 createOptionByuingTicket(
-                    ticketsSelectData,
+                    onlineTicketsData,
                     otherDayOptionsTickets,
                     makingOrderButt,
                     TicketPage.date,
@@ -195,7 +195,7 @@ export class TicketPage extends Page {
         }
 
         createOptionByuingTicket(
-            ticketsSelectData,
+            onlineTicketsData,
             currentDayOptionsTickets[0],
             makingOrderButt,
             TicketPage.date,
@@ -260,7 +260,7 @@ export class TicketPage extends Page {
         });
 
         const cardImgContainer = <HTMLDivElement>this.container.querySelector('.payment__container-card-img');
-        addCardImg(cardImgContainer, CardLogo);
+        addCardLogo(cardImgContainer, CardLogo);
 
         //_______________________________________________________card number
 
@@ -274,13 +274,13 @@ export class TicketPage extends Page {
         const formatNumberWithSpace = (number: string) =>
             number.split('').reduce((seed, next, index) => {
                 if (number[0] === '3') {
-                    addCardImg(cardImgContainer, AmericanExpr);
+                    addCardLogo(cardImgContainer, AmericanExpr);
                 } else if (number[0] === '4') {
-                    addCardImg(cardImgContainer, Visa);
+                    addCardLogo(cardImgContainer, Visa);
                 } else if (number[0] === '5') {
-                    addCardImg(cardImgContainer, Mastercard);
+                    addCardLogo(cardImgContainer, Mastercard);
                 } else if (number[0] === '6') {
-                    addCardImg(cardImgContainer, UnionPay);
+                    addCardLogo(cardImgContainer, UnionPay);
                 }
                 if (index !== 0 && !(index % 4)) seed += ' ';
                 return seed + next;

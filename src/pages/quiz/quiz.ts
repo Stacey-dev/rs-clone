@@ -384,20 +384,20 @@ class QuizPage extends Page {
                                         case 1:
                                         case 2:
                                             this.quizResults.push(this.quizResult);
-                                            // const newRes = quizResults.concat(this.quizResults)
                                             setResultQuizInServer(userId, quizResults.concat(this.quizResults));
                                             break;
                                         case 3:
-                                            // const sortedResults = quizResults.sort((el1, el2) => (el1.scoreLevel1 + el1.scoreLevel2 + el1.scoreLevel3 + el1.scoreLevel4) - (el2.scoreLevel1 + el2.scoreLevel2 + el2.scoreLevel3 + el2.scoreLevel4));
+                                            const totalScore = (quizResult: QuizResult) => Object.values(quizResult).reduce((a, c) => a + c, 0);
 
-                                            const sortedResults = quizResults.sort((el1, el2) => (Object.values(el1).reduce((a, c) => a + c, 0)) - (Object.values(el2).reduce((a, c) => a + c, 0)))
+                                            const sortedResults = quizResults.sort((el1, el2) => totalScore(el1) - totalScore(el2));
 
-                                            if (Object.values(sortedResults[0]).reduce((accum, cur) => accum + cur, 0) < Object.values(this.quizResult).reduce((accum, cur) => accum + cur, 0)) {
+                                            if (totalScore(sortedResults[0]) < totalScore(this.quizResult)) {
                                                 sortedResults.shift();
                                                 sortedResults.push(this.quizResult);
                                                 setResultQuizInServer(userId, sortedResults);
                                             }
                                             break;
+
                                     }
                                 } else {
                                     this.quizResults.push(this.quizResult);
