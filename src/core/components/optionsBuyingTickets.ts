@@ -1,12 +1,7 @@
-import { Tickets } from '../../utils/dataBuyTicket';
+import { Tickets } from '../../utils/types';
 import App from '../../pages/app/app';
 import { drawTicket } from './drawTicket';
 
-// type Order = {
-//     name: string | null,
-//     amount: number | null,
-//     price: number | null
-// }
 
 export function createOptionByuingTicket(
     arr: Tickets[],
@@ -63,7 +58,7 @@ export function createOptionByuingTicket(
                     updateOrder[0].price = +(updateOrder[0].price! - parseFloat(elem.price)).toFixed(2);
                     App.orders.length === 0 ? (button.disabled = true) : (button.disabled = false);
                     drawTicket(containerForTickets, App.orders);
-                    console.log('its', App.orders);
+
                 } else if (amount === 1) {
                     amount--;
                     amountTickets.value = `${amount}`;
@@ -72,7 +67,7 @@ export function createOptionByuingTicket(
 
                     App.orders.splice(indexUpdateOrder, 1);
                     App.orders.length === 0 ? (button.disabled = true) : (button.disabled = false);
-                    console.log('orsers', App.orders);
+
                     drawTicket(containerForTickets, App.orders);
                 }
             });
@@ -96,7 +91,6 @@ export function createOptionByuingTicket(
                 if (updateOrder.length !== 0) {
                     updateOrder[0].amount = amount;
                     updateOrder[0].price = +(updateOrder[0].price! + parseFloat(elem.price)).toFixed(2);
-                    console.log('orsers', App.orders);
 
                     drawTicket(containerForTickets, App.orders);
                 } else {
@@ -108,7 +102,7 @@ export function createOptionByuingTicket(
                             price: parseFloat(elem.price),
                             userId: userId,
                         });
-                        console.log('orsers', App.orders);
+
                     } else {
                         App.orders.push({
                             name: elem.name,
@@ -117,7 +111,7 @@ export function createOptionByuingTicket(
                             price: parseFloat(elem.price),
                             userId: null,
                         });
-                        console.log('orsers', App.orders);
+
                     }
 
                     drawTicket(containerForTickets, App.orders);

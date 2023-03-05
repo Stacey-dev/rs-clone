@@ -5,24 +5,10 @@ import { createQuizResults } from '../../core/components/drawQuizResult';
 import { getQuizResults } from '../../utils/requests';
 import { getTicketsUserFromServer } from '../../utils/requests';
 import { langArr } from '../../utils/dataLang';
-import { data } from '../../utils/dataLang';
+import { switchValueLanguageInHash } from '../../utils/switchValueLangInHash';
+import { translateToAnotherLang } from '../../utils/translateToAnotherlanguage';
+import { langArrHeaderFooter } from '../../utils/dataLang';
 
-export type User = {
-    email: string;
-    name: string;
-    surname: string,
-    phone: string,
-    password: string;
-    quizResults: QuizResult[] | null;
-    id: number;
-};
-
-export type QuizResult = {
-    scoreLevel1: number;
-    scoreLevel2: number;
-    scoreLevel3: number;
-    scoreLevel4: number;
-};
 
 class PersonalAccPage extends Page {
     static TextObject = {
@@ -32,6 +18,7 @@ class PersonalAccPage extends Page {
     level2: number;
     level3: number;
     level4: number;
+    langInHash: string | null;
 
     constructor(id: string) {
         super(id);
@@ -39,24 +26,12 @@ class PersonalAccPage extends Page {
         this.level2 = 0;
         this.level3 = 0;
         this.level4 = 0;
+        this.langInHash = window.location.hash.slice(1).split('=')[1];
     }
-    getAuthToken() {
-        return localStorage.accessToken;
-    }
-
 
     render() {
         const select = <HTMLSelectElement>document.querySelector('.header_language');
-
-        if (select.value === 'ru') {
-            let langInHash = window.location.hash.slice(1).split('=')[1];
-            langInHash = select.value;
-            const path = window.location.hash.slice(1).split('=')[0];
-            const url = new URL(window.location.toString());
-            url.hash = path + '=' + langInHash;
-            window.history.pushState({}, '', url);
-            select.value = 'ru';
-        }
+        switchValueLanguageInHash(select);
 
         const layoutString = `<div class="personal__background">
         <div class="tickets__wrapper">
@@ -65,7 +40,7 @@ class PersonalAccPage extends Page {
                     <div class="name-user"></div>
                     <div class="surname-user"></div>
                     <div class="phone-user"></div>
-                    <div class="personal-statistic"><span class ="personal__statistic_title">There are no quiz results yet</span>
+                    <div class="personal-statistic"><span class ="personal__statistic_title">${select.value === 'en' ? 'There are no quiz results yet' : 'Результаты викторины отсутствуют'}</span>
                     </div>
                 </div>
                 <div class="personal__tickets"><span class ="personal__tickets_title">Buying history</span>
@@ -78,17 +53,6 @@ class PersonalAccPage extends Page {
         const layoutPersonal = document.createElement('div');
         layoutPersonal.innerHTML = layoutString;
         this.container.append(layoutPersonal);
-
-        //___________________________________________________переключение на другой язык
-        if (select.value === 'ru') {
-            for (const key in langArr) {
-                if (this.container.querySelector('.' + key)) {
-                    this.container.querySelector('.' + key)!.innerHTML =
-                        langArr[key as keyof data][select.value as keyof { ru: string; en: string }];
-                }
-            }
-        }
-        //________________________________________________________________________________
 
         const nameUser = <HTMLDivElement>this.container.querySelector('.name-user');
         const surnameUser = <HTMLDivElement>this.container.querySelector('.surname-user');
@@ -124,14 +88,19 @@ class PersonalAccPage extends Page {
             .then((results) => {
                 if (results) {
                     statisticContainer.innerHTML = "";
-                    statisticContainer.innerHTML = `<span class="personal__statistic_title">The best results of the quiz</span>`;
+                    statisticContainer.innerHTML = `<span class="personal__statistic_title">${select.value === 'en' ? 'The best results of the quiz' : 'Лучшие результаты викторины'}</span>`;
                     createQuizResults(statisticContainer, results, select.value);
                 }
             })
             .catch((e) => {
-                console.log('There are no quiz results yet')
-                console.log(e)
+                console.log('There are no quiz results yet');
             })
+
+        //___________________________________________________переключение на другой язык
+
+        translateToAnotherLang(langArr, this.container, select);
+        translateToAnotherLang(langArrHeaderFooter, document, select);
+        //________________________________________________________________________________
 
         return this.container;
     }

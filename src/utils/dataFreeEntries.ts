@@ -1,4 +1,4 @@
-import { Conditions } from "./dataCondition"
+import { Conditions } from "./types"
 
 export const freeEntriesData: Conditions = [{
     title: "TRAVEL AGENCIES",

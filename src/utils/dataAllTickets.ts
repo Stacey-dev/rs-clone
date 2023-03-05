@@ -1,11 +1,4 @@
-export type Ticket = {
-    title: string,
-    name: string,
-    price: string,
-    buyOnline: boolean;
-}
-
-export type Tickets = Ticket[];
+import { Tickets } from "./types"
 
 export const ticketsData: Tickets[] = [
     [{

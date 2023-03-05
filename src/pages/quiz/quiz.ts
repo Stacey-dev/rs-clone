@@ -4,12 +4,14 @@ import Chart from 'chart.js/auto';
 import { fishDataRu } from './quiz_BD/BD_animal_ru';
 import fishDataEn from './quiz_BD/BD_animal_en';
 import { langArr } from '../../utils/dataLang';
-import { data } from '../../utils/dataLang';
-import { QuizResult, User } from '../personal-account/personal-account';
+import { LanguageArr } from '../../utils/types';
+import { QuizResult } from '../../utils/types';
 import { getQuizResults } from '../../utils/requests';
 import { setResultQuizInServer } from '../../utils/requests';
-import { updateResultQuizInServer } from '../../utils/requests';
-import { getUser } from '../../utils/requests';
+import { switchValueLanguageInHash } from '../../utils/switchValueLangInHash';
+import { translateToAnotherLang } from '../../utils/translateToAnotherlanguage';
+import { langArrHeaderFooter } from '../../utils/dataLang';
+
 
 class QuizPage extends Page {
     static TextObject = {
@@ -31,16 +33,7 @@ class QuizPage extends Page {
 
     render() {
         const select = <HTMLSelectElement>document.querySelector('.header_language');
-        if (select.value === 'ru') {
-            let langInHash = window.location.hash.slice(1).split('=')[1];
-            langInHash = select.value;
-            const path = window.location.hash.slice(1).split('=')[0];
-            const url = new URL(window.location.toString());
-            url.hash = path + '=' + langInHash;
-            window.history.pushState({}, '', url);
-            select.value = 'ru';
-        }
-
+        switchValueLanguageInHash(select);
 
         //отрисовываем основную часть страницы
         const wrapper_quiz = document.createElement('div');
@@ -85,7 +78,7 @@ class QuizPage extends Page {
             for (const key in langArr) {
                 if (this.container.querySelector('.' + key)) {
                     this.container.querySelector('.' + key)!.innerHTML =
-                        langArr[key as keyof data][select.value as keyof { ru: string; en: string }];
+                        langArr[key as keyof LanguageArr][select.value as keyof { ru: string; en: string }];
                 }
             }
         }
@@ -385,20 +378,20 @@ class QuizPage extends Page {
                                         case 1:
                                         case 2:
                                             this.quizResults.push(this.quizResult);
-                                            // const newRes = quizResults.concat(this.quizResults)
                                             setResultQuizInServer(userId, quizResults.concat(this.quizResults));
                                             break;
                                         case 3:
-                                            // const sortedResults = quizResults.sort((el1, el2) => (el1.scoreLevel1 + el1.scoreLevel2 + el1.scoreLevel3 + el1.scoreLevel4) - (el2.scoreLevel1 + el2.scoreLevel2 + el2.scoreLevel3 + el2.scoreLevel4));
+                                            const totalScore = (quizResult: QuizResult) => Object.values(quizResult).reduce((a, c) => a + c, 0);
 
-                                            const sortedResults = quizResults.sort((el1, el2) => (Object.values(el1).reduce((a, c) => a + c, 0)) - (Object.values(el2).reduce((a, c) => a + c, 0)))
+                                            const sortedResults = quizResults.sort((el1, el2) => totalScore(el1) - totalScore(el2));
 
-                                            if (Object.values(sortedResults[0]).reduce((accum, cur) => accum + cur, 0) < Object.values(this.quizResult).reduce((accum, cur) => accum + cur, 0)) {
+                                            if (totalScore(sortedResults[0]) < totalScore(this.quizResult)) {
                                                 sortedResults.shift();
                                                 sortedResults.push(this.quizResult);
                                                 setResultQuizInServer(userId, sortedResults);
                                             }
                                             break;
+
                                     }
                                 } else {
                                     this.quizResults.push(this.quizResult);
@@ -455,6 +448,9 @@ class QuizPage extends Page {
             };
         };
         setTimeout(renderQuiz, 4000);
+
+        translateToAnotherLang(langArrHeaderFooter, document, select);
+
         return this.container;
     }
 }

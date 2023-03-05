@@ -1,8 +1,6 @@
-export interface data {
-    [key: string]: { "ru": string, "en": string };
-}
+import { LanguageArr } from "./types"
 
-export const langArr: data = {
+export const langArr: LanguageArr = {
     "prices-page": {
         "ru": "Цены",
         "en": "Prices and Calendar"
@@ -152,7 +150,7 @@ export const langArr: data = {
         "en": "Buy your experience"
     },
     "conditions__header": {
-        "ru": "Купить билет",
+        "ru": "Уточнения",
         "en": "Conditions"
     },
     "conditions__text": {
@@ -397,7 +395,7 @@ export const langArr: data = {
     }
 }
 
-export const langArrBuyTicket: data = {
+export const langArrBuyTicket: LanguageArr = {
     "title-OCEANOGRAFIC-0": {
         "ru": "ОКЕАНОГРАФИКА -> ОНЛАЙН-БИЛЕТ",
         "en": "OCEANOGRAFIC -> ONLINE-TICKET"
@@ -508,7 +506,7 @@ export const langArrBuyTicket: data = {
     }
 }
 
-export const langArrHeaderFooter: data = {
+export const langArrHeaderFooter: LanguageArr = {
     "prices-page": {
         "ru": "Цены",
         "en": "Prices and Calendar"

@@ -2,19 +2,21 @@ import Page from '../../core/templates/page';
 import './buy-ticket.css';
 import { createInputCalendar } from '../../core/components/create-calendar-tickets';
 import { createOptionByuingTicket } from '../../core/components/optionsBuyingTickets';
-import { ticketsSelectData } from '../../utils/dataTicketsSelection';
-import { addCardImg } from '../../core/components/addCardImg';
+import { onlineTicketsData } from '../../utils/dataOnlineTickets';
+import { addCardLogo } from '../../core/components/addCardLogo';
 import CardLogo from '../../assets/icons/card-logo.png';
 import AmericanExpr from '../../assets/icons/american-express.svg';
 import Mastercard from '../../assets/icons/mastercard.svg';
 import Visa from '../../assets/icons/visa.png';
 import UnionPay from '../../assets/icons/union-pay.png';
-import { data } from '../../utils/dataLang';
-import { langArrBuyTicket } from '../../utils/dataLang';
-import { PageIds } from '../app/app';
+import { langArr, langArrBuyTicket, langArrHeaderFooter } from '../../utils/dataLang';
+import { PageIds } from '../../utils/types';
 import App from '../app/app';
 import { addTicketToAccount } from '../../utils/requests';
 import { goToAnotherPage } from '../../utils/goToAnotherPage';
+import { switchValueLanguageInHash } from '../../utils/switchValueLangInHash';
+import { translateToAnotherLang } from '../../utils/translateToAnotherlanguage';
+import { messageAfterTcketBuying } from '../../utils/canvas';
 
 export class TicketPage extends Page {
     static TextObject = {
@@ -31,6 +33,8 @@ export class TicketPage extends Page {
 
     render() {
         const select = <HTMLSelectElement>document.querySelector('.header_language');
+
+        switchValueLanguageInHash(select);
 
         const background = document.createElement('div');
         background.classList.add('buy-ticket__backg');
@@ -111,6 +115,8 @@ export class TicketPage extends Page {
             this.container.getElementsByClassName(TicketPage.date)
         );
 
+        //___________добавление input-календаря
+
         createInputCalendar(calendar);
 
         const inputDate = <HTMLInputElement>this.container.querySelector('.selection__tickets-date');
@@ -119,19 +125,15 @@ export class TicketPage extends Page {
             TicketPage.date = inputDate.value;
 
             if (selection.getElementsByClassName(`${TicketPage.date}`)[0]) {
-                console.log('Есть такой');
+
                 for (const child of selection.children) {
                     child.classList.add('hidden');
                 }
                 selection.getElementsByClassName(`${TicketPage.date}`)[0].classList.remove('hidden');
-                if (select.value === 'ru') {
-                    for (const key in langArrBuyTicket) {
-                        this.container.querySelector('.' + key)!.innerHTML =
-                            langArrBuyTicket[key as keyof data][select.value as keyof { ru: string; en: string }];
-                    }
-                }
+                translateToAnotherLang(langArrBuyTicket, this.container, select);
+
             } else {
-                console.log('Нету такого');
+
                 for (const child of selection.children) {
                     child.classList.add('hidden');
                 }
@@ -141,20 +143,13 @@ export class TicketPage extends Page {
                 selection.append(otherDayOptionsTickets);
 
                 createOptionByuingTicket(
-                    ticketsSelectData,
+                    onlineTicketsData,
                     otherDayOptionsTickets,
                     makingOrderButt,
                     TicketPage.date,
                     containerForDrawnTickets
                 );
-
-                if (select.value === 'ru') {
-                    for (const key in langArrBuyTicket) {
-                        console.log(otherDayOptionsTickets.querySelector('.' + key));
-                        otherDayOptionsTickets.querySelector('.' + key)!.innerHTML =
-                            langArrBuyTicket[key as keyof data][select.value as keyof { ru: string; en: string }];
-                    }
-                }
+                translateToAnotherLang(langArrBuyTicket, otherDayOptionsTickets, select);
             }
         });
 
@@ -172,6 +167,7 @@ export class TicketPage extends Page {
         const paymentInputs = <HTMLCollectionOf<HTMLInputElement>>this.container.getElementsByClassName('payment__input');
         const completePaymentButt = <HTMLButtonElement>this.container.querySelector('.payment__complete');
 
+        //_____________если все inputs по данным пользователя заполнены правильно
         for (const elem of registrInputs) {
             elem.addEventListener('input', () => {
                 if (
@@ -194,13 +190,22 @@ export class TicketPage extends Page {
             });
         }
 
+        //__________________заполнение контейнера с классом текущей даты всеми билетами, которые можно купить онлайн
+
         createOptionByuingTicket(
-            ticketsSelectData,
+            onlineTicketsData,
             currentDayOptionsTickets[0],
             makingOrderButt,
             TicketPage.date,
             containerForDrawnTickets
         );
+
+        //____________________переключение на другой язык
+        translateToAnotherLang(langArr, this.container, select);
+        translateToAnotherLang(langArrHeaderFooter, document, select);
+        translateToAnotherLang(langArrBuyTicket, currentDayOptionsTickets[0], select);
+        //________________________________________________
+
 
         selectionButt.addEventListener('click', () => {
             progress.style.width = 'calc(100% / 3)';
@@ -232,16 +237,23 @@ export class TicketPage extends Page {
             const userNameInput = <HTMLInputElement>this.container.querySelector('.reg__input-name');
             const userSurnameInput = <HTMLInputElement>this.container.querySelector('.reg__input-surname');
             const userEmailInput = <HTMLInputElement>this.container.querySelector('.reg__input-email');
+            const userPhoneInput = <HTMLInputElement>this.container.querySelector('.reg__input-phone');
 
             if (localStorage.getItem("user") !== null) {
                 const userAsString = localStorage.getItem("user");
                 const nameUserValue: string = userAsString !== null ? JSON.parse(userAsString).name : "The user is not logged in";
                 const surnameUserValue: string = userAsString !== null ? JSON.parse(userAsString).surname : "The user is not logged in";
                 const emailUserValue: string = userAsString !== null ? JSON.parse(userAsString).email : null;
+                const phoneUserValue: string = userAsString !== null ? JSON.parse(userAsString).phone : null;
 
                 userNameInput.value = nameUserValue;
                 userSurnameInput.value = surnameUserValue;
                 userEmailInput.value = emailUserValue;
+                userPhoneInput.value = phoneUserValue;
+
+                if (registrInputs[0].value.length !== 0) {
+                    paymentButt.disabled = false
+                }
             }
         });
 
@@ -260,7 +272,7 @@ export class TicketPage extends Page {
         });
 
         const cardImgContainer = <HTMLDivElement>this.container.querySelector('.payment__container-card-img');
-        addCardImg(cardImgContainer, CardLogo);
+        addCardLogo(cardImgContainer, CardLogo);
 
         //_______________________________________________________card number
 
@@ -274,13 +286,13 @@ export class TicketPage extends Page {
         const formatNumberWithSpace = (number: string) =>
             number.split('').reduce((seed, next, index) => {
                 if (number[0] === '3') {
-                    addCardImg(cardImgContainer, AmericanExpr);
+                    addCardLogo(cardImgContainer, AmericanExpr);
                 } else if (number[0] === '4') {
-                    addCardImg(cardImgContainer, Visa);
+                    addCardLogo(cardImgContainer, Visa);
                 } else if (number[0] === '5') {
-                    addCardImg(cardImgContainer, Mastercard);
+                    addCardLogo(cardImgContainer, Mastercard);
                 } else if (number[0] === '6') {
-                    addCardImg(cardImgContainer, UnionPay);
+                    addCardLogo(cardImgContainer, UnionPay);
                 }
                 if (index !== 0 && !(index % 4)) seed += ' ';
                 return seed + next;
@@ -323,59 +335,8 @@ export class TicketPage extends Page {
 
         //_____________________________________________________________canvas
         const canvasContainer = <HTMLDivElement>this.container.querySelector('.canvas__container');
-
-        const c = <HTMLCanvasElement>this.container.querySelector('.canv');
-        const $ = <CanvasRenderingContext2D>c.getContext('2d');
-        let w = (c.width = window.innerWidth);
-        let h = (c.height = window.innerHeight);
-        let t = 0;
-        const num = 640;
-        let u = 0;
-        // s, a,
-        let b: number;
-        let x, y, _x, _y;
-        const _t = 1 / 60;
-
-        const anim = function () {
-            $.fillStyle = 'hsla(0, 0%, 90%, 1)';
-            $.fillRect(0, 0, w, h);
-            for (let i = 0; i < 1; i++) {
-                x = 0;
-                $.beginPath();
-                for (let j = 0; j < num; j++) {
-                    x -= 1.3 * Math.cos(4);
-                    y = (x * Math.sin(i + 4.0 * t + x / 70)) / 7;
-                    _x = x * Math.cos(i) - y * Math.sin(b);
-                    _y = x * Math.sin(i) + y * Math.cos(b);
-                    b = (j * Math.PI) / 14.5;
-                    $.lineWidth = 1;
-                    $.lineTo(w / 2 + _x, h / 2 - _y);
-                }
-                $.strokeStyle = 'hsla(0,0%,35%,1)';
-                $.stroke();
-                u -= 0.2;
-            }
-            t += _t;
-            window.requestAnimationFrame(anim);
-            txt();
-        };
-        anim();
-
-        function txt() {
-            const t = 'Thanks'.split('').join(String.fromCharCode(0x2006));
-            $.font = '4em Marck Script';
-            $.fillStyle = 'hsla(0,0%,46%,1)';
-            $.fillText(t, (c.width - $.measureText(t).width / 0.5051) * 0.5, c.height * 0.502);
-        }
-        window.addEventListener(
-            'resize',
-            function () {
-                c.width = w = window.innerWidth;
-                c.height = h = window.innerHeight;
-            },
-            false
-        );
-
+        const canvas = <HTMLCanvasElement>this.container.querySelector('.canv');
+        messageAfterTcketBuying(canvas);
         //__________________________________________________________________canvas activation
 
         completePaymentButt.addEventListener('click', async () => {
@@ -384,7 +345,6 @@ export class TicketPage extends Page {
                     const response = await addTicketToAccount(ticket)
                 }
             }
-
             canvasContainer.classList.remove('hidden');
             setTimeout(reload, 2000);
         });

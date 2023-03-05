@@ -1,15 +1,9 @@
-import { QuizResult } from "../pages/personal-account/personal-account"
-import { Order } from "../pages/app/app";
-import { User } from "../pages/personal-account/personal-account";
-import { LoginData } from "../core/components/header";
+import { QuizResult } from "./types";
+import { Order } from "./types";
+import { User } from "./types";
+import { LoginData } from "./types";
 import { url } from "./url";
 
-type DataUser = {
-    email: string;
-    name: string;
-    quizResults: QuizResult[] | null;
-    id: number;
-}
 
 export async function login(dataUser: LoginData) {
     const response = fetch(`${url}/login`, {
