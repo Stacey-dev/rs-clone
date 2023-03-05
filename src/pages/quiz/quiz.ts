@@ -8,6 +8,9 @@ import { LanguageArr } from '../../utils/types';
 import { QuizResult } from '../../utils/types';
 import { getQuizResults } from '../../utils/requests';
 import { setResultQuizInServer } from '../../utils/requests';
+import { switchValueLanguageInHash } from '../../utils/switchValueLangInHash';
+import { translateToAnotherLang } from '../../utils/translateToAnotherlanguage';
+import { langArrHeaderFooter } from '../../utils/dataLang';
 
 
 class QuizPage extends Page {
@@ -30,16 +33,7 @@ class QuizPage extends Page {
 
     render() {
         const select = <HTMLSelectElement>document.querySelector('.header_language');
-        if (select.value === 'ru') {
-            let langInHash = window.location.hash.slice(1).split('=')[1];
-            langInHash = select.value;
-            const path = window.location.hash.slice(1).split('=')[0];
-            const url = new URL(window.location.toString());
-            url.hash = path + '=' + langInHash;
-            window.history.pushState({}, '', url);
-            select.value = 'ru';
-        }
-
+        switchValueLanguageInHash(select);
 
         //отрисовываем основную часть страницы
         const wrapper_quiz = document.createElement('div');
@@ -454,6 +448,9 @@ class QuizPage extends Page {
             };
         };
         setTimeout(renderQuiz, 4000);
+
+        translateToAnotherLang(langArrHeaderFooter, document, select);
+
         return this.container;
     }
 }

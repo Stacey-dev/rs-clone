@@ -1,7 +1,7 @@
 import { QuizResult } from "./types";
 import { Order } from "./types";
 import { User } from "./types";
-import { LoginData } from "../core/components/header";
+import { LoginData } from "./types";
 import { url } from "./url";
 
 

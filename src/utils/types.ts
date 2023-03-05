@@ -56,6 +56,15 @@ type TableCell = {
 
 export type TableCells = TableCell[];
 
+export type LoginData = {
+    email: string | null;
+    name: string | null;
+    surname: string | null;
+    phone: string | null;
+    password: string | null;
+    quizResults: QuizResult[] | null;
+};
+
 export type User = {
     email: string;
     name: string;

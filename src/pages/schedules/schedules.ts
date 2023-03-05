@@ -12,7 +12,9 @@ import { createCalendarView } from '../../core/components/create-calendar-schedu
 import { getAllSaturdays } from '../../core/components/create-calendar-schedules';
 import { highlightCell } from '../../utils/highlightCells';
 import { langArr } from '../../utils/dataLang';
-import { LanguageArr } from '../../utils/types';
+import { switchValueLanguageInHash } from '../../utils/switchValueLangInHash';
+import { translateToAnotherLang } from '../../utils/translateToAnotherlanguage';
+import { langArrHeaderFooter } from '../../utils/dataLang';
 
 class SchedulesPage extends Page {
     static TextObject = {
@@ -25,15 +27,7 @@ class SchedulesPage extends Page {
 
     render() {
         const select = <HTMLSelectElement>document.querySelector('.header_language');
-        if (select.value === 'ru') {
-            let langInHash = window.location.hash.slice(1).split('=')[1];
-            langInHash = select.value;
-            const path = window.location.hash.slice(1).split('=')[0];
-            const url = new URL(window.location.toString());
-            url.hash = path + '=' + langInHash;
-            window.history.pushState({}, '', url);
-            select.value = 'ru';
-        }
+        switchValueLanguageInHash(select);
 
         const saturdays = getAllSaturdays();
 
@@ -73,16 +67,7 @@ class SchedulesPage extends Page {
         content.append(tiles, information);
         this.container.append(renderBackground(Video), content);
 
-        //___________________________________________________переключение на другой язык
-        if (select.value === 'ru') {
-            for (const key in langArr) {
-                if (this.container.querySelector('.' + key)) {
-                    this.container.querySelector('.' + key)!.innerHTML =
-                        langArr[key as keyof LanguageArr][select.value as keyof { ru: string; en: string }];
-                }
-            }
-        }
-        //________________________________________________________________________________
+        //__________заполнение таблицы с расписанием данными
 
         const schedulesTable = <HTMLDivElement>this.container.querySelector('.schedules__table');
         if (saturdays.includes(new Date().getDate())) {
@@ -99,6 +84,8 @@ class SchedulesPage extends Page {
             }
         }
 
+        //_______________календарь
+
         const buttonToCalendar = <HTMLButtonElement>this.container.querySelector('.schedules__button-right');
         const calendarContainer = <HTMLDivElement>this.container.querySelector('.schedules__calendar-container');
 
@@ -112,6 +99,8 @@ class SchedulesPage extends Page {
         });
 
         const td = <HTMLCollectionOf<HTMLTableCellElement>>calendarWrapper.getElementsByTagName('td');
+
+        //_______________отображение расписания в таблице при нажатии на день в календаре (на примере суббот и всех остальных дней)
 
         for (const elem of td) {
             elem.addEventListener('click', () => {
@@ -135,9 +124,17 @@ class SchedulesPage extends Page {
             });
         }
 
+        //___________________________анимация всей страницы вверх
         window.addEventListener('load', () => {
             content.classList.add('schedules__toTop');
         });
+
+        //___________________________________________________переключение на другой язык
+
+        translateToAnotherLang(langArr, this.container, select);
+        translateToAnotherLang(langArrHeaderFooter, document, select);
+
+        //________________________________________________________________________________
 
         return this.container;
     }

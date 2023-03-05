@@ -17,19 +17,14 @@ import PricesPage from '../../pages/prices-calendar/prices';
 import { createCalendarView } from './create-calendar-price';
 import { createCalendarView as createCalendarSchedules } from './create-calendar-schedules';
 import { langArrBuyTicket } from '../../utils/dataLang';
-import { QuizResult } from '../../utils/types';
 import { login } from '../../utils/requests';
 import { registration } from '../../utils/requests';
 import { goToAnotherPage } from '../../utils/goToAnotherPage';
+import { LoginData } from '../../utils/types';
+import { switchValueLanguageInHash } from '../../utils/switchValueLangInHash';
+import { translateToAnotherLang } from '../../utils/translateToAnotherlanguage';
 
-export type LoginData = {
-    email: string | null;
-    name: string | null;
-    surname: string | null;
-    phone: string | null;
-    password: string | null;
-    quizResults: QuizResult[] | null;
-};
+
 
 const Buttoms: { id: string; text: string }[] = [
     {
@@ -55,10 +50,12 @@ const Buttoms: { id: string; text: string }[] = [
 ];
 class Header extends Component {
     selectedLang: string;
+    langInHash: string | null;
 
     constructor(tagName: string, className: string) {
         super(tagName, className);
         this.selectedLang = 'en';
+        this.langInHash = window.location.hash.slice(1).split('=')[1];
     }
 
     createHeader() {
@@ -74,11 +71,15 @@ class Header extends Component {
         const pageButtons: HTMLDivElement = document.createElement('div');
 
         pageButtons.classList.add('header__nav');
+
+
         Buttoms.forEach((button) => {
             const buttonHTML = document.createElement('a');
             buttonHTML.innerText = button.text;
             if (buttonHTML.textContent === 'La Ciutat') {
                 buttonHTML.href = 'https://www.cac.es/va/home.html';
+            } else if (buttonHTML.textContent === 'BUY YOUR TICKET') {
+                this.langInHash === "ru" ? buttonHTML.href = `#${PageIds.TicketPageRu}` : buttonHTML.href = `#${PageIds.TicketPage}`;
             } else {
                 buttonHTML.href = `#${button.id}`;
             }
@@ -280,31 +281,21 @@ class Header extends Component {
 
     render(): HTMLElement {
         this.createHeader();
-
+        const buyTicketBtn = <HTMLAnchorElement>this.container.querySelector('.ticket-page');
         const select = <HTMLSelectElement>this.container.querySelector('.header_language');
-        const langInHash = window.location.hash.slice(1).split('=')[1];
-        if (langInHash) {
-            select.value = langInHash;
-            this.selectedLang = langInHash;
+
+        if (this.langInHash) {
+            select.value = this.langInHash;
+            this.selectedLang = this.langInHash;
         }
+        //_________________________________переключение на другой язык
 
         select.addEventListener('change', () => {
-            if (window.location.hash.length !== 0) {
-                let langInHash = window.location.hash.slice(1).split('=')[1];
-                langInHash = select.value;
-                this.selectedLang = select.value;
-                const path = window.location.hash.slice(1).split('=')[0];
-                const url = new URL(window.location.toString());
-                url.hash = path + '=' + langInHash;
-                window.history.pushState({}, '', url);
-            }
+            switchValueLanguageInHash(select);
+            this.selectedLang = select.value;
+            select.value === "ru" ? buyTicketBtn.href = `#${PageIds.TicketPageRu}` : buyTicketBtn.href = `#${PageIds.TicketPage}`;
 
-            for (const key in langArr) {
-                if (document.querySelector('.' + key)) {
-                    document.querySelector('.' + key)!.innerHTML =
-                        langArr[key as keyof LanguageArr][select.value as keyof { ru: string; en: string }];
-                }
-            }
+            translateToAnotherLang(langArr, document, select);
 
             for (const key in langArrBuyTicket) {
                 document
@@ -319,8 +310,8 @@ class Header extends Component {
             const conditionOptions = <HTMLDivElement>document.querySelector('.conditions__options');
             const freeEntriesOptions = <HTMLDivElement>document.querySelector('.free-entries__options');
             const schedulesTable = <HTMLDivElement>document.querySelector('.schedules__table');
-            const calendar = <HTMLDivElement>document.querySelector('.calendar');
-            const calendarWrapper = <HTMLDivElement>document.querySelector('.schedules__calendar');
+            const calendarInPricePage = <HTMLDivElement>document.querySelector('.calendar');
+            const calendarInSchedulesPage = <HTMLDivElement>document.querySelector('.schedules__calendar');
 
             if (select.value === 'ru') {
                 document.querySelector('title')!.innerHTML = 'RS Клон';
@@ -345,13 +336,13 @@ class Header extends Component {
                     schedulesTable.innerHTML = '';
                     schedulesTable.append(createSchedulesTable(schedulesSaturdayDataRu));
                 }
-                if (calendar) {
-                    calendar.innerHTML = '';
-                    createCalendarView(calendar, 2023, PricesPage.currentMonth, select.value);
+                if (calendarInPricePage) {
+                    calendarInPricePage.innerHTML = '';
+                    createCalendarView(calendarInPricePage, 2023, PricesPage.currentMonth, select.value);
                 }
-                if (calendarWrapper) {
-                    calendarWrapper.innerHTML = '';
-                    createCalendarSchedules(calendarWrapper, select.value);
+                if (calendarInSchedulesPage) {
+                    calendarInSchedulesPage.innerHTML = '';
+                    createCalendarSchedules(calendarInSchedulesPage, select.value);
                 }
             } else {
                 document.querySelector('title')!.innerHTML = 'RS Clone';
@@ -376,16 +367,18 @@ class Header extends Component {
                     schedulesTable.innerHTML = '';
                     schedulesTable.append(createSchedulesTable(schedulesSaturdayData));
                 }
-                if (calendar) {
-                    calendar.innerHTML = '';
-                    createCalendarView(calendar, 2023, PricesPage.currentMonth, select.value);
+                if (calendarInPricePage) {
+                    calendarInPricePage.innerHTML = '';
+                    createCalendarView(calendarInPricePage, 2023, PricesPage.currentMonth, select.value);
                 }
-                if (calendarWrapper) {
-                    calendarWrapper.innerHTML = '';
-                    createCalendarSchedules(calendarWrapper, select.value);
+                if (calendarInSchedulesPage) {
+                    calendarInSchedulesPage.innerHTML = '';
+                    createCalendarSchedules(calendarInSchedulesPage, select.value);
                 }
             }
         });
+
+        //_________________кнопка аутентификации пользователя
 
         const userAuth = <HTMLDivElement>this.container.querySelector('.user__auth');
 
@@ -410,35 +403,33 @@ class Header extends Component {
         modalContainer.innerHTML = `<div class="login-form">
         <form class='authorization__form'>
             <div class='authorization__wrapper'>
-                <h3 class='authorization__title'>Login</h3>
-                <input class='authorization__input input input-e-mail' id='e-mail' type='text' placeholder='Enter e-mail...'>
-                <input class='authorization__input input input-password' id='password' type='password' placeholder='Enter password...'>
+                <h3 class='authorization__title'>${this.selectedLang === 'en' ? 'Login' : 'Авторизация'}</h3>
+                <input class='authorization__input input input-e-mail' id='e-mail' type='text' placeholder=${this.selectedLang === 'en' ? 'e-mail' : 'e-mail'}>
+                <input class='authorization__input input input-password' id='password' type='password' placeholder=${this.selectedLang === 'en' ? 'Password' : 'Пароль'}>
             </div>
         </form>
-        <p class='authorization__disclaimer'>
-            If you don't have an account, you can <button class='link register__link' href=''>register</button>
+        <p class='authorization__disclaimer'>${this.selectedLang === 'en' ? "If you don't have an account, you can " : 'Если у вас нет аккаунта, вы можете'}
+            <button class='link register__link' href=''>${this.selectedLang === 'en' ? 'register' : 'зарегистрироваться'}</button>
         </p>
-        <p class='authorization__incorrect hidden'>
-            Incorrect e-mail or password
+        <p class='authorization__incorrect hidden'>${this.selectedLang === 'en' ? 'Incorrect e-mail or password' : 'Неверный адрес электронной почты или пароль'}
         </p>
     </div>
     <div class="registration-form hidden">
         <form class='authorization__form'>
             <div class='authorization__wrapper'>
-                <h3 class='authorization__title'>Register</h3>
-                <input class='authorization__input input register__input-e-mail' id='e-mail' type='text' placeholder='Enter e-mail...'>
-                <input class='authorization__input input register__input-name' id='name' type='text' placeholder='Enter name...'>
-                <li class='authorization__rules-text'>The name should have more than 3 letters</li>
-                <input class='authorization__input input register__input-surname' id='surname' type='text' placeholder='Enter surname...'>
-                <li class='authorization__rules-text'>The name should have more than 3 letters</li>
-                <input class='authorization__input input register__input-phone' id='phone' type='tel' placeholder='Enter phone number...'">
-                <li class='authorization__rules-text'>The phone number should start from "+" and have 9 - 12 numbers</li>
-                <input class='authorization__input input register__input-password' id='password' type='password' placeholder='Enter password...'>
-                <li class='authorization__rules-text'>The password should be from 4 to 14 characters and have at least 1 number, 1 upper case letter, 1 lower case letter</li>
+                <h3 class='authorization__title'>${this.selectedLang === 'en' ? 'Register' : 'Регистрация'}</h3>
+                <input class='authorization__input input register__input-e-mail' id='e-mail' type='text' placeholder=${this.selectedLang === 'en' ? 'e-mail' : 'e-mail'}>
+                <input class='authorization__input input register__input-name' id='name' type='text' placeholder=${this.selectedLang === 'en' ? 'Name' : 'Имя'}>
+                <li class='authorization__rules-text'>${this.selectedLang === 'en' ? 'The name should have more than 3 letters' : 'Имя должно состоять более чем из 3 букв'}</li>
+                <input class='authorization__input input register__input-surname' id='surname' type='text' placeholder=${this.selectedLang === 'en' ? 'Surname' : 'Фамилия'}>
+                <li class='authorization__rules-text'>${this.selectedLang === 'en' ? 'The surname should have more than 3 letters' : 'Фамилия должна состоять более чем из 3 букв'}</li>
+                <input class='authorization__input input register__input-phone' id='phone' type='tel' placeholder=${this.selectedLang === 'en' ? 'Pnone' : 'Телефон'}>
+                <li class='authorization__rules-text'>${this.selectedLang === 'en' ? 'The phone number should start from "+" and have 9 - 12 numbers' : 'Номер телефона должен начинаться с "+" и состоять из 9 - 12 чисел'}</li>
+                <input class='authorization__input input register__input-password' id='password' type='password' placeholder=${this.selectedLang === 'en' ? 'Password' : 'Пароль'}>
+                <li class='authorization__rules-text'>${this.selectedLang === 'en' ? 'The password should be from 4 to 14 characters and have at least 1 number, 1 upper case letter, 1 lower case letter' : 'Пароль должен состоять от 4 до 14 символов и обязательно содержать цифру, заглавную букву, строчную букву'}</li>
             </div>
         </form>
-        <p class='registration__incorrect hidden'>
-        A user with this e-mail exists
+        <p class='registration__incorrect hidden'>${this.selectedLang === 'en' ? 'A user with this e-mail exists' : 'Пользователь с таким e-mail существует'}
         </p>
     </div>`;
 
@@ -450,12 +441,12 @@ class Header extends Component {
         const loginBtn = <HTMLButtonElement>document.createElement('button');
         loginBtn.classList.add('button', 'login__button');
         loginBtn.setAttribute('type', 'submit');
-        loginBtn.innerText = 'Login';
+        loginBtn.innerText = `${this.selectedLang === 'en' ? 'Login' : 'Авторизация'}`;
 
         const registerBtn = <HTMLButtonElement>document.createElement('button');
         registerBtn.classList.add('button', 'register__button');
         registerBtn.setAttribute('type', 'submit');
-        registerBtn.innerText = 'Register';
+        registerBtn.innerText = `${this.selectedLang === 'en' ? 'Register' : 'Регистрация'}`;
 
         modalContainer.append(loginBtn);
 
@@ -514,7 +505,7 @@ class Header extends Component {
                 if (user !== null) {
                     localStorage.user = JSON.stringify(user);
                 }
-                goToAnotherPage(PageIds.PersonalAccauntPage);
+                this.selectedLang === 'ru' ? goToAnotherPage(PageIds.PersonalAccauntPageRu) : goToAnotherPage(PageIds.PersonalAccauntPage);
             } else {
                 incorrectMessage.classList.remove('hidden');
             }
@@ -618,8 +609,8 @@ class Header extends Component {
         exitContainer.classList.add('exit__container');
 
         exitContainer.innerHTML = `
-        <button class="toAccount__button">To account</button>
-        <button class="exit__button">Exit</button>`;
+        <button class="toAccount__button">${this.selectedLang === 'en' ? 'To account' : 'Перейти в личный кабинет'}</button>
+        <button class="exit__button">${this.selectedLang === 'en' ? 'Exit' : 'Выйти'}</button>`;
 
         document.body.style.overflow = 'hidden';
         document.body.prepend(overlay);
